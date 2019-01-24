@@ -1,0 +1,34 @@
+@import "~app.scss";
+
+#mainNav {
+  background-color: $black;
+
+  .slogan {
+    color: $yellow;
+    font-family: $italic-font;
+    font-size: 30px;
+    text-decoration: none;
+  }
+
+  .city-name {
+    color: $yellow;
+    font-size: 100%;
+    font-weight: 400;
+    padding: .75em 0;
+    letter-spacing: 1px;
+    font-family: $monserat-font;
+  }
+
+  .city-widget {
+    .col-6 {
+      display: flex;
+      align-items: center;
+    }
+    span {
+      justify-content: center;
+    }
+  }
+  .login-widget {
+    justify-content: flex-end;
+  }
+}

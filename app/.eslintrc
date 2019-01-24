@@ -1,0 +1,31 @@
+{
+  "extends": [
+    "google",
+    "plugin:react/recommended"
+  ],
+  "rules": {
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": true,
+        "modules": true,
+        "experimentalObjectRestSpread": true
+      }
+    }
+  },
+  "parser": "babel-eslint",
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "moduleDirectory": [
+          "node_modules",
+          "src/"
+        ]
+      }
+    }
+  },
+  "globals": {
+    "React": true
+  }
+}
