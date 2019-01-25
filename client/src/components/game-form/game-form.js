@@ -53,6 +53,11 @@ class GameForm extends React.Component {
           <label>Дополнительно</label>
           <textarea className="form-control"/>
         </div>
+        <div className="form-group">
+          <button type="button" className="btn btn-warning">
+            Создать
+          </button>
+        </div>
       </form>
     );
   }

@@ -1,4 +1,6 @@
 import React from 'react';
+import LoginWidget from './login-widget';
+import SetCityWidget from './set-city-widget';
 import './header.scss';
 
 /**
@@ -17,17 +19,10 @@ class Header extends React.Component {
             <a className="slogan" href="/">Football 4 all</a>
           </div>
           <div className="col-4">
-            <div className="form-row col-12 city-widget">
-              <span className="city-name col-6">Город : </span>
-              <div className="col-6">
-                <input type="text" className="form-control"/>
-              </div>
-            </div>
+            <SetCityWidget/>
           </div>
-          <div className="col-4 end">
-            <div className="form-row col-12 login-widget">
-              <span className="city-name col-3">Войти</span>
-            </div>
+          <div className="col-4">
+            <LoginWidget/>
           </div>
         </div>
       </nav>

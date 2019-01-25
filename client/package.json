@@ -8,6 +8,7 @@
     "eslint-config-google": "^0.11.0",
     "flow": "^0.2.3",
     "node-sass": "^4.11.0",
+    "prop-types": "^15.6.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-scripts": "2.1.3"

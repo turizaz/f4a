@@ -1,0 +1,36 @@
+@import "~app.scss";
+
+.city-name, .city-name a {
+  text-decoration: none;
+  color: $yellow;
+
+  font-size: 100%;
+  font-weight: 400;
+  padding: .75em 0;
+  letter-spacing: 1px;
+  font-family: $monserat-font;
+}
+
+.city-widget {
+  .col-6 {
+    display: flex;
+    align-items: center;
+  }
+  .city-auto-complete {
+    position: relative;
+    div.list {
+      position: absolute;
+      top: 70px;
+      left: -10px;
+      background-color: white;
+      padding: 10px;
+      border-radius: 10px;
+      border: solid 1px #ccc;
+      width: 400px;
+      z-index: 2;
+    }
+  }
+  span {
+    justify-content: center;
+  }
+}

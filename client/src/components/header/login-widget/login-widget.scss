@@ -1,0 +1,17 @@
+@import "~app.scss";
+
+.login-widget {
+  justify-content: flex-end;
+  span, span a {
+    text-decoration: none;
+    color: lighten($yellow, 30);
+    &:hover {
+      color: $yellow;
+    }
+    font-size: 100%;
+    font-weight: 400;
+    padding: .75em 0;
+    letter-spacing: 1px;
+    font-family: $monserat-font;
+  }
+}
