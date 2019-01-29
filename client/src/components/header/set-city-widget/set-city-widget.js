@@ -1,3 +1,5 @@
+/* eslint-disable no-invalid-this */
+
 import React from 'react';
 import './set-city-widget.scss';
 import CityService from 'services/city';
@@ -23,7 +25,6 @@ class SetCityWidget extends React.Component {
       this.setState({
         cities,
       });
-      console.log(cities);
     }
   };
 
@@ -38,10 +39,17 @@ class SetCityWidget extends React.Component {
     });
   };
 
+  /**
+   * @param {body} event
+   */
   selectCity = (event) => {
     console.log(event);
   };
 
+  /**
+   * Input to select city
+   * @return {string} html
+   */
   inputSection = () => {
     return (
       <div className="col-6 city-auto-complete">
@@ -62,7 +70,8 @@ class SetCityWidget extends React.Component {
           : null}
       </div>
     );
-  }
+  };
+
   /**
    * Main view for widget
    *  @return {string} - html
@@ -82,11 +91,11 @@ class SetCityWidget extends React.Component {
     );
   }
 
-  resetSearch=()=> {
+  resetSearch = () => {
     this.setState({
       selectedCity: null,
     });
-  }
+  };
 }
 
 export default SetCityWidget;

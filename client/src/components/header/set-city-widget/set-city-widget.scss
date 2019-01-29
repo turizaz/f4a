@@ -12,11 +12,9 @@
 }
 
 .city-widget {
-  .col-6 {
+  .city-auto-complete {
     display: flex;
     align-items: center;
-  }
-  .city-auto-complete {
     position: relative;
     div.list {
       position: absolute;

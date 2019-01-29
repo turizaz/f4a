@@ -1,5 +1,7 @@
 const usersController = require('./user');
 const passport = require('koa-passport');
+const jwt = require('jsonwebtoken'); // аутентификация по JWT для hhtp
+const jwtsecret = 'mysecretkey'; // ключ для подписи JWT
 
 module.exports = {
   async get(ctx) {
@@ -24,6 +26,24 @@ module.exports = {
       failureFlash: true,
     })(ctx, next);
   },
+
+  async loginJwt(ctx, next) {
+    await passport.authenticate('local', function(err, user) {
+      if (user === false) {
+        ctx.body = 'Login failed';
+      } else {
+        const payload = {
+          id: user.id,
+          displayName: user.displayName,
+          email: user.email,
+        };
+        const token = jwt.sign(payload, jwtsecret);
+
+        ctx.body = {user: user.displayName, token};
+      }
+    })(ctx, next);
+  },
+
   async logout(ctx, next) {
     ctx.session = null;
     ctx.redirect('/');

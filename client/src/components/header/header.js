@@ -1,6 +1,7 @@
 import React from 'react';
 import LoginWidget from './login-widget';
 import SetCityWidget from './set-city-widget';
+import {Link} from 'react-router-dom';
 import './header.scss';
 
 /**
@@ -16,7 +17,7 @@ class Header extends React.Component {
       <nav className="navbar" id="mainNav">
         <div className="container">
           <div className="col-4">
-            <a className="slogan" href="/">Football 4 all</a>
+            <Link className="slogan" to="/">Football 4 all</Link>
           </div>
           <div className="col-4">
             <SetCityWidget/>

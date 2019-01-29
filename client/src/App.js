@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import Header from './components/header';
 import GameForm from './components/game-form';
+import Login from './components/auth/login';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './app.scss';
+import {Route} from 'react-router-dom';
+import 'app.scss';
 
 /**
  * Root of application
@@ -16,8 +18,9 @@ class App extends Component {
     return (
       <div>
         <Header/>
-        <div className="container">
-          <GameForm/>
+        <div className="container main-content">
+          <Route path="/" exact component={GameForm} />
+          <Route path="/login" exact component={Login}/>
         </div>
       </div>
     );

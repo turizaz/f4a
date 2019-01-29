@@ -21,7 +21,6 @@ const citiesRouter = require('./routes/cities');
 app.use(userRouter.routes());
 app.use(frontPageRoutes.routes());
 app.use(citiesRouter.routes());
-
 if ('test' !== process.env.NODE_ENV) {
   app.listen(config.get('port'));
 }
