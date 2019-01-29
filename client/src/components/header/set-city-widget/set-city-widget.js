@@ -2,76 +2,27 @@
 
 import React from 'react';
 import './set-city-widget.scss';
-import CityService from 'services/city';
-import SetCityItem from './set-city-item';
+import CityPicker from 'components/common/city-picker';
+import {connect} from 'react-redux';
+import ProptTypes from 'prop-types';
+import {setCity} from 'ac/location';
 
 /**
  * Set city on which all further game sessions will be based on
  */
 class SetCityWidget extends React.Component {
-  state = {
-    cities: [],
-    selectedCity: '',
+  resetCity = () => {
+    const {setCity} = this.props;
+    setCity(null);
   };
   /**
-   * React on user input city
-   * @param {object} event
+   * Set City
+   * @param {{name: string, id: number, country: string}}city
    */
-  handleChange = async (event) => {
-    const value = event.target.value;
-    const client = new CityService();
-    if (value.length > 2) {
-      const cities = await client.getCities(value);
-      this.setState({
-        cities,
-      });
-    }
+  setCity = (city) => {
+    const {setCity} = this.props;
+    setCity(city);
   };
-
-  /**
-   * Boomerang Function which will return choice from child
-   * @param {string} city
-   */
-  doChoice = (city) => {
-    this.setState({
-      cities: [],
-      selectedCity: city,
-    });
-  };
-
-  /**
-   * @param {body} event
-   */
-  selectCity = (event) => {
-    console.log(event);
-  };
-
-  /**
-   * Input to select city
-   * @return {string} html
-   */
-  inputSection = () => {
-    return (
-      <div className="col-6 city-auto-complete">
-        <input
-          type="text"
-          className="form-control"
-          onChange={this.handleChange}/>
-        {this.state.cities.length ?
-          <div className="list">
-            {this.state.cities.map((city) => {
-              return <SetCityItem
-                key={city.id}
-                {...city}
-                doChoice={this.doChoice}/>;
-            })
-            }
-          </div>
-          : null}
-      </div>
-    );
-  };
-
   /**
    * Main view for widget
    *  @return {string} - html
@@ -80,22 +31,28 @@ class SetCityWidget extends React.Component {
     return (
       <div className="form-row city-widget">
         <span className="city-name col-3">Город : </span>
-        {this.state.selectedCity
-          ?
-          <span className="city-name" onClick={this.resetSearch}>
-            {this.state.selectedCity}
-          </span> :
-          this.inputSection()
-        }
+        {this.props.location.id ? (
+          <span onClick={this.resetCity} className="city-name">
+            {this.props.location.name}
+          </span>
+        ) : (
+          <CityPicker doChoice={this.setCity}/>
+        )}
       </div>
     );
   }
-
-  resetSearch = () => {
-    this.setState({
-      selectedCity: null,
-    });
-  };
 }
 
-export default SetCityWidget;
+SetCityWidget.propTypes = {
+  location: ProptTypes.object,
+  setCity: ProptTypes.func.isRequired,
+};
+
+export default connect(
+    (state) => {
+      return {
+        location: state.location,
+      };
+    },
+    {setCity}
+)(SetCityWidget);

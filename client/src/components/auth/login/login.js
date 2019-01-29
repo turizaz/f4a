@@ -36,7 +36,7 @@ class Login extends React.Component {
    * @param {object} e
    */
   onSubmit = (e) => {
-    const {login, logout} = this.props;
+    const {login} = this.props;
     const {data} = this.state;
     e.preventDefault();
     const errors = this.validate(data);
@@ -117,6 +117,7 @@ class Login extends React.Component {
 }
 Login.propTypes = {
   login: PropTypes.func.isRequired,
+  history: PropTypes.object,
 };
 
 export default connect(

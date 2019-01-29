@@ -26,7 +26,6 @@ export function login(credentials) {
       localStorage.setItem('jwt', token);
       setAuthorizationToken(token);
       const info = jwt.decode(token);
-      localStorage.setItem('user', info.email);
       dispatch(setCurrentUser(info));
     });
   };

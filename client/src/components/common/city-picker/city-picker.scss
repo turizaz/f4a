@@ -1,0 +1,18 @@
+.city-auto-complete {
+  display: flex;
+  align-items: center;
+  position: relative;
+  div.list {
+    position: absolute;
+    top: 43px;
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    border: solid 1px #ccc;
+    width: 400px;
+    z-index: 2;
+  }
+  span {
+    justify-content: center;
+  }
+}

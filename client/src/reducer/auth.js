@@ -1,17 +1,28 @@
 import {SET_CURRENT_USER} from '../constants';
+import _ from 'lodash';
+import jwt from 'jsonwebtoken';
 
 const initialState = {
-  user: {email: localStorage.user, isAuthenticated: Boolean(localStorage.user)},
+  user: pickUser(jwt.decode(localStorage.jwt)),
+  isAuthenticated: !_.isEmpty(localStorage.jwt),
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case SET_CURRENT_USER:
       const {user} = action;
-      state = {user, isAuthenticated: true};
-      return state;
+      return {
+        user: pickUser(user), isAuthenticated: !_.isEmpty(user)};
     default:
-      console.log(state);
       return state;
   }
 };
+
+/**
+ * Pick needed fields from user
+ * @param {object} user
+ * @return {object}
+ */
+function pickUser(user) {
+  return _.pick(user, ['email', 'id']);
+}

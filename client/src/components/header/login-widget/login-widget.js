@@ -14,10 +14,9 @@ class LoginWidget extends React.Component {
    */
   render() {
     const {auth, logout} = this.props;
-    console.log(auth);
     return (
       <div className="form-row col-12 login-widget">
-        {!auth.user.email ? (
+        {!auth.isAuthenticated ? (
           <div>
             <span>
               <Link to="/login">Войти {auth.user.email}</Link>

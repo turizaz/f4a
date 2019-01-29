@@ -34,12 +34,10 @@ module.exports = {
       } else {
         const payload = {
           id: user.id,
-          displayName: user.displayName,
           email: user.email,
         };
         const token = jwt.sign(payload, jwtsecret);
-
-        ctx.body = {user: user.displayName, token};
+        ctx.body = {token};
       }
     })(ctx, next);
   },
