@@ -14,7 +14,6 @@ const uniqueHash = Math.random()
     .substr(2, 9);
 
 describe('routes : auth', () => {
-
   beforeEach(() => {
     return knex.migrate.rollback().then(() => {
       return knex.migrate.latest();
@@ -31,8 +30,9 @@ describe('routes : auth', () => {
           .request(app)
           .post('/auth/registration')
           .send({
-            username: 'michael',
-            password: 'herman',
+            name: 'michae55l',
+            email: 'herma55n',
+            password: 'herma55n',
           })
           .end((err, res) => {
             should.not.exist(err);

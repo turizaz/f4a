@@ -58,5 +58,4 @@ module.exports = {
       directory: __dirname + '/db/migrations',
     },
   },
-
 };

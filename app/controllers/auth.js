@@ -19,6 +19,7 @@ module.exports = {
       name, email, password,
     });
     ctx.status = 201;
+    console.log(user);
     ctx.body = {email: user[0].email};
   },
   async login(ctx, next) {
