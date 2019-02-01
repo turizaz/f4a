@@ -4,12 +4,21 @@ import {BrowserRouter} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import App from './App';
 import store from 'store';
-
+import CityService from 'services/city';
+import {CityServiceProvider} from 'context/city-service-context';
+import {GameServiceProvider} from 'context/game-service-context';
+import GameService from 'services/game';
 
 ReactDOM.render(
     <BrowserRouter>
       <Provider store={store}>
-        <App />
+        {/* eslint-disable */}
+        <CityServiceProvider value={new CityService()}>
+        <GameServiceProvider value={new GameService()}>
+          <App />
+        </GameServiceProvider>
+        </CityServiceProvider>
+        {/* eslint-enable */}
       </Provider>
     </BrowserRouter>,
     document.getElementById('root')

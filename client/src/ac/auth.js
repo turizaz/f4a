@@ -21,7 +21,7 @@ export function setCurrentUser(user) {
 export function login(credentials) {
   return (dispatch) => {
     const _url = process.env.REACT_APP_API_PATH;
-    return axios.post(`${_url}/login-jwt`, credentials).then((res) => {
+    return axios.post(`${_url}/auth/login-jwt`, credentials).then((res) => {
       const {token} = res.data;
       localStorage.setItem('jwt', token);
       setAuthorizationToken(token);

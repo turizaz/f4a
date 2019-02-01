@@ -2,9 +2,9 @@
 
 import React from 'react';
 import SetCityItem from './set-city-item';
-import CityService from 'services/city';
 import PropTypes from 'prop-types';
 import './city-picker.scss';
+import {withCityService} from 'hoc-helpers';
 
 /**
  * Input which select city
@@ -23,9 +23,9 @@ class CityPicker extends React.Component {
     this.setState({
       city,
     });
-    const client = new CityService();
+    const {cityService} = this.props;
     if (city.length > 2) {
-      const cities = await client.getCities(city);
+      const cities = await cityService.getCities(city);
       this.setState({
         cities,
       });
@@ -54,8 +54,8 @@ class CityPicker extends React.Component {
         <input
           type="text"
           className="form-control"
-          id="city"
           value={this.state.city}
+          autoComplete="off"
           onChange={this.handleChange}
         />
         {this.state.cities.length ? (
@@ -78,6 +78,7 @@ class CityPicker extends React.Component {
 
 CityPicker.propTypes = {
   doChoice: PropTypes.func.isRequired,
+  cityService: PropTypes.object.isRequired,
 };
 
-export default CityPicker;
+export default withCityService(CityPicker);

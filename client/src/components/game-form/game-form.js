@@ -5,14 +5,12 @@ import './game-form.scss';
 import CityPicker from 'components/common/city-picker';
 import ErrorMessage from 'components/common/messages/error-message';
 import _ from 'lodash';
-
+import PropTypes from 'prop-types';
+import {withGameService} from 'hoc-helpers';
 /**
  * Form for adding game event
  */
 class GameForm extends React.Component {
-  /**
-   * @type {{city: null}}
-   */
   state = {
     data: {
       city: '',
@@ -20,7 +18,7 @@ class GameForm extends React.Component {
       lat: '',
       long: '',
       additional: '',
-      quantity: '',
+      quantity: 5,
     },
     errors: {},
   };
@@ -64,12 +62,14 @@ class GameForm extends React.Component {
   onSubmit = (e) => {
     e.preventDefault();
     const {data} = this.state;
+
     const errors = this.validate(data);
     this.setState({
       errors,
     });
     if (_.isEmpty(errors)) {
-      console.log('234');
+      const {gameService} = this.props;
+      gameService.add(data);
     }
   };
   /**
@@ -79,7 +79,10 @@ class GameForm extends React.Component {
   render() {
     const {data, errors} = this.state;
     return (
-      <form className="game-form col-6" onSubmit={this.onSubmit}>
+      <form
+        className="game-form col-6"
+        onSubmit={this.onSubmit}
+      >
         <fieldset>
           <legend>Добавить игру</legend>
           <div className="form-group">
@@ -132,6 +135,7 @@ class GameForm extends React.Component {
             <select
               className="form-control col-2"
               onChange={this.onChange}
+              value={data.quantity}
               name="quantity"
             >
               <option>4</option>
@@ -163,5 +167,7 @@ class GameForm extends React.Component {
     );
   }
 }
-
-export default GameForm;
+GameForm.propTypes = {
+  gameService: PropTypes.object.isRequired,
+};
+export default withGameService(GameForm);

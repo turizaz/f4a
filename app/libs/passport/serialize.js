@@ -1,11 +1,19 @@
-const User = require('../../models/user');
 const passport = require('koa-passport');
+const knex = require('../../libs/knex');
 
 // паспорт напрямую с базой не работает
 passport.serializeUser(function(user, done) {
-  done(null, user.email); // uses _id as idField
+  done(null, user.email);
 });
 
 passport.deserializeUser(function(email, done) {
-  User.findOne({email:email}, done); // callback version checks id validity automatically
+  return knex('users')
+      .where({email})
+      .first()
+      .then((user) => {
+        done(null, user);
+      })
+      .catch((err) => {
+        done(err, null);
+      });
 });

@@ -3,7 +3,6 @@ const _ = require('lodash');
 module.exports = {
   async get(ctx) {
     const q = await ctx.pg.query('SELECT NOW()');
-    console.log(q.rows[0]);
     ctx.body = q.rows[0];
   },
   getByName: async function(ctx) {

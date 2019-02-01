@@ -1,6 +1,6 @@
 const pick = require('lodash/pick');
 const User = require('../models/user');
-
+const users = require('../db/queries/users');
 module.exports = {
   async loadUserById(ctx, next) {
     if (!ctx.mongoose.Types.ObjectId.isValid(ctx.params.userById)) {
@@ -11,12 +11,6 @@ module.exports = {
       ctx.throw(404);
     }
     await next();
-  },
-  async post(ctx) {
-    const user = new User(pick(ctx.request.body, User.publicFields));
-    await user.save();
-    ctx.status = 201;
-    ctx.body = {id: user.id};
   },
   async get(ctx) {
     ctx.body = pick(ctx.userById.toObject(), User.publicFields);

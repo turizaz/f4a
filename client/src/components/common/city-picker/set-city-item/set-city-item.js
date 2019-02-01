@@ -17,11 +17,21 @@ class SetCityItem extends React.Component {
         () => {
           doChoice({name: name, country: country, id: id});
         }}>
-        {this.props.name ? <span>{this.props.name}</span>: ''}
-        {this.props.region ? <span>, {this.props.region}</span>: ''}
-        {this.props.country ? <span>, {this.props.country}</span>: ''}
+        { this.composeAddress(this.props.name) }
+        { this.composeAddress(this.props.region, ', ') }
+        { this.composeAddress(this.props.country, ', ') }
       </div>
     );
+  }
+
+  /**
+   * @param {string} value
+   * @param {string} delimiter
+   * @return {*}
+   */
+  composeAddress(value, delimiter = '') {
+    if (!value) return '';
+    return <span>{delimiter + value}</span>;
   }
 }
 SetCityItem.propTypes = {

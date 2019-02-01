@@ -1,11 +1,16 @@
 import {SET_CURRENT_USER} from '../constants';
 import _ from 'lodash';
 import jwt from 'jsonwebtoken';
+import setAuthorizationToken from 'utils/setAuthorizationToken';
 
 const initialState = {
   user: pickUser(jwt.decode(localStorage.jwt)),
   isAuthenticated: !_.isEmpty(localStorage.jwt),
 };
+
+if (localStorage.jwt) {
+  setAuthorizationToken(localStorage.jwt);
+}
 
 export default (state = initialState, action) => {
   switch (action.type) {
