@@ -31,6 +31,7 @@ module.exports = {
   async loginJwt(ctx, next) {
     await passport.authenticate('local', function(err, user) {
       if (user === false) {
+        ctx.status = 401;
         ctx.body = 'Login failed';
       } else {
         const payload = {

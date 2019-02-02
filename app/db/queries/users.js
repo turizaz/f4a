@@ -1,6 +1,5 @@
 const bcrypt = require('bcryptjs');
 const knex = require('../../libs/knex');
-
 /**
  * Geter for user
  * @param {string} id
@@ -11,7 +10,6 @@ function getSingleUser(id) {
       .select('*')
       .where({id: parseInt(id)});
 }
-
 /**
  * @param {string} email
  * @return {Knex.QueryBuilder}
@@ -21,8 +19,6 @@ function getSingleUserByEmail(email) {
       .select('*')
       .where({email});
 }
-
-
 /**
  * Method for add user
  * @param {{username, email, password}} user
@@ -39,7 +35,6 @@ function addUser(user) {
       })
       .returning(['name', 'email']);
 }
-
 /**
  * Update user
  * @param {{id:number, email:string, name: string, password: string}} user
@@ -52,7 +47,6 @@ function updateUser(user) {
       .where('id', user.id)
       .returning(['name', 'email']);
 }
-
 /**
  * @param {string} password
  * @return {string}

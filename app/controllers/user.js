@@ -2,34 +2,18 @@ const pick = require('lodash/pick');
 const User = require('../models/user');
 const users = require('../db/queries/users');
 module.exports = {
-  async loadUserById(ctx, next) {
-    // if (!ctx.mongoose.Types.ObjectId.isValid(ctx.params.userById)) {
-    //   ctx.throw(404);
-    // }
-    // ctx.userById = await User.findById(ctx.params.userById);
-    // if (!ctx.userById) {
-    //   ctx.throw(404);
-    // }
-    ctx.user = await users.getSingleUser(ctx.params.userById);
-    console.log(ctx.user);
-    await next();
-  },
   async get(ctx) {
     ctx.body = pick(ctx.userById.toObject(), User.publicFields);
   },
   async delete(ctx) {
-    ctx.userById.delete();
     ctx.body = 'Deleted';
   },
   async patch(ctx) {
-    // Object.assign(ctx.userById, pick(ctx.request.body, User.publicFields));
-    // await ctx.userById.save();
-    // ctx.body = pick(ctx.userById.toObject(), User.publicFields);
-
-    ctx.body = await users.updateUser({
+    const user = await users.updateUser({
       ...ctx.request.body,
       id: ctx.params.userById,
     });
+    ctx.body = user[0];
   },
   async list(ctx) {
     const list = await User.find({});
