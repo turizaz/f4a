@@ -59,7 +59,7 @@ describe('routes : auth', () => {
           .set('Content-type', 'application/json')
           .end((err, res) => {
             assert.strictEqual(res.status, 200);
-            assert.strictEqual(res.body[0].name, 'new-name');
+            assert.strictEqual(res.body.name, 'new-name');
             done();
           });
     });
