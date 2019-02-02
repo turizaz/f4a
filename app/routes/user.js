@@ -7,9 +7,9 @@ const userRouter = new Router({
   prefix: '/users',
 });
 
-userRouter.get('/:userById', usersController.loadUserById, usersController.get).
-    patch('/:userById', usersController.loadUserById, usersController.patch).
-    delete('/:userById', usersController.loadUserById, usersController.delete).
+userRouter.get('/:userById', usersController.get).
+    patch('/:userById', usersController.patch).
+    delete('/:userById', usersController.delete).
     get('/', usersController.list);
 
 module.exports = userRouter;

@@ -3,13 +3,15 @@ const User = require('../models/user');
 const users = require('../db/queries/users');
 module.exports = {
   async loadUserById(ctx, next) {
-    if (!ctx.mongoose.Types.ObjectId.isValid(ctx.params.userById)) {
-      ctx.throw(404);
-    }
-    ctx.userById = await User.findById(ctx.params.userById);
-    if (!ctx.userById) {
-      ctx.throw(404);
-    }
+    // if (!ctx.mongoose.Types.ObjectId.isValid(ctx.params.userById)) {
+    //   ctx.throw(404);
+    // }
+    // ctx.userById = await User.findById(ctx.params.userById);
+    // if (!ctx.userById) {
+    //   ctx.throw(404);
+    // }
+    ctx.user = await users.getSingleUser(ctx.params.userById);
+    console.log(ctx.user);
     await next();
   },
   async get(ctx) {
@@ -20,9 +22,14 @@ module.exports = {
     ctx.body = 'Deleted';
   },
   async patch(ctx) {
-    Object.assign(ctx.userById, pick(ctx.request.body, User.publicFields));
-    await ctx.userById.save();
-    ctx.body = pick(ctx.userById.toObject(), User.publicFields);
+    // Object.assign(ctx.userById, pick(ctx.request.body, User.publicFields));
+    // await ctx.userById.save();
+    // ctx.body = pick(ctx.userById.toObject(), User.publicFields);
+
+    ctx.body = await users.updateUser({
+      ...ctx.request.body,
+      id: ctx.params.userById,
+    });
   },
   async list(ctx) {
     const list = await User.find({});

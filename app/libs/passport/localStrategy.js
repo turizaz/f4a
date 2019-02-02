@@ -26,6 +26,7 @@ passport.use(
         //   strategy.error(err)
         // TODO: rewrite this, use async/await
         async function(req, email, password, done) {
+        //  console.log(email, password)
           try {
             const user = await users.getSingleUserByEmail(email).first();
             if (!user || !comparePass(password, user.password)) {

@@ -21,6 +21,9 @@ const knex = require('knex')({
     directory: __dirname + '/../../db/migrations',
     tableName: 'knex-migrations',
   },
+  seeds: {
+    directory: __dirname + '/../../db/seed',
+  },
 });
 
 module.exports = knex;

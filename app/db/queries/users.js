@@ -40,7 +40,31 @@ function addUser(user) {
       .returning(['name', 'email']);
 }
 
+/**
+ * Update user
+ * @param {{id:number, email:string, name: string, password: string}} user
+ * @return {Knex.QueryBuilder}
+ */
+function updateUser(user) {
+  user.password = hashPassword(user.password);
+  return knex('users')
+      .update(user)
+      .where('id', user.id)
+      .returning(['name', 'email']);
+}
+
+/**
+ * @param {string} password
+ * @return {string}
+ */
+function hashPassword(password) {
+  if (!password) return null;
+  const salt = bcrypt.genSaltSync();
+  return bcrypt.hashSync(password, salt);
+}
+
 module.exports = {
+  updateUser,
   getSingleUser,
   getSingleUserByEmail,
   addUser,
