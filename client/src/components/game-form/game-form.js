@@ -7,28 +7,45 @@ import ErrorMessage from 'components/common/messages/error-message';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import {withGameService} from 'hoc-helpers';
+const initialState = {
+  data: {
+    city: '',
+    city_id: '',
+    address: '',
+    lat: '',
+    long: '',
+    additional: '',
+    players: 5,
+  },
+  errors: {},
+};
 /**
  * Form for adding game event
  */
 class GameForm extends React.Component {
-  state = {
-    data: {
-      city: '',
-      street: '',
-      lat: '',
-      long: '',
-      additional: '',
-      quantity: 5,
-    },
-    errors: {},
-  };
+  /**
+   * Set initial state
+   * @param {object} props
+   */
+  constructor(props) {
+    super(props);
+    this.state = initialState;
+  }
   /**
    * Set city
    * @param {{name: string, id: number, country: string}} city
    */
   setCity = (city) => {
     this.setState({
-      data: {...this.state.data, city: city.name},
+      data: {...this.state.data, city: city.name, city_id: city.id},
+    });
+  };
+
+  cityChange = (city) => {
+    this.setState({
+      data: {
+        city: city.target.value || '',
+      },
     });
   };
   /**
@@ -49,7 +66,7 @@ class GameForm extends React.Component {
   validate = (data) => {
     const errors = {};
     for (const i in data) {
-      if (['quantity', 'lat', 'long', 'additional'].indexOf(i) !== -1) {
+      if (['players', 'lat', 'long', 'additional'].indexOf(i) !== -1) {
         continue;
       }
       if (!data[i]) errors[i] = `Не может быть пустым`;
@@ -59,7 +76,7 @@ class GameForm extends React.Component {
   /**
    * @param {object} e
    */
-  onSubmit = (e) => {
+  onSubmit = async (e) => {
     e.preventDefault();
     const {data} = this.state;
 
@@ -69,7 +86,10 @@ class GameForm extends React.Component {
     });
     if (_.isEmpty(errors)) {
       const {gameService} = this.props;
-      gameService.add(data);
+      const res = await gameService.add(data);
+      if (res.status === 201) {
+        this.setState(initialState);
+      }
     }
   };
   /**
@@ -79,15 +99,12 @@ class GameForm extends React.Component {
   render() {
     const {data, errors} = this.state;
     return (
-      <form
-        className="game-form col-6"
-        onSubmit={this.onSubmit}
-      >
+      <form className="game-form col-6" onSubmit={this.onSubmit}>
         <fieldset>
           <legend>Добавить игру</legend>
-          <div className="form-group">
+          <div className="form-group" id="gameCitySection">
             <label>Город</label>
-            <CityPicker doChoice={this.setCity} />
+            <CityPicker doChoice={this.setCity} city={this.state.data.city}/>
             {errors.city && <ErrorMessage message={errors.city} />}
           </div>
           <div className="form-group">
@@ -95,11 +112,11 @@ class GameForm extends React.Component {
             <input
               type="text"
               className="form-control"
-              name="street"
-              value={data.street}
+              name="address"
+              value={data.address}
               onChange={this.onChange}
             />
-            {errors.street && <ErrorMessage message={errors.street} />}
+            {errors.address && <ErrorMessage message={errors.address} />}
           </div>
           <div>
             <fieldset>
@@ -135,8 +152,8 @@ class GameForm extends React.Component {
             <select
               className="form-control col-2"
               onChange={this.onChange}
-              value={data.quantity}
-              name="quantity"
+              value={data.players}
+              name="players"
             >
               <option>4</option>
               <option>5</option>
@@ -145,7 +162,7 @@ class GameForm extends React.Component {
               <option>8</option>
               <option>9</option>
             </select>
-            {errors.quantity && <ErrorMessage message={errors.quantity} />}
+            {errors.players && <ErrorMessage message={errors.players} />}
           </div>
         </fieldset>
         <div className="form-group">

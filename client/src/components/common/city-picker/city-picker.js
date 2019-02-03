@@ -45,6 +45,16 @@ class CityPicker extends React.Component {
   };
 
   /**
+   * Listen selected value from parent component
+   * @param {object} nextProps
+   */
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.city !== this.state.city) {
+      this.setState({city: nextProps.city});
+    }
+  }
+
+  /**
    * City input auto complete
    * @return {string} html
    */
@@ -78,6 +88,7 @@ class CityPicker extends React.Component {
 
 CityPicker.propTypes = {
   doChoice: PropTypes.func.isRequired,
+  city: PropTypes.string,
   cityService: PropTypes.object.isRequired,
 };
 

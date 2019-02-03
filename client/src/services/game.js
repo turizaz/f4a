@@ -16,8 +16,7 @@ class GameService {
    * @param {object} game
    */
   async add(game) {
-    const res = await axios.post(`${this._url}/game`, game);
-    console.log(res);
+    return await axios.post(`${this._url}/game`, game);
   }
 }
 export default GameService;
