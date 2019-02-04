@@ -1,6 +1,9 @@
 
 exports.up = function(knex, Promise) {
   return knex.raw(`
+    create type games_status as 
+    enum('forming', 'active', 'finished', 'cancelled');
+    
     create table games
     (
       id serial primary key,
@@ -10,13 +13,15 @@ exports.up = function(knex, Promise) {
       address text,
       lat float,
       long float,
-      players integer
+      players integer,
+      status games_status default 'forming'
     );
   `);
 };
 
 exports.down = function(knex, Promise) {
   return knex.raw(`
-    drop table games;
+    drop table if exists games;
+    drop type if exists games_status;
   `);
 };

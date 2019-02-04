@@ -1,17 +1,16 @@
 import {SET_CITY} from '../constants';
+import {Record} from 'immutable';
 
-const initialState = {
+const initialState = new Record({
   name: '',
   country: '',
   id: null,
-};
+})();
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case SET_CITY:
-      return {
-        ...action.payload,
-      };
+      return state.merge(action.payload);
     default:
       return state;
   }

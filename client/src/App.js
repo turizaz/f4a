@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Header from './components/header';
-import GameForm from './components/game-form';
+import Game from './components/game';
 import Login from './components/auth/login';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Route} from 'react-router-dom';
@@ -19,7 +19,7 @@ class App extends Component {
       <div>
         <Header/>
         <div className="container main-content">
-          <Route path="/" exact component={GameForm} />
+          <Route path="/" exact component={Game} />
           <Route path="/login" exact component={Login}/>
         </div>
       </div>
