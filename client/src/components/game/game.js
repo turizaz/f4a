@@ -94,7 +94,7 @@ class Game extends Component {
               <td>{game.additional}</td>
             </tr>
             <tr>
-              <td />
+              <td>Что бы присоединится нажми на мяч</td>
               <td onClick={this.apply}>
                 {this.createBalls()}
               </td>
