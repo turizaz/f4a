@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import './chat-message.scss';
+import PropTypes from 'prop-types';
 
 /**
  * One chat message
@@ -9,7 +10,7 @@ class ChatMessage extends Component {
    * @return {*}
    */
   render() {
-    const {text, username, date, id} = this.props.item;
+    const {text, username, date} = this.props.message;
     return (
       <li className="chatMessage">
         <div className="message-data">
@@ -23,5 +24,7 @@ class ChatMessage extends Component {
     );
   }
 }
-
+ChatMessage.propTypes = {
+  message: PropTypes.object.isRequired,
+};
 export default ChatMessage;

@@ -20,8 +20,10 @@ function sockets() {
         store.dispatch(gameAdded(message.data[1]));
         break;
       case PLAYER_JOINED:
-        const {gameId, playerId} = message.data[1];
-        store.dispatch(playerJoined(gameId, playerId));
+        console.log('pl joined');
+        const {gameId, players} = message.data[1];
+        //console.log(gameId, players);
+        store.dispatch(playerJoined(gameId, players));
         break;
       case PLAYER_LEAVE:
         console.log('pl leave');

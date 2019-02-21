@@ -6,6 +6,11 @@ require('dotenv').load();
 const {GAME_CHAT_ROOM_PREFIX} = process.env;
 const GameChatModel = require('../models/game-chat-message.model');
 module.exports = {
+  /**
+   * Add game, notify client
+   * @param {object} ctx
+   * @return {Promise<void>}
+   */
   async add(ctx) {
     const {body} = ctx.request;
     const data = _.pick(
@@ -33,18 +38,25 @@ module.exports = {
     const {id} = ctx.params;
     ctx.body = await games.get(id);
   },
+  /**
+   * Get list based on city
+   * @param {object} ctx
+   * @return {Promise<void>}
+   */
   async list(ctx) {
     const {id} = ctx.params;
     const {rows} = await games.gamesForCity(id);
     ctx.body = rows;
   },
+  /**
+   * @param {object} ctx
+   * @return {Promise<void>}
+   */
   async join(ctx) {
     const {id} = ctx.user;
     const {gameId} = ctx.request.body;
-    const hasJoin = await games.join(id, gameId);
-
-    hasJoin ? ctx.ioGeneral.emit('PLAYER_JOINED', {playerId: id, gameId}):
-      ctx.ioGeneral.emit('PLAYER_LEAVE', {playerId: id, gameId});
+    const playersInGame = await games.join(id, gameId);
+    ctx.ioGeneral.emit('PLAYER_JOINED', playersInGame)
     ctx.status = 200;
   },
   /**
@@ -55,12 +67,14 @@ module.exports = {
   async addChatMessage(ctx) {
     const {message, gameId} = ctx.request.body;
     const {name} = ctx.user;
+    // store to mongo
     const res = await GameChatMessagesModel.add({
       date: new Date(),
       text: message,
       username: name,
       gameId,
     });
+    // notify client
     ctx.ioGame
         .to(GAME_CHAT_ROOM_PREFIX+gameId)
         .emit('GAME_CHAT_MESSAGE_ADDED', {

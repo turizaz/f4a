@@ -2,19 +2,19 @@ import {Record} from 'immutable';
 import {LOAD_GAME, SUCCESS, START, PLAYER_JOINED} from '../constants';
 
 const GameRecord = Record({
-  id: '',
-  city: '',
-  address: '',
+  id: null,
+  city: null,
+  address: null,
   // author: Record({
   //   name: '',
   // }),
-  lat: '',
-  long: '',
+  lat: null,
+  long: null,
   players: 0,
   city_id: 0,
   active_players: 0,
-  date: '',
-  additional: '',
+  date: null,
+  additional: null,
   loading: false,
 });
 
@@ -28,6 +28,10 @@ export default (gameState = defaultState, action) => {
     case LOAD_GAME + SUCCESS:
       return gameState.merge(payload.data).set('loading', false);
     case PLAYER_JOINED:
+      const {gameId, activePlayers} = payload;
+      if (gameState.get('id') === gameId) {
+        return gameState.set('active_players', activePlayers);
+      }
       return gameState;
     default:
       return gameState;

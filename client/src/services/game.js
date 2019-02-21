@@ -26,10 +26,11 @@ class GameService {
    */
   initChat(id) {
     return new Promise((resolve) => {
-      this._gameSocket =
-        io(process.env.REACT_APP_API_PATH, {path: '/chat/game'});
+      this._gameSocket = io(process.env.REACT_APP_API_PATH, {
+        path: '/chat/game',
+      });
       patch(this._gameSocket);
-      this._gameSocket.on('connect', ()=> {
+      this._gameSocket.on('connect', () => {
         this._gameSocket.emit(
             'join',
             process.env.REACT_APP_GAME_CHAT_ROOM_PREFIX + id,
@@ -51,6 +52,13 @@ class GameService {
    */
   async getChatHistory(gameId) {
     return await axios.get(`/game/chat/history/${gameId}`);
+  }
+  /**
+   * @param {number} gameId
+   * @return {AxiosPromise<any>}
+   */
+  joinGame(gameId) {
+    return axios.post(`/game/join`, {gameId});
   }
 }
 export default GameService;

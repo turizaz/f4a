@@ -28,9 +28,18 @@ function gamesForCity(cityId) {
            c.title_ru as city,
            g.address,
            g.players,
-           g.date
+           g.date,
+           gp.active_players as "activePlayers"
     from games as g
     join _cities c on g.city_id = c.city_id
+    left join 
+      (
+        select
+          coalesce(count(game_id), 0) as active_players,
+          game_id
+        from games_players group by game_id
+      ) 
+    gp on gp.game_id = g.id 
     where c.city_id = ?
     and g.status = 'forming'
     and g.date > CURRENT_TIMESTAMP + interval '2h'
@@ -63,7 +72,7 @@ function get(id) {
  * Join game event
  * @param {number} playerId
  * @param {number} gameId
- * @return {Knex.QueryBuilder}
+ * @return {Promise<{gameId: *, players}>}
  */
 async function join(playerId, gameId) {
   const playsGames = await knex('games_players')
@@ -73,7 +82,12 @@ async function join(playerId, gameId) {
     await knex('games_players').where({game_id: gameId, player_id: playerId})
         .del() :
     await knex('games_players').insert({game_id: gameId, player_id: playerId});
-  return !Boolean(playsGames);
+  const {count} =
+    await knex('games_players')
+        .where({game_id: gameId})
+        .count()
+        .then((res)=> res[0]);
+  return {gameId, players: count};
 }
 
 module.exports = {

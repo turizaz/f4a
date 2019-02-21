@@ -1,7 +1,7 @@
 /* eslint-disable no-invalid-this */
 import React, {Component} from 'react';
 import {withGameService} from 'hoc-helpers';
-import {loadGame, joinGame} from 'ac/games';
+import {loadGame} from 'ac/games';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {library} from '@fortawesome/fontawesome-svg-core';
@@ -36,10 +36,7 @@ class Game extends Component {
    * @return {{players: number}}
    */
   static getDerivedStateFromProps(nextProps, prevState) {
-    if (prevState.players === 0 && nextProps.game.active_players > 0) {
-      return ({players: nextProps.game.active_players});
-    }
-    return prevState;
+    return ({players: nextProps.game.active_players});
   }
   /**
    * Create ui balls
@@ -60,9 +57,12 @@ class Game extends Component {
     }
     return balls;
   };
+  /**
+   * Apply join to game by pressing to ball
+   */
   apply = () => {
-    const {joinGame, game} = this.props;
-    joinGame(game.id);
+    const {game, gameService} = this.props;
+    gameService.joinGame(game.id);
   };
   /**
    * @return {string} html
@@ -108,9 +108,9 @@ class Game extends Component {
 }
 Game.propTypes = {
   game: PropTypes.object.isRequired,
-  joinGame: PropTypes.func.isRequired,
   loadGame: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired,
+  gameService: PropTypes.object.isRequired,
 };
 export default connect(
     (state) => {
@@ -118,5 +118,5 @@ export default connect(
         game: state.game,
       };
     },
-    {loadGame, joinGame}
+    {loadGame}
 )(withGameService(Game));

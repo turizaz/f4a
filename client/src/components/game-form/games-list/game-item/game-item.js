@@ -17,12 +17,12 @@ class GameItem extends Component {
    * @return {*}
    */
   render() {
-    const {address, date, players} = this.props.item;
+    const {address, date, players, activePlayers} = this.props.item;
     return (
       <tr onClick={this.click}>
         <td>{address}</td>
         <td>{new Date(date).toISOString().slice(0, 19).replace('T', ' ')}</td>
-        <td>{players}</td>
+        <td>{players} ({activePlayers || 0 })</td>
       </tr>
     );
   }

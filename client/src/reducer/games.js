@@ -21,6 +21,7 @@ const GameRecord = Record({
   address: '',
   date: '',
   players: 0,
+  activePlayers: 0,
 });
 
 const defaultState = new ReducerState();
@@ -37,7 +38,11 @@ export default (gameState = defaultState, action) => {
     case GAME_ADDED + START:
       return gameState.set('loading', true);
     case PLAYER_JOINED:
-      return gameState;
+      console.log('player join in list', payload);
+      const {gameId, activePlayers} = payload;
+      return gameState.updateIn(['entities', gameId], (gameRecord) => {
+        return gameRecord.set('activePlayers', activePlayers);
+      });
     case GAME_ADDED + SUCCESS:
       const {id, city_id} = payload.data;
       if (city_id !== payload.store.location.id) {

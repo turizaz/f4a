@@ -1,5 +1,4 @@
 import {LOAD_GAMES, GAME_ADDED, LOAD_GAME, PLAYER_JOINED, GAME_CHAT_MESSAGE_HISTORY, GAME_CHAT_MESSAGE_ADDED} from '../constants';
-import axios from 'axios';
 /**
  * Set city action
  * @param {object} city
@@ -35,24 +34,13 @@ export function gameAdded(id) {
 }
 /**
  * @param {number} gameId
- * @param {number} playerId
+ * @param {number} activePlayers
  * @return {{payload: {gameId: *, playerId: *}, type: string}}
  */
-export function playerJoined(gameId, playerId) {
+export function playerJoined(gameId, activePlayers) {
   return {
     type: PLAYER_JOINED,
-    payload: {gameId, playerId},
-  };
-}
-/**
- * @param {number} gameId
- * @return {AxiosPromise<any>}
- */
-export function joinGame(gameId) {
-  return (dispatch) => {
-    return axios.post(`/game/join`, {gameId}).then((res) => {
-      dispatch({type: null});
-    });
+    payload: {gameId, activePlayers},
   };
 }
 /**
