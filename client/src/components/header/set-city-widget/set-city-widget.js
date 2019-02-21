@@ -1,5 +1,4 @@
 /* eslint-disable no-invalid-this */
-
 import React from 'react';
 import './set-city-widget.scss';
 import CityPicker from 'components/common/city-picker';
@@ -11,6 +10,20 @@ import {setCity} from 'ac/location';
  * Set city on which all further game sessions will be based on
  */
 class SetCityWidget extends React.Component {
+  /**
+   * Init location
+   */
+  componentDidMount() {
+    const strLocation = localStorage.getItem('location');
+    if (strLocation) {
+      const {setCity} = this.props;
+      try {
+        setCity(JSON.parse(localStorage.getItem('location')));
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  }
   resetCity = () => {
     const {setCity} = this.props;
     setCity(null);

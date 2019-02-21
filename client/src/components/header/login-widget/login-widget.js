@@ -19,16 +19,16 @@ class LoginWidget extends React.Component {
         {!auth.isAuthenticated ? (
           <div>
             <span>
-              <Link to="/login">Войти {auth.user.email}</Link>
+              <Link to="/login">Войти</Link>
             </span>
             <span> | </span>
             <span>
-              <Link to="/register">Зарегистрироватся</Link>
+              <Link to="/registration">Зарегистрироватся</Link>
             </span>
           </div>
         ) : (
           <div onClick={logout}>
-            <span>{auth.user.email}</span> <span> | Выйти</span>
+            <span>{auth.user.name}</span> <span> | Выйти</span>
           </div>
         )}
       </div>

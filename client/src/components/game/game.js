@@ -1,189 +1,122 @@
 /* eslint-disable no-invalid-this */
-
-import React from 'react';
-import './game.scss';
-import CityPicker from 'components/common/city-picker';
-import ErrorMessage from 'components/common/messages/error-message';
-import _ from 'lodash';
-import PropTypes from 'prop-types';
+import React, {Component} from 'react';
 import {withGameService} from 'hoc-helpers';
-import GamesList from './games-list';
-const initialState = {
-  data: {
-    city: '',
-    city_id: '',
-    address: '',
-    lat: '',
-    long: '',
-    additional: '',
-    players: 5,
-  },
-  errors: {},
-};
+import {loadGame, joinGame} from 'ac/games';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
+import {library} from '@fortawesome/fontawesome-svg-core';
+import {faFutbol} from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import Chat from './chat';
+import './game.scss';
+library.add(faFutbol);
 /**
- * Form for adding game event
+ * Game session
  */
-class Game extends React.Component {
+class Game extends Component {
+  state = {
+    players: 0,
+  };
   /**
-   * Set initial state
-   * @param {object} props
+   * Load game date
    */
-  constructor(props) {
-    super(props);
-    this.state = initialState;
+  componentDidMount() {
+    const {
+      match: {params},
+    } = this.props;
+    const {id} = params;
+    this.props.loadGame(id);
+    const {game} = this.props;
+    this.setState({players: game.active_players});
+  }
+
+  /**
+   * @param {object} nextProps
+   * @param {object} prevState
+   * @return {{players: number}}
+   */
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (prevState.players === 0 && nextProps.game.active_players > 0) {
+      return ({players: nextProps.game.active_players});
+    }
+    return prevState;
   }
   /**
-   * Set city
-   * @param {{name: string, id: number, country: string}} city
+   * Create ui balls
+   * @return {Array}
    */
-  setCity = (city) => {
-    this.setState({
-      data: {...this.state.data, city: city.name, city_id: city.id},
-    });
-  };
-  /**
-   * Handle all simple text inputs
-   * @param {object} e
-   * @return {void}
-   */
-  onChange = (e) => {
-    this.setState({
-      data: {...this.state.data, [e.target.name]: e.target.value},
-    });
-  };
-  /**
-   * Form validation
-   * @param {object} data
-   * @return {object}
-   */
-  validate = (data) => {
-    const errors = {};
-    for (const i in data) {
-      if (['players', 'lat', 'long', 'additional'].indexOf(i) !== -1) {
-        continue;
-      }
-      if (!data[i]) errors[i] = `Не может быть пустым`;
-    }
-    return errors;
-  };
-  /**
-   * @param {object} e
-   */
-  onSubmit = async (e) => {
-    e.preventDefault();
-    const {data} = this.state;
-
-    const errors = this.validate(data);
-    this.setState({
-      errors,
-    });
-    if (_.isEmpty(errors)) {
-      const {gameService} = this.props;
-      const res = await gameService.add(data);
-      if (res.status === 201) {
-        this.setState(initialState);
+  createBalls = ()=>{
+    const {game} = this.props;
+    const balls = [];
+    if (game.players) {
+      for (let i = 1; i <= game.players; i++) {
+        balls.push(
+            <FontAwesomeIcon
+              key={i}
+              icon="futbol"
+              size="5x"
+              className={(this.state.players - i) < 0 ? 'fa-disabled' : ''}/>);
       }
     }
+    return balls;
+  };
+  apply = () => {
+    const {joinGame, game} = this.props;
+    joinGame(game.id);
   };
   /**
-   * Render form for adding game event
-   * @return {string} - HTML markup for the component
+   * @return {string} html
    */
   render() {
-    const {data, errors} = this.state;
+    const {game} = this.props;
+    const {
+      match: {params},
+    } = this.props;
+    const {id} = params;
     return (
-      <div className="row">
-        <form className="game-form col-6" onSubmit={this.onSubmit}>
-          <fieldset>
-            <legend>Добавить игру</legend>
-            <div className="form-group" id="gameCitySection">
-              <label>Город</label>
-              <CityPicker doChoice={this.setCity} city={this.state.data.city} />
-              {errors.city && <ErrorMessage message={errors.city} />}
-            </div>
-            <div className="form-group">
-              <label>Адрес</label>
-              <input
-                type="text"
-                className="form-control"
-                name="address"
-                value={data.address}
-                onChange={this.onChange}
-              />
-              {errors.address && <ErrorMessage message={errors.address} />}
-            </div>
-            <div>
-              <fieldset>
-                <legend>Координаты (не обязательно)</legend>
-                <div className="form-row">
-                  <div className="col-6">
-                    <label>с.ш.</label>
-                    <input
-                      type="number"
-                      className="form-control"
-                      value={data.lat}
-                      name="lat"
-                      onChange={this.onChange}
-                    />
-                    {errors.lat && <ErrorMessage message={errors.lat} />}
-                  </div>
-                  <div className="col-6">
-                    <label>в.д.</label>
-                    <input
-                      type="number"
-                      className="form-control"
-                      name="long"
-                      value={data.long}
-                      onChange={this.onChange}
-                    />
-                    {errors.long && <ErrorMessage message={errors.long} />}
-                  </div>
-                </div>
-              </fieldset>
-            </div>
-            <div className="form-group">
-              <label>Количество игроков</label>
-              <select
-                className="form-control col-2"
-                onChange={this.onChange}
-                value={data.players}
-                name="players"
-              >
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-                <option>7</option>
-                <option>8</option>
-                <option>9</option>
-              </select>
-              {errors.players && <ErrorMessage message={errors.players} />}
-            </div>
-          </fieldset>
-          <div className="form-group">
-            <label>Дополнительно</label>
-            <textarea
-              className="form-control"
-              name="additional"
-              value={data.additional}
-              onChange={this.onChange}
-            />
-            {errors.additional && <ErrorMessage message={errors.additional} />}
-          </div>
-          <div className="form-group">
-            <button type="submit" className="btn btn-warning">
-              Создать
-            </button>
-          </div>
-        </form>
-        <div className="col-6 game-form">
-          ddd
-          <GamesList/>
-        </div>
+      <div>
+        <table className="table table-striped table-dark">
+          <tbody>
+            <tr>
+              <td className="w-25">Город</td>
+              <td>{game.city}</td>
+            </tr>
+            <tr>
+              <td>Адрес</td>
+              <td>{game.address}</td>
+            </tr>
+            <tr>
+              <td>Заявлено игроков</td>
+              <td>{game.players}</td>
+            </tr>
+            <tr>
+              <td>Доп инфо</td>
+              <td>{game.additional}</td>
+            </tr>
+            <tr>
+              <td />
+              <td onClick={this.apply}>
+                {this.createBalls()}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <Chat gameId={id}/>
       </div>
     );
   }
 }
 Game.propTypes = {
-  gameService: PropTypes.object.isRequired,
+  game: PropTypes.object.isRequired,
+  joinGame: PropTypes.func.isRequired,
+  loadGame: PropTypes.func.isRequired,
+  match: PropTypes.object.isRequired,
 };
-export default withGameService(Game);
+export default connect(
+    (state) => {
+      return {
+        game: state.game,
+      };
+    },
+    {loadGame, joinGame}
+)(withGameService(Game));

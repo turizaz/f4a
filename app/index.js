@@ -3,9 +3,23 @@ require('dotenv').load();
 if (process.env.TRACE) {
   require('./libs/trace');
 }
+process.setMaxListeners(0);
+
 const config = require('config');
 const Koa = require('koa');
 const app = new Koa();
+const gameChat = require('./sockets/game-chat');
+
+const chats = [];
+chats['general'] = require('socket.io')({
+  path: '/chat/general',
+});
+
+app.use((ctx, next) => {
+  ctx.ioGame = gameChat;
+  ctx.ioGeneral = chats['general'];
+  return next();
+});
 app.keys = config.get('secret');
 
 const path = require('path');
@@ -24,10 +38,14 @@ app.use(citiesRouter.routes());
 app.use(authRoutes.routes());
 app.use(gameRouter.routes());
 
+let server;
 if ('test' !== process.env.NODE_ENV) {
-  module.exports = app.listen(config.get('port'));
+  server = app.listen(config.get('port'));
 } else {
-  module.exports = app.listen(config.get('port')+2);
+  server = app.listen(config.get('port')+2);
 }
 
+chats['general'].attach(server, {pingTimeout: 60000});
+gameChat.attach(server, {pingTimeout: 60000});
 
+module.exports = server;

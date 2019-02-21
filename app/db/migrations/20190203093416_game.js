@@ -14,6 +14,8 @@ exports.up = function(knex, Promise) {
       lat float,
       long float,
       players integer,
+      date timestamp,
+      date_created timestamp default now(),
       status games_status default 'forming'
     );
   `);

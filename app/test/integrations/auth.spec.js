@@ -6,7 +6,7 @@ const should = chai.should();
 const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 describe('routes : auth', () => {
-  beforeEach(() => {
+  before(() => {
     return knex.migrate
         .rollback()
         .then(() => {
@@ -16,7 +16,7 @@ describe('routes : auth', () => {
           return knex.seed.run();
         });
   });
-  afterEach(() => {
+  after(() => {
     return knex.migrate.rollback();
   });
   it('should register a new user', (done) => {

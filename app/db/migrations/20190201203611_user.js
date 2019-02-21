@@ -3,7 +3,7 @@ exports.up = function(knex, Promise) {
     create table users
     (
       id serial primary key,
-      name     varchar(40) unique,
+      name     varchar(40),
       email    varchar(40) unique,
       password text
     );

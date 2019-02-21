@@ -29,5 +29,5 @@ export default (state = initialState, action) => {
  * @return {object}
  */
 function pickUser(user) {
-  return _.pick(user, ['email', 'id']);
+  return _.pick(user, ['email', 'id', 'name']);
 }

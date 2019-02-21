@@ -10,7 +10,7 @@ const initialState = new Record({
 export default (state = initialState, action) => {
   switch (action.type) {
     case SET_CITY:
-      return state.merge(action.payload);
+      return action.payload ? state.merge(action.payload) : initialState;
     default:
       return state;
   }

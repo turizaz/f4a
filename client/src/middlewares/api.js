@@ -12,7 +12,8 @@ export default (store) => (next) => (action) => {
 
   return axios.get(callApi).then(
       (response) => {
-        next({...rest, type: type + SUCCESS, response});
+        next({...rest, type: type + SUCCESS, payload:
+            {...response, store: store.getState()}});
       },
       (error) => {
         next({...rest, type: type + FAIL, error});

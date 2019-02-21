@@ -2,6 +2,7 @@ import {SET_CURRENT_USER} from '../constants';
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import setAuthorizationToken from 'utils/setAuthorizationToken';
+
 /**
  * Login action
  * @param {object} user
@@ -20,17 +21,28 @@ export function setCurrentUser(user) {
  */
 export function login(credentials) {
   return (dispatch) => {
-    const _url = process.env.REACT_APP_API_PATH;
-    return axios.post(`${_url}/auth/login-jwt`, credentials).then((res) => {
+    return axios.post(`/auth/login-jwt`, credentials).then((res) => {
       const {token} = res.data;
       localStorage.setItem('jwt', token);
       setAuthorizationToken(token);
       const info = jwt.decode(token);
+      console.log(info);
       dispatch(setCurrentUser(info));
     });
   };
 }
-
+/**
+ * @param {object} user
+ * @return {function(*): Promise<AxiosResponse<any> | never>}
+ */
+export function registration(user) {
+  return (dispatch) => {
+    return axios.post(`/auth/registration`, user)
+        .then((res) => {
+          console.log(res);
+        });
+  };
+}
 /**
  * Logout action
  * @return {Function}

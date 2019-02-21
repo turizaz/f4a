@@ -8,7 +8,8 @@ import CityService from 'services/city';
 import {CityServiceProvider} from 'context/city-service-context';
 import {GameServiceProvider} from 'context/game-service-context';
 import GameService from 'services/game';
-
+import {sockets} from './sockets';
+sockets();
 ReactDOM.render(
     <BrowserRouter>
       <Provider store={store}>
