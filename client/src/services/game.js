@@ -25,12 +25,14 @@ class GameService {
    * @return {*}
    */
   initChat(id) {
+    console.log('init chat')
     return new Promise((resolve) => {
       this._gameSocket = io(process.env.REACT_APP_API_PATH, {
         path: '/chat/game',
       });
       patch(this._gameSocket);
       this._gameSocket.on('connect', () => {
+        console.log('game soket c');
         this._gameSocket.emit(
             'join',
             process.env.REACT_APP_GAME_CHAT_ROOM_PREFIX + id,

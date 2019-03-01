@@ -27,6 +27,7 @@ class CityPicker extends React.Component {
     if (city.length > 2) {
       this.setState({loading: true});
       const cities = await cityService.getCities(city);
+      console.log(cities);
       this.setState({loading: false});
       this.setState({
         cities,

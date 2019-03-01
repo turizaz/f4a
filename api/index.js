@@ -15,6 +15,10 @@ chats['general'] = require('socket.io')({
   path: '/chat/general',
 });
 
+chats['general'].on('connection', (socket) => {
+  console.log('connected to general socket');
+});
+
 app.use((ctx, next) => {
   ctx.ioGame = gameChat;
   ctx.ioGeneral = chats['general'];

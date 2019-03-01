@@ -9,7 +9,6 @@ export default (store) => (next) => (action) => {
     ...rest,
     type: type + START,
   });
-
   return axios.get(callApi).then(
       (response) => {
         next({...rest, type: type + SUCCESS, payload:
