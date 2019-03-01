@@ -9,19 +9,11 @@ const config = require('config');
 const Koa = require('koa');
 const app = new Koa();
 const gameChat = require('./sockets/game-chat');
-
-const chats = [];
-chats['general'] = require('socket.io')({
-  path: '/chat/general',
-});
-
-chats['general'].on('connection', (socket) => {
-  console.log('connected to general socket');
-});
+const generalSocket = require('./sockets/general-socket')
 
 app.use((ctx, next) => {
   ctx.ioGame = gameChat;
-  ctx.ioGeneral = chats['general'];
+  ctx.ioGeneral = generalSocket;
   return next();
 });
 app.keys = config.get('secret');
@@ -49,7 +41,7 @@ if ('test' !== process.env.NODE_ENV) {
   server = app.listen(config.get('port')+2);
 }
 
-chats['general'].attach(server, {pingTimeout: 60000});
+generalSocket.attach(server, {pingTimeout: 60000});
 gameChat.attach(server, {pingTimeout: 60000});
 
 module.exports = server;

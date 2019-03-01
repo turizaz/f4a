@@ -1,5 +1,3 @@
-require('dotenv').load();
-
 const gameSocket = require('socket.io')({
   path: '/chat/game',
 });
