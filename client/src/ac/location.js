@@ -1,4 +1,4 @@
-import {SET_CITY} from '../constants';
+import {LOAD_GAMES, SET_CITY, SUCCESS} from '../constants';
 import {loadGames} from './games';
 /**
  * Set city action
@@ -7,10 +7,13 @@ import {loadGames} from './games';
  */
 export function setCity(city) {
   if (!city) {
-    localStorage.setItem('location', '');
-    return {
-      type: SET_CITY,
-      payload: city,
+    return (dispatch) => {
+      localStorage.setItem('location', '');
+      dispatch({type: LOAD_GAMES+SUCCESS, payload: {data: null}});
+      dispatch({
+        type: SET_CITY,
+        payload: city,
+      });
     };
   }
   return (dispatch) => {

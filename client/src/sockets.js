@@ -4,9 +4,9 @@ import {GAME_ADDED, PLAYER_JOINED, PLAYER_LEAVE} from './constants';
 import {gameAdded, playerJoined} from './ac/games';
 const patch = require('socketio-wildcard')(io.Manager);
 const gameSocket =
-  io(process.env.REACT_APP_API_PATH, {path: '/chat/game'});
+  io(process.env.REACT_APP_API_PATH, {path: '/api/chat/game'});
 const generalSocket =
-  io(process.env.REACT_APP_API_PATH, {path: '/chat/general'});
+  io(process.env.REACT_APP_API_PATH, {path: '/api/chat/general'});
 patch(generalSocket);
 patch(gameSocket);
 
@@ -22,7 +22,6 @@ function sockets() {
       case PLAYER_JOINED:
         console.log('pl joined');
         const {gameId, players} = message.data[1];
-        //console.log(gameId, players);
         store.dispatch(playerJoined(gameId, players));
         break;
       case PLAYER_LEAVE:

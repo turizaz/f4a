@@ -25,7 +25,9 @@ class CityPicker extends React.Component {
     });
     const {cityService} = this.props;
     if (city.length > 2) {
+      this.setState({loading: true});
       const cities = await cityService.getCities(city);
+      this.setState({loading: false});
       this.setState({
         cities,
       });
@@ -53,7 +55,6 @@ class CityPicker extends React.Component {
       this.setState({city: nextProps.city});
     }
   }
-
   /**
    * City input auto complete
    * @return {string} html
@@ -68,6 +69,7 @@ class CityPicker extends React.Component {
           autoComplete="off"
           onChange={this.handleChange}
         />
+        {this.state.loading && <div className="lds-hourglass"/>}
         {this.state.cities.length ? (
           <div className="list">
             {this.state.cities.map((city) => {

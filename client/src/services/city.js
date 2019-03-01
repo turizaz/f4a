@@ -15,9 +15,11 @@ class CityService {
    * @return {Promise<Response>}
    */
   async getCities(city) {
-    const response = await fetch(`${this._url}/cities/getByName/${city}`);
-    if (response.ok) return await response.json();
-    throw new Error(response.status);
+    if (city) {
+      const response = await fetch(`${this._url}/cities/getByName/${city}`);
+      if (response.ok) return await response.json();
+      throw new Error(response.status);
+    }
   }
 }
 

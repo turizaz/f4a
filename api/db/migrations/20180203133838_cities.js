@@ -1,6 +1,6 @@
 exports.up = function(knex, Promise) {
   return knex.raw(`
-    CREATE TABLE _countries(
+    CREATE TABLE IF NOT EXISTS _countries(
     country_id integer NOT NULL,
     title_ru character varying(60),
     title_ua character varying(60),
@@ -20,7 +20,7 @@ exports.up = function(knex, Promise) {
   
   );
   
-  CREATE TABLE _regions(
+  CREATE TABLE IF NOT EXISTS _regions(
     region_id integer NOT NULL,
     country_id integer NOT NULL,
     title_ru character varying(150),
@@ -41,7 +41,7 @@ exports.up = function(knex, Promise) {
   
   );
   
-  CREATE TABLE _cities
+  CREATE TABLE IF NOT EXISTS _cities
   (
     city_id    integer NOT NULL,
     country_id integer NOT NULL,

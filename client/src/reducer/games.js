@@ -30,6 +30,9 @@ export default (gameState = defaultState, action) => {
   const {type, payload} = action;
   switch (type) {
     case LOAD_GAMES + SUCCESS:
+      if (!payload.data) {
+        return defaultState;
+      }
       return gameState.update('entities', (entities) => {
         return arrToMap(payload.data, GameRecord).sortBy(
             (f) => f.get('date')

@@ -1,30 +1,35 @@
-version: '2'
+version: '3'
 services:
-#  web:
-#    build: .
-#    volumes:
-#      - "./app:/src/app"
-#    ports:
-#      - "3030:3000"
-#    links:
-#      - "mongo:mongo"
-#    environment:
-#      - "TEST=${TEST}"
+  postgres:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: password
   mongo:
     image: mongo
     ports:
       - "27017:27017"
+  api:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./api
     volumes:
-      - "dbdata:/data/db"
-  postgres:
-    image: postgres
+      - /app/node_modules
+      - ./api:/app
+  client:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./client
+    volumes:
+      - /app/node_modules
+      - ./client:/app
+  nginx:
     restart: always
-    volumes:
-      - "./app/migrations:/src/app/migrations"
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./nginx
     ports:
-      - "5432:5432"
-    environment:
-      POSTGRES_PASSWORD: pass
-volumes:
-  dbdata:
-    driver: local
+      - '3050:80'

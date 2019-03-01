@@ -7,6 +7,7 @@ import {Route} from 'react-router-dom';
 import 'app.scss';
 import Game from './components/game';
 import Registration from './components/auth/registration';
+
 /**
  * Root of application
  */
@@ -29,5 +30,4 @@ class App extends Component {
     );
   }
 }
-
 export default App;

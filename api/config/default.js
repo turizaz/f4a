@@ -14,11 +14,11 @@ module.exports = {
     },
   },
   postgres: {
-    host: 'localhost',
-    user: 'postgres',
-    database: 'postgres',
-    password: 'pass',
-    port: 5432,
+    host: process.env.POSTGRES_HOST || 'localhost',
+    user: process.env.POSTGRES_USER || 'postgres',
+    database: process.env.POSTGRES_DB || 'postgres',
+    password: process.env.POSTGRES_PASSWORD || 'pass',
+    port: process.env.POSTGRES_PORT || 5432,
   },
   crypto: {
     hash: {
@@ -26,7 +26,7 @@ module.exports = {
       iterations: process.env.NODE_ENV === 'production' ? 12000 : 1,
     },
   },
-  port: 3000,
+  port: 5000,
   secret: ['4692800310'],
   template: {
     root: defer(function(cfg) {

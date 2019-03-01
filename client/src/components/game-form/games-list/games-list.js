@@ -8,6 +8,9 @@ import GameItem from './game-item';
  * List of games based on city
  */
 class GamesList extends Component {
+  /**
+   * @return {boolean|*}
+   */
   render() {
     const {games} = this.props;
     return (

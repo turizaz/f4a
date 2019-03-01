@@ -1,5 +1,5 @@
 import axios from 'axios';
-axios.defaults.baseURL = process.env.REACT_APP_API_PATH;
+axios.defaults.baseURL = process.env.REACT_APP_API_PATH+'/api';
 /**
  * Set bearer token
  * @param {string} token
