@@ -5,7 +5,3 @@ after_success:
   - docker build -t graphit/f4e-api ./api
   - docker build -t graphit/f4e-client ./client
   - docker build -t graphit/f4e-nginx ./nginx
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  - docker push graphit/f4e-api
-  - docker push graphit/f4e-client
-  - docker push graphit/f4e-nginx
