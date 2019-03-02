@@ -1,0 +1,11 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t graphit/react-test -f ./client/Dockerfile.dev ./client
+
+after_success:
+  - docker build -t graphit/f4e-api ./api
+  - docker build -t graphit/f4e-client ./client
+  - docker build -t graphit/f4e-nginx ./nginx
