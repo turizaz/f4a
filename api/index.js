@@ -10,6 +10,10 @@ const Koa = require('koa');
 const app = new Koa();
 const gameChat = require('./sockets/game-chat');
 const generalSocket = require('./sockets/general-socket')
+const compose = require('koa-compose');
+const path = require('path');
+const fs = require('fs');
+
 
 app.use((ctx, next) => {
   ctx.ioGame = gameChat;
@@ -18,21 +22,17 @@ app.use((ctx, next) => {
 });
 app.keys = config.get('secret');
 
-const path = require('path');
-const fs = require('fs');
-
 const handlers = fs.readdirSync(path.join(__dirname, 'middlewares')).sort();
 handlers.forEach((handler) => require('./middlewares/' + handler).init(app));
 
-const userRouter = require('./routes/user');
-const citiesRouter = require('./routes/cities');
-const gameRouter = require('./routes/game');
-const authRoutes = require('./routes/auth');
-
-app.use(userRouter.routes());
-app.use(citiesRouter.routes());
-app.use(authRoutes.routes());
-app.use(gameRouter.routes());
+app.use(
+    compose([
+      require('./routes/user').routes(),
+      require('./routes/cities').routes(),
+      require('./routes/game').routes(),
+      require('./routes/auth').routes(),
+    ])
+);
 
 let server;
 if ('test' !== process.env.NODE_ENV) {
