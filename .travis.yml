@@ -1,7 +1,3 @@
 sudo: required
 services:
   - docker
-after_success:
-  - docker build -t graphit/f4e-api ./api
-  - docker build -t graphit/f4e-client ./client
-  - docker build -t graphit/f4e-nginx ./nginx
