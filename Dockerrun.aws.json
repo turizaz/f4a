@@ -7,26 +7,6 @@
       "hostname": "client",
       "essential": false,
       "memory": 128
-    },
-    {
-      "name": "api",
-      "image": "graphit/f4e-api",
-      "hostname": "api",
-      "essential": false,
-      "memory": 128
-    },
-    {
-      "name": "nginx",
-      "image": "graphit/f4e-nginx",
-      "essential": true,
-      "portMappings": [
-        {
-          "hostPort": 80,
-          "containerPort": 80
-        }
-      ],
-      "links": ["client", "api"],
-      "memory": 128
     }
   ]
 }
