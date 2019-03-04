@@ -1,7 +1,10 @@
 language: generic
+
 sudo: required
+
 services:
   - docker
+  -
 after_success:
   - docker build -t graphit/f4e-api ./api
   - docker build -t graphit/f4e-client ./client
@@ -10,3 +13,16 @@ after_success:
   - docker push graphit/f4e-api
   - docker push graphit/f4e-client
   - docker push graphit/f4e-nginx
+
+deploy:
+  provider: elasticbeanstalk
+  region: us-east-2
+  app: f4a
+  env: F4a-env
+  bucket_name: elasticbeanstalk-us-east-2-167510155361
+  bucket_path: f4a
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: $AWS_SECRET_KEY
