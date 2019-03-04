@@ -2,9 +2,9 @@
   "AWSEBDockerrunVersion": 2,
   "containerDefinitions": [
     {
-      "name": "client",
-      "image": "graphit/f4e-client",
-      "hostname": "client",
+      "name": "api",
+      "image": "graphit/f4e-api",
+      "hostname": "api",
       "essential": true,
       "memory": 128
     }
