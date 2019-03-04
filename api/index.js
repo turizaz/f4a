@@ -43,5 +43,4 @@ if ('test' !== process.env.NODE_ENV) {
 
 generalSocket.attach(server, {pingTimeout: 60000});
 gameChat.attach(server, {pingTimeout: 60000});
-
 module.exports = server;
