@@ -11,7 +11,6 @@ const passport = require('koa-passport');
  */
 const jwt = require('jsonwebtoken');
 const jwtSecret = JWT_SECRET;
-
 module.exports = {
   async registration(ctx) {
     const {name, email, password} = ctx.request.body;

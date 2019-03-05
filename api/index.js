@@ -33,7 +33,6 @@ app.use(
       require('./routes/auth').routes(),
     ])
 );
-
 let server;
 if ('test' !== process.env.NODE_ENV) {
   server = app.listen(config.get('port'));
