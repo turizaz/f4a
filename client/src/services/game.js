@@ -35,7 +35,7 @@ class GameService {
         console.log('game soket c');
         this._gameSocket.emit(
             'join',
-            process.env.REACT_APP_GAME_CHAT_ROOM_PREFIX + id,
+            'game' + id,
             resolve(this._gameSocket)
         );
       });
