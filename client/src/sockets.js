@@ -4,9 +4,9 @@ import {GAME_ADDED, PLAYER_JOINED} from './constants';
 import {gameAdded, playerJoined} from './ac/games';
 const patch = require('socketio-wildcard')(io.Manager);
 const gameSocket =
-  io(process.env.REACT_APP_API_PATH, {path: '/chat/game'});
+  io({path: '/chat/game'});
 const generalSocket =
-  io(process.env.REACT_APP_API_PATH, {path: '/chat/general'});
+  io({path: '/chat/general'});
 patch(generalSocket);
 patch(gameSocket);
 

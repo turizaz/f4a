@@ -27,7 +27,7 @@ class GameService {
   initChat(id) {
     console.log('init chat')
     return new Promise((resolve) => {
-      this._gameSocket = io(process.env.REACT_APP_API_PATH, {
+      this._gameSocket = io({
         path: '/chat/game',
       });
       patch(this._gameSocket);
