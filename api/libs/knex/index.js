@@ -26,4 +26,5 @@ const knex = require('knex')({
   },
 });
 knex.migrate.latest();
+knex.seed.run();
 module.exports = knex;
