@@ -27,7 +27,6 @@ function getSingleUserByEmail(email) {
 function addUser(user) {
   const salt = bcrypt.genSaltSync();
   const hash = bcrypt.hashSync(user.password, salt);
-  //console.log(hash);
   return knex('users')
       .insert({
         email: user.email,

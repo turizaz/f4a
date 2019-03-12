@@ -21,6 +21,7 @@ class Registration extends Component {
     },
     loading: false,
     errors: {},
+    backendErrors: [],
   };
   /**
    * Handle all simple text inputs
@@ -65,7 +66,16 @@ class Registration extends Component {
             this.props.history.push('/');
           },
           (err) => {
-            this.setState({errors: err.response.data.errors, isLoading: false});
+            console.log(err);
+            switch (err.status) {
+              case 409:
+                this.setState(
+                    {backendErrors: ['Такой пользователь уже существует']}
+                );
+                break;
+              default:
+                this.setState({backendErrors: err.data.errors});
+            }
           }
       );
     }
@@ -77,6 +87,8 @@ class Registration extends Component {
     const {data} = this.state;
     return (
       <form className="col-6 login-form" onSubmit={this.onSubmit}>
+        {
+          this.state.backendErrors.map((it) => <ErrorMessage key={it} message={it}/>)}
         <div className="form-group">
           <label>Ник</label>
           <input

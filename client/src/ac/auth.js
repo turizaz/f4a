@@ -37,10 +37,18 @@ export function login(credentials) {
  */
 export function registration(user) {
   return (dispatch) => {
-    return axios.post(`/auth/registration`, user)
-        .then((res) => {
-          console.log(res);
-        });
+    return new Promise((resolve, reject)=> {
+      axios
+          .post(`/auth/registration`, user)
+          .then((res) => {
+            dispatch(setCurrentUser(res.data));
+            resolve(res);
+          })
+          .catch((err) => {
+            reject(err.response);
+            dispatch(setCurrentUser({}));
+          });
+    });
   };
 }
 /**

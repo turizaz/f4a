@@ -61,14 +61,18 @@ class Game extends Component {
    * Apply join to game by pressing to ball
    */
   apply = () => {
-    const {game, gameService} = this.props;
+    const {game, gameService, auth} = this.props;
+    if (!auth.isAuthenticated) {
+      return;
+    }
     gameService.joinGame(game.id);
   };
   /**
    * @return {string} html
    */
   render() {
-    const {game} = this.props;
+    const {game, auth} = this.props;
+    console.log(auth);
     const {
       match: {params},
     } = this.props;
@@ -94,8 +98,10 @@ class Game extends Component {
               <td>{game.additional}</td>
             </tr>
             <tr>
-              <td>Что бы присоединится нажми на мяч</td>
-              <td onClick={this.apply}>
+              <td>Что бы присоединится
+                {auth.isAuthenticated || ', залогинтесь и'} нажми на мяч</td>
+              <td onClick={this.apply}
+                className={auth.isAuthenticated ? 'active' : 'regular'}>
                 {this.createBalls()}
               </td>
             </tr>
@@ -108,6 +114,7 @@ class Game extends Component {
 }
 Game.propTypes = {
   game: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
   loadGame: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired,
   gameService: PropTypes.object.isRequired,
@@ -116,6 +123,7 @@ export default connect(
     (state) => {
       return {
         game: state.game,
+        auth: state.auth,
       };
     },
     {loadGame}

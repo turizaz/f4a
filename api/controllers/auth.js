@@ -18,7 +18,7 @@ module.exports = {
       name, email, password,
     });
     ctx.status = 201;
-    ctx.body = {email: user[0].email};
+    ctx.body = {email: user[0].email, name: user[0].name};
   },
   async login(ctx, next) {
     await passport.authenticate('local', {
