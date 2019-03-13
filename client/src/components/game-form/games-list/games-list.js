@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {withGameService} from 'hoc-helpers';
 import GameItem from './game-item';
-
+import './games-list.scss';
 /**
  * List of games based on city
  */
@@ -15,9 +15,9 @@ class GamesList extends Component {
     const {games} = this.props;
     return (
       games.entities.size !== 0 &&
-      <table className="table table-sm">
+      <table className="games-list">
         <thead>
-          <tr>
+          <tr className="list-header">
             <th scope="col">Место</th>
             <th scope="col">Время</th>
             <th scope="col">Игроков</th>

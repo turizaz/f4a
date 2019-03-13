@@ -19,10 +19,10 @@ class GameItem extends Component {
   render() {
     const {address, date, players, activePlayers} = this.props.item;
     return (
-      <tr onClick={this.click}>
+      <tr onClick={this.click} className="game-item">
         <td>{address}</td>
         <td>{new Date(date).toISOString().slice(0, 19).replace('T', ' ')}</td>
-        <td>{players} ({activePlayers || 0 })</td>
+        <td>{activePlayers || 0 } из {players}</td>
       </tr>
     );
   }
