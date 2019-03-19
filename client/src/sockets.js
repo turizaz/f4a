@@ -22,6 +22,7 @@ function sockets() {
     console.log(message);
     switch (message.data[0]) {
       case GAME_ADDED:
+        console.log('game added');
         store.dispatch(gameAdded(message.data[1]));
         break;
       case PLAYER_JOINED:

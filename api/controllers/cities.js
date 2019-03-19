@@ -8,6 +8,7 @@ module.exports = {
   getByName: async function(ctx) {
     const {name} = ctx.params;
     const uppercaseCity = _.upperFirst(name);
+    console.log(uppercaseCity)
     const cities =
       await ctx.pg.query(
           `
@@ -23,8 +24,7 @@ module.exports = {
                    end  as priority
             FROM (select * from _cities c where c.country_id < 20) as city
                    JOIN _countries as c on c.country_id = city.country_id
-            WHERE c.country_id = 1
-              AND
+            WHERE 
                   city.title_ru LIKE $1
                OR city.title_ua LIKE $1
             ORDER BY priority DESC, c.country_id ASC;

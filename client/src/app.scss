@@ -1,12 +1,41 @@
 /*----COLORS----*/
-$black: #212529;
+@import url('https://fonts.googleapis.com/css?family=Libre+Baskerville');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300');
+@import url('https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz');
+@import url('https://fonts.googleapis.com/css?family=Comfortaa');
+@import url('https://fonts.googleapis.com/css?family=Montserrat+Alternates');
+@import url('https://fonts.googleapis.com/css?family=Jura');
+@import url('https://fonts.googleapis.com/css?family=Oranienbaum');
+@import url('https://fonts.googleapis.com/css?family=Arsenal');
+@import url('https://fonts.googleapis.com/css?family=Exo+2');
+@import url('https://fonts.googleapis.com/css?family=Poiret+One');
+@import url('https://fonts.googleapis.com/css?family=PT+Mono');
+
+$black: #0d0d0d;
+$light-black: #1c1c1c;
 $yellow: #fed136;
 $error: #ff9494;
+$white: #f9f9f9;
+
+
+$grey: #dcdcdc;
+$green: #38ae62;
 
 /*----FONTS----*/
 $italic-font: 'Kaushan Script', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-$monserat-font: Montserrat, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 
+html, body, input, textarea, select, button {
+  font-family: 'PT Mono', monospace;
+  //font-family: 'Exo 2', sans-serif;
+  //font-family: 'Arsenal', sans-serif;
+  //font-family: 'Oranienbaum', serif;
+  //font-family: 'Jura', sans-serif;
+  //font-family: 'Montserrat Alternates', sans-serif;
+  //font-family: 'Comfortaa', cursive;
+  //font-family: 'Yanone Kaffeesatz', sans-serif;
+  //font-family: 'Open Sans Condensed', sans-serif;
+  //font-family: 'Libre Baskerville', serif;
+}
 .main-content {
   padding-top: 40px;
 }

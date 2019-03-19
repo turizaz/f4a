@@ -15,10 +15,14 @@ module.exports = {
   async registration(ctx) {
     const {name, email, password} = ctx.request.body;
     const user = await users.addUser({
-      name, email, password,
+      name,
+      email,
+      password,
     });
+    const payload = createJwtPayload(user.id, user.email, user.name);
+    const token = jwt.sign(payload, jwtSecret);
     ctx.status = 201;
-    ctx.body = {email: user[0].email, name: user[0].name};
+    ctx.body = {email: user.email, name: user.name, token};
   },
   async login(ctx, next) {
     await passport.authenticate('local', {
@@ -33,11 +37,7 @@ module.exports = {
         ctx.status = 401;
         ctx.body = 'Login failed';
       } else {
-        const payload = {
-          id: user.id,
-          email: user.email,
-          name: user.name,
-        };
+        const payload = createJwtPayload(user.id, user.email, user.name);
         const token = jwt.sign(payload, jwtSecret);
         ctx.body = {token};
       }
@@ -48,3 +48,18 @@ module.exports = {
     ctx.redirect('/');
   },
 };
+
+/**
+ * Create standardized jwt payload
+ * @param {id} id
+ * @param {string} email
+ * @param {string} name
+ * @return {{name: string, id: id, email: string}}
+ */
+function createJwtPayload(id, email, name) {
+  return {
+    id,
+    email,
+    name,
+  };
+}

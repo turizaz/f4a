@@ -88,7 +88,8 @@ class Registration extends Component {
     return (
       <form className="col-6 login-form" onSubmit={this.onSubmit}>
         {
-          this.state.backendErrors.map((it) => <ErrorMessage key={it} message={it}/>)}
+          this.state.backendErrors.map(
+              (it) => <ErrorMessage key={it} message={it}/>)}
         <div className="form-group">
           <label>Ник</label>
           <input
@@ -137,7 +138,7 @@ class Registration extends Component {
         </div>
         <div className="form-group">
           <input
-            type="repeatPassword"
+            type="password"
             id="repeatPassword"
             name="repeatPassword"
             value={data.repeatPassword}
@@ -150,8 +151,8 @@ class Registration extends Component {
           )}
         </div>
         <div className="form-group">
-          <button type="submit" className="btn btn-primary mb-2">
-            Войти
+          <button type="submit" className="btn submit-btn mb-2">
+            Зарегистрировтся
           </button>
         </div>
       </form>

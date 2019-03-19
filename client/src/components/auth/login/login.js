@@ -18,6 +18,7 @@ class Login extends React.Component {
       password: '',
     },
     loading: false,
+    backendErrors: [],
     errors: {},
   };
   /**
@@ -47,7 +48,20 @@ class Login extends React.Component {
             this.props.history.push('/');
           },
           (err) => {
-            this.setState({errors: err.response.data.errors, isLoading: false});
+            console.log(err);
+            switch (err.status) {
+              case 401:
+                this.setState({
+                  backendErrors: ['Неверный логин или пароль'],
+                });
+                break;
+              default:
+                this.setState({
+                  backendErrors: [
+                    'Произошла серверная ощибка, обратитесь к администратору',
+                  ],
+                });
+            }
           }
       );
     }
@@ -72,6 +86,9 @@ class Login extends React.Component {
     const {data} = this.state;
     return (
       <form className="col-6 login-form" onSubmit={this.onSubmit}>
+        {
+          this.state.backendErrors.map(
+              (it) => <ErrorMessage key={it} message={it}/>)}
         <div className="form-group">
           <label htmlFor="exampleInputEmail1">E-mail адрес</label>
           <input
@@ -107,7 +124,7 @@ class Login extends React.Component {
           )}
         </div>
         <div className="form-group">
-          <button type="submit" className="btn btn-primary mb-2">
+          <button type="submit" className="btn submit-btn mb-2">
             Войти
           </button>
         </div>

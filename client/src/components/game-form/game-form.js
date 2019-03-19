@@ -9,6 +9,8 @@ import PropTypes from 'prop-types';
 import {withGameService} from 'hoc-helpers';
 import GamesList from './games-list';
 import {connect} from 'react-redux';
+import DateTimeComponent from 'components/common/date-time';
+import SetCityWidget from 'components/common/set-city-widget';
 
 const initialState = {
   data: {
@@ -19,7 +21,8 @@ const initialState = {
     long: '',
     additional: '',
     players: 5,
-    date: '',
+    date: new Date(),
+    district: '',
   },
   errors: {},
 };
@@ -70,12 +73,28 @@ class GameForm extends React.Component {
     return errors;
   };
   /**
+   * @param {Event} e
+   * Change date
+   */
+  changeDate = (e) => {
+    this.setState({
+      data: {
+        ...this.state.data,
+        date: e,
+      },
+    });
+  };
+  /**
    * @param {object} e
    */
   onSubmit = async (e) => {
     e.preventDefault();
+    const {auth} = this.props;
+    if (!auth.isAuthenticated) {
+      alert('Зарегистрируйтесь чтобы создать игру')
+      return;
+    }
     const {data} = this.state;
-
     const errors = this.validate(data);
     this.setState({
       errors,
@@ -93,105 +112,130 @@ class GameForm extends React.Component {
    * @return {string} - HTML markup for the component
    */
   render() {
+    const {auth} = this.props;
     const {data, errors} = this.state;
     return (
       <div className="row">
-        <form className="game-form col-6" onSubmit={this.onSubmit}>
-          <fieldset>
-            <legend>Добавить игру</legend>
-            <div className="form-group" id="gameCitySection">
-              <label>Город</label>
-              <CityPicker doChoice={this.setCity} city={this.state.data.city} />
-              {errors.city && <ErrorMessage message={errors.city} />}
-            </div>
-            <div className="form-group">
-              <label>Адрес</label>
-              <input
-                type="text"
-                className="form-control"
-                name="address"
-                value={data.address}
-                onChange={this.onChange}
-              />
-              {errors.address && <ErrorMessage message={errors.address} />}
-            </div>
-
-            <div className="form-group">
-              <label>Дата</label>
-              <input
-                type="datetime-local"
-                name="date"
-                className="form-control"
-                value={data.date}
-                onChange={this.onChange}
-              />
-              {errors.date && <ErrorMessage message={errors.date}/>}
-            </div>
-            {false && <div>
-              <fieldset>
-                <legend>Координаты (не обязательно)</legend>
-                <div className="form-row">
-                  <div className="col-6">
-                    <label>с.ш.</label>
-                    <input
-                      type="number"
-                      className="form-control"
-                      value={data.lat}
-                      name="lat"
-                      onChange={this.onChange}
-                    />
-                    {errors.lat && <ErrorMessage message={errors.lat} />}
-                  </div>
-                  <div className="col-6">
-                    <label>в.д.</label>
-                    <input
-                      type="number"
-                      className="form-control"
-                      name="long"
-                      value={data.long}
-                      onChange={this.onChange}
-                    />
-                    {errors.long && <ErrorMessage message={errors.long} />}
-                  </div>
+        <div className="col-6 col-md-3 left-col">
+          <form className=
+            {'game-form' + (auth.isAuthenticated ? ' active': ' passive')}
+          onSubmit={this.onSubmit}>
+            <fieldset>
+              <legend>Добавить игру</legend>
+              <div className="form-group" id="gameCitySection">
+                <label>Город</label>
+                <CityPicker
+                  doChoice={this.setCity}
+                  city={this.state.data.city}
+                />
+                {errors.city && <ErrorMessage message={errors.city} />}
+              </div>
+              <div className="form-group">
+                <label>Район</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  name="district"
+                  value={data.district}
+                  onChange={this.onChange}
+                />
+                {errors.district && <ErrorMessage message={errors.district} />}
+              </div>
+              <div className="form-group">
+                <label>Адрес</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  name="address"
+                  value={data.address}
+                  onChange={this.onChange}
+                />
+                {errors.address && <ErrorMessage message={errors.address} />}
+              </div>
+              <div className="form-group">
+                <label>Дата</label>
+                <DateTimeComponent
+                  onChange={this.changeDate}
+                  value={this.state.data.date}/>
+                {errors.date && <ErrorMessage message={errors.date} />}
+              </div>
+              {false && (
+                <div>
+                  <fieldset>
+                    <legend>Координаты (не обязательно)</legend>
+                    <div className="form-row">
+                      <div className="col-6">
+                        <label>с.ш.</label>
+                        <input
+                          type="number"
+                          className="form-control"
+                          value={data.lat}
+                          name="lat"
+                          onChange={this.onChange}
+                        />
+                        {errors.lat && <ErrorMessage message={errors.lat} />}
+                      </div>
+                      <div className="col-6">
+                        <label>в.д.</label>
+                        <input
+                          type="number"
+                          className="form-control"
+                          name="long"
+                          value={data.long}
+                          onChange={this.onChange}
+                        />
+                        {errors.long && <ErrorMessage message={errors.long} />}
+                      </div>
+                    </div>
+                  </fieldset>
                 </div>
-              </fieldset>
-            </div> }
+              )}
+              <div className="form-group">
+                <label>Количество игроков</label>
+                <select
+                  className="form-control col-2"
+                  onChange={this.onChange}
+                  value={data.players}
+                  name="players"
+                >
+                  <option>6</option>
+                  <option>7</option>
+                  <option>8</option>
+                  <option>9</option>
+                  <option>10</option>
+                  <option>11</option>
+                  <option>12</option>
+                  <option>13</option>
+                  <option>14</option>
+                  <option>15</option>
+                </select>
+                {errors.players && <ErrorMessage message={errors.players} />}
+              </div>
+            </fieldset>
             <div className="form-group">
-              <label>Количество игроков</label>
-              <select
-                className="form-control col-2"
+              <label>Дополнительно</label>
+              <textarea
+                className="form-control"
+                name="additional"
+                value={data.additional}
                 onChange={this.onChange}
-                value={data.players}
-                name="players"
-              >
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-                <option>7</option>
-                <option>8</option>
-                <option>9</option>
-              </select>
-              {errors.players && <ErrorMessage message={errors.players} />}
+              />
+              {errors.additional && (
+                <ErrorMessage message={errors.additional} />
+              )}
             </div>
-          </fieldset>
-          <div className="form-group">
-            <label>Дополнительно</label>
-            <textarea
-              className="form-control"
-              name="additional"
-              value={data.additional}
-              onChange={this.onChange}
-            />
-            {errors.additional && <ErrorMessage message={errors.additional} />}
+            <div className="form-group">
+              <button type="submit" className="btn submit-btn">
+                Создать
+              </button>
+            </div>
+          </form>
+        </div>
+        <div className="col-12 col-md-9 flex right-col">
+          <div className="width-100">
+            <SetCityWidget/>
+            <GamesList />
           </div>
-          <div className="form-group">
-            <button type="submit" className="btn btn-warning">
-              Создать
-            </button>
-          </div>
-        </form>
-        <div className="col-6 game-form">
-          <GamesList />
         </div>
       </div>
     );
@@ -199,13 +243,15 @@ class GameForm extends React.Component {
 }
 GameForm.propTypes = {
   gameService: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
 };
 
 export default connect(
     (state) => {
       return {
         games: state.game,
+        auth: state.auth,
       };
     },
-    null,
+    null
 )(withGameService(GameForm));

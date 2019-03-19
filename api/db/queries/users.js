@@ -33,7 +33,8 @@ function addUser(user) {
         name: user.name,
         password: hash,
       })
-      .returning(['name', 'email']);
+      .returning(['name', 'email', 'id'])
+      .then((res)=> res[0]);
 }
 /**
  * Update user

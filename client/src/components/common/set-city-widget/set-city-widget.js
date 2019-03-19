@@ -3,7 +3,7 @@ import React from 'react';
 import './set-city-widget.scss';
 import CityPicker from 'components/common/city-picker';
 import {connect} from 'react-redux';
-import ProptTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import {setCity} from 'ac/location';
 
 /**
@@ -42,14 +42,15 @@ class SetCityWidget extends React.Component {
    */
   render() {
     return (
-      <div className="form-row city-widget">
-        <span className="city-name col-3">Город : </span>
+      <div className="city-widget">
         {this.props.location.id ? (
           <span onClick={this.resetCity} className="city-name">
             {this.props.location.name}
           </span>
         ) : (
-          <CityPicker doChoice={this.setCity}/>
+          <div className="table-city-picker">
+            <CityPicker doChoice={this.setCity}/>
+          </div>
         )}
       </div>
     );
@@ -57,8 +58,8 @@ class SetCityWidget extends React.Component {
 }
 
 SetCityWidget.propTypes = {
-  location: ProptTypes.object,
-  setCity: ProptTypes.func.isRequired,
+  location: PropTypes.object,
+  setCity: PropTypes.func.isRequired,
 };
 
 export default connect(

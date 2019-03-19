@@ -9,6 +9,7 @@ const GameRecord = Record({
   //   name: '',
   // }),
   lat: null,
+  district: null,
   long: null,
   players: 0,
   city_id: 0,

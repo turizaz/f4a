@@ -17,23 +17,25 @@ export function setCurrentUser(user) {
 
 /**
  * @param {object} credentials
- * @return {function(*): Promise<AxiosResponse<any> | never>}
+ * @return {function(*=): Promise<any>}
  */
 export function login(credentials) {
   return (dispatch) => {
-    return axios.post(`/auth/login-jwt`, credentials).then((res) => {
-      const {token} = res.data;
-      localStorage.setItem('jwt', token);
-      setAuthorizationToken(token);
-      const info = jwt.decode(token);
-      console.log(info);
-      dispatch(setCurrentUser(info));
+    return new Promise((resolve, reject) => {
+      axios.post(`/auth/login-jwt`, credentials).then((res) => {
+        const {token} = res.data;
+        const info = loginViaToken(token);
+        dispatch(setCurrentUser(info));
+        resolve(info);
+      }).catch((err)=> {
+        reject(err.response);
+      });
     });
   };
 }
 /**
  * @param {object} user
- * @return {function(*): Promise<AxiosResponse<any> | never>}
+ * @return {function(*=): Promise<any>}
  */
 export function registration(user) {
   return (dispatch) => {
@@ -41,12 +43,14 @@ export function registration(user) {
       axios
           .post(`/auth/registration`, user)
           .then((res) => {
-            dispatch(setCurrentUser(res.data));
+            const {token} = res.data;
+            const info = loginViaToken(token);
+            dispatch(setCurrentUser(info));
             resolve(res);
           })
           .catch((err) => {
-            reject(err.response);
             dispatch(setCurrentUser({}));
+            reject(err.response);
           });
     });
   };
@@ -61,4 +65,15 @@ export function logout() {
     setAuthorizationToken(false);
     dispatch(setCurrentUser({}));
   };
+}
+
+/**
+ * Set token to local storage, return user info data
+ * @param {string} token
+ * @return {Promise<void> | string}
+ */
+function loginViaToken(token) {
+  localStorage.setItem('jwt', token);
+  setAuthorizationToken(token);
+  return jwt.decode(token);
 }

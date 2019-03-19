@@ -22,6 +22,7 @@ module.exports = {
           'long',
           'address',
           'city_id',
+          'district',
           'date',
         ].filter((it) => {
           return body[it] !== '';

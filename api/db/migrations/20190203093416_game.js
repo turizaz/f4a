@@ -11,6 +11,7 @@ exports.up = function(knex, Promise) {
       author_id integer references users(id),
       additional text,
       address text,
+      district text,
       lat float,
       long float,
       players integer,

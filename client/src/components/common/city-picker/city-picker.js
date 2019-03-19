@@ -68,6 +68,7 @@ class CityPicker extends React.Component {
           className="form-control"
           value={this.state.city}
           autoComplete="off"
+          placeholder="Город"
           onChange={this.handleChange}
         />
         {this.state.loading && <div className="lds-hourglass"/>}

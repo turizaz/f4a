@@ -28,6 +28,8 @@ function gamesForCity(cityId) {
            c.title_ru as city,
            g.address,
            g.players,
+           g.district,
+           g.additional,
            g.date,
            gp.active_players as "activePlayers"
     from games as g

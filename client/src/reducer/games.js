@@ -20,6 +20,8 @@ const GameRecord = Record({
   city_id: 0,
   address: '',
   date: '',
+  district: null,
+  additional: '',
   players: 0,
   activePlayers: 0,
 });

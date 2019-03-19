@@ -1,12 +1,21 @@
 .list-header {
   th {
+    &:first-child {
+      padding: 0;
+      width: 100px;
+    }
+    &:last-child {
+      width: 100px;
+    }
+    padding-top: 10px;
+    padding-bottom: 15px;
     padding-left: 20px;
-    font-size: 10px;
+    font-size: 24px;
     font-weight: normal;
   }
 }
 .games-list {
-  margin-left: -20px;
+  width: 100%;
   td {
     height: 60px;
     color: #212529;
