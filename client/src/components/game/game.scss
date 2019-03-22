@@ -1,6 +1,14 @@
-.fa-disabled{
-  opacity: 0.3;
-}
-.regular{
-  opacity: 0.1;
+.game {
+  .game-table {
+    margin-left: -1px;
+  }
+  .right-col {
+    border: none;
+  }
+  .fa-disabled {
+    opacity: 0.3;
+  }
+  .regular{
+    opacity: 0.1;
+  }
 }

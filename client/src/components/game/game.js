@@ -79,35 +79,42 @@ class Game extends Component {
     const {id} = params;
     return (
       <div>
-        <table className="table table-striped table-dark">
-          <tbody>
-            <tr>
-              <td className="w-25">Город</td>
-              <td>{game.city}</td>
-            </tr>
-            <tr>
-              <td>Адрес</td>
-              <td>{game.address}</td>
-            </tr>
-            <tr>
-              <td>Заявлено игроков</td>
-              <td>{game.players}</td>
-            </tr>
-            <tr>
-              <td>Доп инфо</td>
-              <td>{game.additional}</td>
-            </tr>
-            <tr>
-              <td>Что бы присоединится
-                {auth.isAuthenticated || ', залогинтесь и'} нажми на мяч</td>
-              <td onClick={this.apply}
+        <div className="row game">
+          <div className="col-md-4 left-col">
+            <div>Что бы присоединится
+              {auth.isAuthenticated || ', залогинтесь и'}
+              нажми на мяч</div>
+            <div onClick={this.apply}
                 className={auth.isAuthenticated ? 'active' : 'regular'}>
-                {this.createBalls()}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <Chat gameId={id}/>
+              {this.createBalls()}
+            </div>
+          </div>
+          <div className="col-md-8 right-col padding-0">
+            <table className="table table-bordered game-table">
+              <tbody>
+                <tr>
+                  <td className="w-25">Город</td>
+                  <td>{game.city}</td>
+                </tr>
+                <tr>
+                  <td>Адрес</td>
+                  <td>{game.address}</td>
+                </tr>
+                <tr>
+                  <td>Заявлено игроков</td>
+                  <td>{game.players}</td>
+                </tr>
+                <tr>
+                  <td>Доп инфо</td>
+                  <td>{game.additional}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div>
+          <Chat gameId={id}/>
+        </div>
       </div>
     );
   }

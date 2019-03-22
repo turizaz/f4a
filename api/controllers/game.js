@@ -89,7 +89,7 @@ module.exports = {
   async getChatHistory(ctx) {
     const {gameId} = ctx.params;
     const messages = await GameChatModel.find({gameId})
-        .sort({date: 1})
+        .sort({date: -1})
         .lean()
         .exec();
     for (const message of messages) message.id = message._id;

@@ -68,6 +68,11 @@ class Chat extends Component {
    */
   async submit() {
     const {gameService, gameId} = this.props;
+    const {message} = _.pick(this.state, ['message']);
+    if (message.length === 1) {
+      alert('Нет смысла отправлять пустое сообщение');
+      return;
+    }
     await gameService.addChatMessage({
       ..._.pick(this.state, ['message']),
       gameId,
@@ -81,6 +86,18 @@ class Chat extends Component {
     const {gameChat} = this.props;
     return (
       <div className="chat">
+        <hr/>
+        <div className="form-group">
+          <textarea
+            onChange={this.onChange}
+            className="form-control"
+            name="message"
+            id="message"
+            placeholder="Чат"
+            rows="3"
+            onKeyUp={this.sendMessage}
+          />
+        </div>
         <form>
           <ul>
             {gameChat.entities.valueSeq().map(
@@ -89,17 +106,6 @@ class Chat extends Component {
                 }
             )}
           </ul>
-          <div className="form-group">
-            <textarea
-              onChange={this.onChange}
-              className="form-control"
-              name="message"
-              id="message"
-              placeholder="Чат"
-              rows="3"
-              onKeyUp={this.sendMessage}
-            />
-          </div>
         </form>
       </div>
     );
@@ -108,6 +114,7 @@ class Chat extends Component {
 Chat.propTypes = {
   addChatMessage: PropTypes.func.isRequired,
   gameId: PropTypes.string.isRequired,
+  loadChatHistory: PropTypes.func.isRequired,
   gameService: PropTypes.object.isRequired,
   gameChat: PropTypes.object.isRequired,
 };

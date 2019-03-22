@@ -1,6 +1,5 @@
 import React from 'react';
 import LoginWidget from './login-widget';
-import SetCityWidget from '../common/set-city-widget';
 import {Link} from 'react-router-dom';
 import './header.scss';
 
@@ -8,23 +7,15 @@ import './header.scss';
  * Common header
  */
 class Header extends React.Component {
-  t = (
-    <nav className="navbar" id="mainNav">
-      <div className="container">
-        <div className="col-4">
-          <Link className="slogan" to="/">
-            Football 4 all
-          </Link>
-        </div>
-        <div className="col-4">
-          <SetCityWidget />
-        </div>
-        <div className="col-4">
-          <LoginWidget />
-        </div>
-      </div>
-    </nav>
-  );
+  /**
+   * Toggle main menu
+   */
+  toggleMenu = () => {
+    const mainMenu = document.getElementById('main-menu-ul');
+    mainMenu.style.visibility =
+      mainMenu.style.visibility === 'hidden' || !mainMenu.style.visibility
+        ? 'visible' : 'hidden';
+  };
   /**
    * Render app general header
    * @return {string} - HTML markup for the component
@@ -33,15 +24,18 @@ class Header extends React.Component {
     return (
       <nav className="main-menu">
         <div className="container">
-          <ul>
+          <div className="switcher" onClick={this.toggleMenu}>
+            <i className="fas fa-bars"/>
+          </div>
+          <ul id="main-menu-ul">
             <li>
               <Link to="/">Главная</Link>
             </li>
-            <LoginWidget/>
             <li>
               <Link to="/about">О сервисе</Link>
             </li>
           </ul>
+          <LoginWidget/>
         </div>
       </nav>
     );

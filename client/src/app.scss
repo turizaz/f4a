@@ -11,8 +11,10 @@
 @import url('https://fonts.googleapis.com/css?family=Poiret+One');
 @import url('https://fonts.googleapis.com/css?family=PT+Mono');
 
+$mobile-limit: 1000;
+
 $black: #0d0d0d;
-$light-black: #1c1c1c;
+$light-black: lighten(#1c1c1c,3);
 $yellow: #fed136;
 $error: #ff9494;
 $white: #f9f9f9;
@@ -41,4 +43,34 @@ html, body, input, textarea, select, button {
 }
 .flex {
   display: flex;
+}
+
+// functions
+@mixin transition($prop, $time) {
+  -webkit-transition: $prop ease-out $time;
+  -moz-transition: $prop ease-out $time;
+  -o-transition: $prop ease-out $time;
+  transition: $prop ease-out $time;
+}
+
+// styles itself
+.main-content {
+  @include transition(padding-top, .3s);
+  padding-top: 40px;
+  .right-col {
+    .width-100 {
+      @include transition(margin-top, .3s);
+      margin-top: 0;
+    }
+  }
+}
+.city-picked {
+  .main-content {
+    padding-top: 80px;
+    .right-col {
+      .width-100 {
+        margin-top: -90px;
+      }
+    }
+  }
 }

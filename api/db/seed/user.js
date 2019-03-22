@@ -12,7 +12,7 @@ exports.seed = function(knex, Promise) {
       .then(function() {
         return users.addUser({
           name: 'username',
-          email: 'user-email',
+          email: 'user@email.com',
           password: 'user-password',
         });
       });

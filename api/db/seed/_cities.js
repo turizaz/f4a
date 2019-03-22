@@ -1,9 +1,9 @@
 exports.seed = async function(knex, Promise) {
   await knex('games_players').del();
   await knex('games').del();
-  // Deletes ALL existing entries
+  await knex('_cities').del();
+// Deletes ALL existing entries
   return knex('_cities')
-      .del()
       .then(function() {
         // Inserts seed entries
         return knex('_cities').insert([

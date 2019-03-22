@@ -12,7 +12,7 @@ exports.seed = function(knex, Promise) {
           },
           {
             country_id: 2,
-            title_ru: 'Украинв',
+            title_ru: 'Украина',
             title_ua: 'Україна',
           },
         ]);

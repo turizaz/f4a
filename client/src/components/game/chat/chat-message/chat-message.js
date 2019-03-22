@@ -14,8 +14,7 @@ class ChatMessage extends Component {
     return (
       <li className="chatMessage">
         <div className="message-data">
-          <span className="message-data-name">
-            <i className="fa fa-circle online" />{username}
+          <span className="message-data-name">{username}
           </span>
           <span className="message-data-time">{date}</span>
         </div>

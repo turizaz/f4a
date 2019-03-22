@@ -1,14 +1,27 @@
 @import "~app.scss";
+
 .absolute-login-widget {
   &:hover {
     cursor: default;
     background-color: transparent !important;
   }
   position: absolute;
-  padding: 0 50px;
-  right: 0;
-  i {
-    cursor: pointer;
-    padding-left: 10px;
+  right: 50px;
+  top:23px;
+  display: flex;
+  > div {
+    padding: 0 20px;
+  }
+  &, > div {
+    a {
+      color: $white;
+    }
+    height: auto;
+    color: $white;
+    i {
+      margin-top: 5px;
+      cursor: pointer;
+      padding-left: 10px;
+    }
   }
 }

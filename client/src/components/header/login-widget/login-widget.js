@@ -16,18 +16,18 @@ class LoginWidget extends React.Component {
   render() {
     const {auth, logout} = this.props;
     return auth.isAuthenticated ? (
-      <li className="absolute-login-widget">
+      <div className="absolute-login-widget">
         {auth.user.name} <i onClick={logout} className="fas fa-sign-out-alt"/>
-      </li>
+      </div>
     ) : (
-      <span>
-        <li>
+      <div className="absolute-login-widget">
+        <div>
           <Link to="/login">Войти</Link>
-        </li>
-        <li>
+        </div>
+        <div>
           <Link to="/registration">Зарегистрироватся</Link>
-        </li>
-      </span>
+        </div>
+      </div>
     );
   }
 }
