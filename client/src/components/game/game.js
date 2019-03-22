@@ -82,8 +82,7 @@ class Game extends Component {
         <div className="row game">
           <div className="col-md-4 left-col">
             <div>Что бы присоединится
-              {auth.isAuthenticated || ', залогинтесь и'}
-              нажми на мяч</div>
+              {auth.isAuthenticated || ', залогинтесь и'} нажми на мяч</div>
             <div onClick={this.apply}
                 className={auth.isAuthenticated ? 'active' : 'regular'}>
               {this.createBalls()}
