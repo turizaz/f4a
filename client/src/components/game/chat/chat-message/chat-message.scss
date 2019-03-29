@@ -6,8 +6,12 @@ $orange: #E38968;
   margin-bottom: 15px;
 }
 .message-data-time {
-  color: darken($grey, 50);
+  color: darken($grey, 10);
   padding-left: 6px;
+  font-size: 10px;
+}
+.message-data-name {
+  color: darken($grey, 40);
 }
 .message {
   color: white;

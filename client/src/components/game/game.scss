@@ -1,14 +1,36 @@
+@import "~app.scss";
 .game {
   .game-table {
     margin-left: -1px;
   }
+  .left-col {
+    order: 1;
+  }
   .right-col {
+    order: 2;
+    padding-left: 20px !important;
+    .game-info {
+      padding-top: 0;
+    }
+    .game-info > div {
+      font-weight: bold;
+      padding: 5px 10px;
+    }
     border: none;
   }
-  .fa-disabled {
-    opacity: 0.3;
+  .game-info{
+    div {
+      border: solid 1px $grey;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
   }
-  .regular{
-    opacity: 0.1;
+  .half-field {
+    height: 300px;
+  }
+}
+@media only screen and (max-width: $mobile-limit+px) {
+  .right-col {
+    padding-top: 20px !important;
   }
 }

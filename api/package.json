@@ -44,7 +44,7 @@
     "nodemon": "^1.18.10"
   },
   "scripts": {
-    "test": "NODE_ENV=test mocha ./test/* --exit",
+    "test": "POSTGRES_DB=test NODE_ENV=test mocha ./test/* --exit",
     "dev": "nodemon",
     "start": "node index.js"
   },

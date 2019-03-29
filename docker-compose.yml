@@ -7,7 +7,10 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_MULTIPLE_DATABASES: postgres, test
+      DB_NAME: test
+      DB_USER: test
+      DB_PASS: test
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
   mongo:
     image: mongo
