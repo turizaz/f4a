@@ -1,4 +1,3 @@
-// process.env.NODE_CONFIG_DIR = './app/config';
 require('dotenv').load();
 if (process.env.TRACE) {
   require('./libs/trace');
