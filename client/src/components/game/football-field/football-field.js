@@ -54,11 +54,12 @@ class FootballField extends Component {
     const teemsOnField = [[], []];
     let row = [];
     let rowNum = 1;
+    console.log(this.state.gameOrder);
     this.state.gameOrder.forEach((it, index) => {
       it.forEach((it)=> {
         row = [];
         let isActive = false;
-        for (let i = 1; i <= it; i++) {
+        for (let i = 1; i <= it && total > 0; i++) {
           isActive = (total - parseInt(game.active_players)) < 1;
           total--;
           row.push(
