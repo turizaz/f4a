@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
  */
 class ChatMessage extends Component {
   /**
-   * @return {*}
+   * @return {JSX}
    */
   render() {
     const {text, username, date} = this.props.message;
@@ -16,7 +16,9 @@ class ChatMessage extends Component {
         <div className="message-data">
           <span className="message-data-name">{username}
           </span>
-          <span className="message-data-time">{date}</span>
+          <span className="message-data-time">
+            {new Date(date).toISOString().slice(0, 16).replace('T', ' ')}
+          </span>
         </div>
         <div className="message my-message">{text}</div>
       </li>

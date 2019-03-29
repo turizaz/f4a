@@ -1,0 +1,7 @@
+@import "~app.scss";
+.t-shirt-grey {
+  @include transition(all, .2s);
+  &:hover {
+    filter: brightness(80%);
+  }
+}

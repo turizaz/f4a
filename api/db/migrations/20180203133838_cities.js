@@ -110,8 +110,8 @@ exports.up = function(knex, Promise) {
 };
 exports.down = function(knex, Promise) {
   return knex.raw(`
-      drop table _countries;
-      drop table _regions;
-      drop table _cities;
+      drop table if exists _countries;
+      drop table if exists _regions;
+      drop table if exists _cities;
   `);
 };

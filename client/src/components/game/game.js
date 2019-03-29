@@ -6,57 +6,30 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {faFutbol} from '@fortawesome/free-solid-svg-icons';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import TeemsVsFlags from './teems-vs-flags';
 import Chat from './chat';
 import './game.scss';
+import FootballField from './football-field';
 library.add(faFutbol);
 /**
  * Game session
  */
 class Game extends Component {
   state = {
+    gameOrder: [],
     players: 0,
   };
   /**
-   * Load game date
+   * Init
    */
   componentDidMount() {
     const {
       match: {params},
+      loadGame,
     } = this.props;
     const {id} = params;
-    this.props.loadGame(id);
-    const {game} = this.props;
-    this.setState({players: game.active_players});
+    loadGame(id);
   }
-
-  /**
-   * @param {object} nextProps
-   * @param {object} prevState
-   * @return {{players: number}}
-   */
-  static getDerivedStateFromProps(nextProps, prevState) {
-    return ({players: nextProps.game.active_players});
-  }
-  /**
-   * Create ui balls
-   * @return {Array}
-   */
-  createBalls = ()=>{
-    const {game} = this.props;
-    const balls = [];
-    if (game.players) {
-      for (let i = 1; i <= game.players; i++) {
-        balls.push(
-            <FontAwesomeIcon
-              key={i}
-              icon="futbol"
-              size="5x"
-              className={(this.state.players - i) < 0 ? 'fa-disabled' : ''}/>);
-      }
-    }
-    return balls;
-  };
   /**
    * Apply join to game by pressing to ball
    */
@@ -72,7 +45,6 @@ class Game extends Component {
    */
   render() {
     const {game, auth} = this.props;
-    console.log(auth);
     const {
       match: {params},
     } = this.props;
@@ -80,40 +52,45 @@ class Game extends Component {
     return (
       <div>
         <div className="row game">
-          <div className="col-md-4 left-col">
-            <div>Что бы присоединится
-              {auth.isAuthenticated || ', залогинтесь и'}
-              нажми на мяч</div>
-            <div onClick={this.apply}
-                className={auth.isAuthenticated ? 'active' : 'regular'}>
-              {this.createBalls()}
+          <div className="col-md-6 left-col">
+            <div>
+              <p>
+                Что бы присоединится
+                {auth.isAuthenticated || ', залогинтесь и'} нажми на футболку
+              </p>
+            </div>
+            <div className="football-field-wrapper">
+              <div onClick={this.apply}>
+                <FootballField game={game}/>
+              </div>
             </div>
           </div>
-          <div className="col-md-8 right-col padding-0">
-            <table className="table table-bordered game-table">
-              <tbody>
-                <tr>
-                  <td className="w-25">Город</td>
-                  <td>{game.city}</td>
-                </tr>
-                <tr>
-                  <td>Адрес</td>
-                  <td>{game.address}</td>
-                </tr>
-                <tr>
-                  <td>Заявлено игроков</td>
-                  <td>{game.players}</td>
-                </tr>
-                <tr>
-                  <td>Доп инфо</td>
-                  <td>{game.additional}</td>
-                </tr>
-              </tbody>
-            </table>
+          <div className="col-md-6 right-col padding-0">
+            <div className="row">
+              <div className="col-md-6 game-info">
+                <div>
+                  {game.city}
+                </div>
+                <div>
+                  {game.address}
+                </div>
+                <div>
+                  игроков - {game.players}
+                </div>
+                <div>
+                  доп инфо - {game.additional}
+                </div>
+              </div>
+              <div className="col-md-6 padding-0">
+                <TeemsVsFlags/>
+              </div>
+            </div>
+            <div className='row'>
+              <div className="col-md-12">
+                <Chat gameId={id}/>
+              </div>
+            </div>
           </div>
-        </div>
-        <div>
-          <Chat gameId={id}/>
         </div>
       </div>
     );

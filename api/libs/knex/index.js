@@ -25,6 +25,8 @@ const knex = require('knex')({
     directory: __dirname + '/../../db/seed',
   },
 });
-knex.migrate.latest();
-knex.seed.run().then((res) => res);
+if ('test' !== process.env.NODE_ENV) {
+// knex.migrate.latest();
+// knex.seed.run().then((res) => res);
+}
 module.exports = knex;

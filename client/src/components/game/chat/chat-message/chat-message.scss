@@ -1,14 +1,17 @@
-$green: #86BB71;
-$blue: #94C2ED;
+@import "~app.scss";
+
 $orange: #E38968;
-$gray: #92959E;
 
 .message-data {
   margin-bottom: 15px;
 }
 .message-data-time {
-  color: lighten($gray, 8%);
+  color: darken($grey, 10);
   padding-left: 6px;
+  font-size: 10px;
+}
+.message-data-name {
+  color: darken($grey, 40);
 }
 .message {
   color: white;

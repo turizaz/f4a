@@ -1,4 +1,3 @@
-
 exports.up = function(knex, Promise) {
   return knex.raw(`
     create table games_players
@@ -12,6 +11,6 @@ exports.up = function(knex, Promise) {
 
 exports.down = function(knex, Promise) {
   return knex.raw(`
-    drop table games_players;
+     drop table if exists games_players;
   `);
 };

@@ -20,7 +20,7 @@ const initialState = {
     lat: '',
     long: '',
     additional: '',
-    players: 5,
+    players: 6,
     date: new Date(),
     district: '',
   },

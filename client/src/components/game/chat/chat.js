@@ -87,7 +87,7 @@ class Chat extends Component {
     return (
       <div className="chat">
         <hr/>
-        <div className="form-group">
+        <div className="form-group padding-0">
           <textarea
             onChange={this.onChange}
             className="form-control"

@@ -40,7 +40,7 @@ describe('routes : auth', () => {
         .post('/auth/login-jwt')
         .set('content-type', 'application/json')
         .send({
-          email: 'user-email',
+          email: 'user@email.com',
           password: 'user-password',
         })
         .end((err, res) => {
