@@ -66,7 +66,6 @@ class Registration extends Component {
             this.props.history.push('/');
           },
           (err) => {
-            console.log(err);
             switch (err.status) {
               case 409:
                 this.setState(

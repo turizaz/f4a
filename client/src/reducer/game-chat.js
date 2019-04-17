@@ -24,11 +24,9 @@ export default (gameChatState = defaultState, action) => {
         return arrToMap(payload, MessageRecord);
       });
     case GAME_CHAT_MESSAGE_ADDED:
-      // add message
       const messages = gameChatState.setIn(
           ['entities', payload.id],
           new MessageRecord(payload));
-      // sort by date
       return messages.update('entities', (entities)=> {
         return messages.entities.sortBy((it)=>it.get('date')).reverse();
       });

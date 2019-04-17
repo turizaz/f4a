@@ -57,10 +57,11 @@ class GameService {
   }
   /**
    * @param {number} gameId
+   * @param {number} playerNumber
    * @return {AxiosPromise<any>}
    */
-  joinGame(gameId) {
-    return axios.post(`/game/join`, {gameId});
+  joinGame(gameId, playerNumber) {
+    return axios.post(`/game/join`, {gameId, playerNumber});
   }
 }
 export default GameService;

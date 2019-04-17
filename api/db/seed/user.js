@@ -15,14 +15,4 @@ exports.seed = function(knex, Promise) {
           password: 'user-password',
         });
       });
-
-  // return knex('users')
-  //     .del()
-  //     .then(function() {
-  //       // Inserts seed entries
-  //       return knex('users').insert([
-  //         {name: 'test1', email: 'test1@gmail.com', password: '$2a$10$XcX0xUuJOfB47qUGJY/jOOdyZrTL43vBcqPgD1wccXnphzvEPYFiK'},
-  //         {name: 'test2', email: 'test2@gmail.com', password: '$2a$10$XcX0xUuJOfB47qUGJY/jOOdyZrTL43vBcqPgD1wccXnphzvEPYFiK'},
-  //       ]);
-  // });
 };

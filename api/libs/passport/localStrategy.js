@@ -17,16 +17,7 @@ passport.use(
           passwordField: 'password',
           passReqToCallback: true, // req for more complex cases
         },
-        // Три возможных итога функции
-        // done(null, user[, info]) ->
-        //   strategy.success(user, info)
-        // done(null, false[, info]) ->
-        //   strategy.fail(info)
-        // done(err) ->
-        //   strategy.error(err)
-        // TODO: rewrite this, use async/await
         async function(req, email, password, done) {
-        //  console.log(email, password)
           try {
             const user = await users.getSingleUserByEmail(email).first();
             if (!user || !comparePass(password, user.password)) {

@@ -23,6 +23,9 @@ html, body, input, textarea, select, button {
 .flex {
   display: flex;
 }
+.relative {
+  position: relative;
+}
 
 // functions
 @mixin transition($prop, $time) {

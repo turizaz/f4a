@@ -38,6 +38,7 @@ module.exports = {
   async get(ctx) {
     const {id} = ctx.params;
     ctx.body = await games.get(id);
+    ctx.body.fieldNumbersInGame = await games.playerInGame(id);
   },
   /**
    * Get list based on city
@@ -55,9 +56,12 @@ module.exports = {
    */
   async join(ctx) {
     const {id} = ctx.user;
-    const {gameId} = ctx.request.body;
-    const playersInGame = await games.join(id, gameId);
-    ctx.ioGeneral.emit('PLAYER_JOINED', playersInGame)
+    const {gameId, playerNumber} = ctx.request.body;
+    const playersInGame = await games.join(id, gameId, playerNumber);
+    console.log('pl', playersInGame);
+    if (playersInGame) {
+      ctx.ioGeneral.emit('PLAYER_JOINED', playersInGame);
+    }
     ctx.status = 200;
   },
   /**

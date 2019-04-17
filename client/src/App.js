@@ -10,7 +10,7 @@ import About from './components/about';
 import Registration from './components/auth/registration';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom'
+import {withRouter} from 'react-router-dom';
 
 /**
  * Root of application
@@ -36,7 +36,7 @@ class App extends Component {
   }
 }
 App.propTypes = {
-  location: PropTypes.object.isRequired
+  location: PropTypes.object.isRequired,
 };
 
 export default withRouter((connect)((state) => {

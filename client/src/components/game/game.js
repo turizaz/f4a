@@ -31,16 +31,6 @@ class Game extends Component {
     loadGame(id);
   }
   /**
-   * Apply join to game by pressing to ball
-   */
-  apply = () => {
-    const {game, gameService, auth} = this.props;
-    if (!auth.isAuthenticated) {
-      return;
-    }
-    gameService.joinGame(game.id);
-  };
-  /**
    * @return {string} html
    */
   render() {
