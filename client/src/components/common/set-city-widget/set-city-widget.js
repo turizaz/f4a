@@ -20,7 +20,6 @@ class SetCityWidget extends React.Component {
       try {
         setCity(JSON.parse(localStorage.getItem('location')));
       } catch (e) {
-        console.log(e);
       }
     }
   }

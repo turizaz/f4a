@@ -35,12 +35,13 @@ export function gameAdded(id) {
 /**
  * @param {number} gameId
  * @param {number} activePlayers
+ * @param {object} info
  * @return {{payload: {gameId: *, playerId: *}, type: string}}
  */
-export function playerJoined(gameId, activePlayers) {
+export function playerJoined(gameId, activePlayers, info) {
   return {
     type: PLAYER_JOINED,
-    payload: {gameId, activePlayers},
+    payload: {gameId, activePlayers, info},
   };
 }
 /**

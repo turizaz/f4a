@@ -23,7 +23,7 @@ const GameRecord = Record({
   district: null,
   additional: '',
   players: 0,
-  activePlayers: 0,
+  activePlayers: 1,
 });
 
 const defaultState = new ReducerState();

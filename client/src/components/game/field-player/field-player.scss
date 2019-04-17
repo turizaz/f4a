@@ -1,7 +1,25 @@
 @import "~app.scss";
-.t-shirt-grey {
-  @include transition(all, .2s);
-  &:hover {
-    filter: brightness(80%);
+.south-side{
+  .number{
+    @include rotate(180deg);
+  }
+}
+.tactic-line {
+  .number {
+    cursor: pointer;
+    font-weight: bold;
+    position: absolute;
+    top:10px;
+    width: 48px;
+    display: flex;
+    justify-content: center;
+    z-index: 10000;
+  }
+  .player:hover {
+    @include transition(all, .3s);
+    color: white;
+    img {
+      filter: brightness(80%);
+    }
   }
 }

@@ -48,7 +48,6 @@ class Login extends React.Component {
             this.props.history.push('/');
           },
           (err) => {
-            console.log(err);
             switch (err.status) {
               case 401:
                 this.setState({

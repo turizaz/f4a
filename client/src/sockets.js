@@ -14,12 +14,9 @@ patch(gameSocket);
  * Common sockets func
  */
 function sockets() {
-  console.log(generalSocket);
   generalSocket.on('connect', ()=> {
-    console.log('c');
   });
   generalSocket.on('*', function(message) {
-    console.log(message);
     switch (message.data[0]) {
       case GAME_ADDED:
         console.log('game added');
@@ -27,8 +24,8 @@ function sockets() {
         break;
       case PLAYER_JOINED:
         console.log('pl joined');
-        const {gameId, players} = message.data[1];
-        store.dispatch(playerJoined(gameId, players));
+        const {gameId, players, info} = message.data[1];
+        store.dispatch(playerJoined(gameId, players, info));
         break;
       default:
         console.log('unknown action');
