@@ -15,6 +15,7 @@
     "config": "^3.0.1",
     "db-migrate": "^0.11.5",
     "db-migrate-pg": "^0.4.0",
+    "dotenv": "^8.0.0",
     "jwt-decode": "^2.2.0",
     "knex": "^0.16.3",
     "koa": "^2.6.2",
@@ -29,6 +30,7 @@
     "koa-static": "^5.0.0",
     "koa2-cors": "^2.0.6",
     "lodash": "^4.17.11",
+    "mocha": "^6.0.2",
     "mongoose": "^5.4.5",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
@@ -37,8 +39,7 @@
     "pug": "^2.0.3",
     "socket.io": "^2.2.0",
     "socket.io-emitter": "^3.1.1",
-    "supertest": "^3.4.2",
-    "mocha": "^6.0.2"
+    "supertest": "^3.4.2"
   },
   "devDependencies": {
     "nodemon": "^1.18.10"

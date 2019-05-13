@@ -1,4 +1,4 @@
-require('dotenv').load();
+require('dotenv').config();
 if (process.env.TRACE) {
   require('./libs/trace');
 }

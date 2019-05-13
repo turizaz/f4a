@@ -1,4 +1,4 @@
-require('dotenv').load();
+require('dotenv').config();
 const users = require('../db/queries/users');
 
 const {JWT_SECRET} = process.env;

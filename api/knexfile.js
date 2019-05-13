@@ -1,5 +1,5 @@
 // Update with your config settings.
-require('dotenv').load();
+require('dotenv').config();
 
 const {
   POSTGRES_HOST,
