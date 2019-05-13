@@ -45,7 +45,6 @@ export default (gameState = defaultState, action) => {
     case PLAYER_JOINED:
       console.log('player join in list', payload);
       const {gameId, activePlayers} = payload;
-      console.log(gameId, gameState);
       return gameState.updateIn(['entities', gameId], (gameRecord) => {
         try {
           return gameRecord.set('activePlayers', activePlayers);

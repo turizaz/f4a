@@ -11,6 +11,7 @@ import GamesList from './games-list';
 import {connect} from 'react-redux';
 import DateTimeComponent from 'components/common/date-time';
 import SetCityWidget from 'components/common/set-city-widget';
+import {setCity} from 'ac/location';
 
 const initialState = {
   data: {
@@ -89,12 +90,14 @@ class GameForm extends React.Component {
    */
   onSubmit = async (e) => {
     e.preventDefault();
-    const {auth} = this.props;
+    const {auth, setCity} = this.props;
     if (!auth.isAuthenticated) {
-      alert('Зарегистрируйтесь чтобы создать игру')
+      alert('Зарегистрируйтесь чтобы создать игру');
       return;
     }
     const {data} = this.state;
+    setCity({name: data.city, id: data.city_id});
+    console.log(data);
     const errors = this.validate(data);
     this.setState({
       errors,
@@ -251,14 +254,17 @@ class GameForm extends React.Component {
 GameForm.propTypes = {
   gameService: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
+  setCity: PropTypes.func.isRequired,
 };
 
 export default connect(
     (state) => {
       return {
+        location: state.location,
         games: state.game,
         auth: state.auth,
       };
     },
-    null
+    {setCity}
 )(withGameService(GameForm));
