@@ -124,7 +124,7 @@ class GameForm extends React.Component {
             {'game-form' + (auth.isAuthenticated ? ' active': ' passive')}
           onSubmit={this.onSubmit}>
             <fieldset>
-              <legend>Добавить игру</legend>
+              <legend>Добавить игру.</legend>
               <div className="form-group" id="gameCitySection">
                 <label>Город</label>
                 <CityPicker
@@ -134,7 +134,7 @@ class GameForm extends React.Component {
                 {errors.city && <ErrorMessage message={errors.city} />}
               </div>
               <div className="form-group">
-                <label>Район</label>
+                <label>Район.</label>
                 <input
                   type="text"
                   className="form-control"
