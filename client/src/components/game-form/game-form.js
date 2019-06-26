@@ -134,7 +134,7 @@ class GameForm extends React.Component {
                 {errors.city && <ErrorMessage message={errors.city} />}
               </div>
               <div className="form-group">
-                <label>Район</label>
+                <label>Район.</label>
                 <input
                   type="text"
                   className="form-control"
