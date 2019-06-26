@@ -14,6 +14,6 @@
   "rules": {
     "no-extra-semi": "off",
     "semi": "off",
-    "quotes": [2, "single", "avoid-escape"]
+    "quotes": [1, "single", "avoid-escape"]
   }
 }

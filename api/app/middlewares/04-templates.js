@@ -6,7 +6,6 @@ const config = require('../config');
 const path = require('path');
 
 exports.init = (app) => app.use(async (ctx, next) => {
-
   /* default helpers */
   ctx.locals = {
     /* at the time of ctx middleware, user is unknown, so we make it a getter */
@@ -23,7 +22,7 @@ exports.init = (app) => app.use(async (ctx, next) => {
     // async function, not a property to prevent autogeneration
     // pug touches all local properties
     return ctx.csrf;
-  };
+  }
 
   ctx.render = function(templatePath, locals) {
     locals = locals || {};
@@ -43,5 +42,4 @@ exports.init = (app) => app.use(async (ctx, next) => {
   };
 
   await next();
-
-});
+})

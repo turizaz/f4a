@@ -26,8 +26,10 @@ exports.init = (app) =>
 
         const errors = {};
 
-        for (let field in e.errors) {
-          errors[field] = e.errors[field].message;
+        for (const field in e.errors) {
+          if (e.errors.hasOwnProperty(field)) {
+            errors[field] = e.errors[field].message
+          }
         }
 
         if (preferredType === 'json') {

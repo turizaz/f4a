@@ -1,8 +1,6 @@
-'use strict';
-
+/* eslint-disable no-invalid-this */
 const mongoose = require('mongoose');
 const crypto = require('crypto');
-const _ = require('lodash');
 const config = require('../config');
 
 const userSchema = new mongoose.Schema({

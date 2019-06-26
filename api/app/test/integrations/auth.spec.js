@@ -53,7 +53,7 @@ describe('routes : auth', () => {
   it('should update user', (done) => {
     chai
         .request(app)
-        .patch(`/users/1`)
+        .patch('/users/1')
         .send({name: 'new-name', email: 'new-email'})
         .set('Content-type', 'application/json')
         .end((err, res) => {

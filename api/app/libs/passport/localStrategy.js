@@ -6,7 +6,6 @@ const ExtractJwt = require('passport-jwt').ExtractJwt; // авторизация
 const users = require('../../db/queries/users');
 const bcrypt = require('bcryptjs');
 const jwtsecret = 'mysecretkey'; // ключ для подписи JWT
-const jwt = require('jsonwebtoken'); // аутентификация по JWT для hhtp
 
 // Стратегия берёт поля из req.body
 // Вызывает для них функцию
@@ -40,20 +39,26 @@ const jwtOptions = {
 };
 
 passport.use(
-  new JwtStrategy(jwtOptions, function(payload, done) {
-    User.findById(payload.id, (err, user) => {
-      if (err) {
-        return done(err);
-      }
-      if (user) {
-        done(null, user);
-      } else {
-        done(null, false);
-      }
-    });
-  })
+    new JwtStrategy(jwtOptions, function(payload, done) {
+      User.findById(payload.id, (err, user) => {
+        if (err) {
+          return done(err);
+        }
+        if (user) {
+          done(null, user);
+        } else {
+          done(null, false);
+        }
+      })
+    })
 );
 
+/**
+ * Compare passwords
+ * @param {string} userPassword
+ * @param {string} databasePassword
+ * @return {*}
+ */
 function comparePass(userPassword, databasePassword) {
   return bcrypt.compareSync(userPassword, databasePassword);
 }

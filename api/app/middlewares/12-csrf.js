@@ -1,4 +1,4 @@
-const CSRF = require('koa-csrf');
+// const CSRF = require('koa-csrf');
 
 // exports.init = (app) => app.use(new CSRF({
 //   invalidSessionSecretMessage: 'Invalid session secret',
