@@ -1,6 +1,4 @@
-'use strict';
-
-const Router = require('koa-router');
+import Router from 'koa-router'
 const cities = require('../controllers/cities');
 const router = new Router({
   prefix: '/cities',

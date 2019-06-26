@@ -1,6 +1,4 @@
-'use strict';
-
-const Router = require('koa-router');
+import Router from 'koa-router'
 const authRoutes = new Router({
   prefix: '/auth',
 });

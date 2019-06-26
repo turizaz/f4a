@@ -2,7 +2,7 @@
 // koa-views is a wrapper around many template systems!
 // most of time it's better to use the chosen template system directly
 const pug = require('pug');
-const config = require('config');
+const config = require('../config');
 const path = require('path');
 
 exports.init = (app) => app.use(async (ctx, next) => {

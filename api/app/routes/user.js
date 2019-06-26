@@ -1,7 +1,5 @@
-'use strict';
-
-const Router = require('koa-router');
-const usersController = require('../controllers/user');
+import Router from 'koa-router'
+const usersController = require('../controllers/user')
 
 const userRouter = new Router({
   prefix: '/users',
@@ -12,4 +10,4 @@ userRouter.get('/:userById', usersController.get).
     delete('/:userById', usersController.delete).
     get('/', usersController.list);
 
-module.exports = userRouter;
+module.exports = userRouter

@@ -1,4 +1,4 @@
-const config = require('config');
+import config from '../config'
 const mongoose = require('mongoose');
 mongoose.Promise = Promise;
 mongoose.connect(config.mongoose.uri,
@@ -9,3 +9,4 @@ exports.init = (app) => app.use(async (ctx, next) => {
   ctx.mongoose = mongoose;
   await next();
 });
+

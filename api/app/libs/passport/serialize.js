@@ -1,5 +1,5 @@
 const passport = require('koa-passport');
-const knex = require('../../libs/knex');
+const knex = require('../knex');
 
 // паспорт напрямую с базой не работает
 passport.serializeUser(function(user, done) {

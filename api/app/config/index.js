@@ -1,9 +1,9 @@
 const defer = require('config/defer').deferConfig;
 const path = require('path');
 
-module.exports = {
+export default {
   mongoose: {
-    uri: process.env.MONGO_URI || 'mongodb://localhost:27017/dev',
+    uri: process.env.MONGO_URI || 'mongodb://mongo:27017/dev',
     options: {
       server: {
         socketOptions: {
