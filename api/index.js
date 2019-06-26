@@ -1,44 +1,34 @@
-require('dotenv').config();
-if (process.env.TRACE) {
-  require('./libs/trace');
+import Koa from 'koa'
+import config from './app/config'
+import fs from 'fs'
+import path from 'path'
+import compose from 'koa-compose'
+
+const app = new Koa()
+
+if (process.env.NODE_ENV === 'development') {
+  console.info('development config has been used')
+  require('dotenv').config()
 }
-process.setMaxListeners(0);
+require('./app/sockets/init').init(app)
+import {generalSocket, gameChat} from './app/sockets/init'
+app.keys = config.secret
+const handlers = fs.readdirSync(path.join(__dirname, 'app/middlewares')).sort()
+handlers.forEach((handler) => require('./app/middlewares/' + handler).init(app))
 
-const config = require('config');
-const Koa = require('koa');
-const app = new Koa();
-const gameChat = require('./sockets/game-chat');
-const generalSocket = require('./sockets/general-socket');
-const compose = require('koa-compose');
-const path = require('path');
-const fs = require('fs');
+const routes = []
+fs.readdirSync(path.join(__dirname, 'app/routes')).forEach((path) => {
+  routes.push(require('./app/routes/'+path).routes())
+})
+app.use(compose(routes))
 
-
-app.use((ctx, next) => {
-  ctx.ioGame = gameChat;
-  ctx.ioGeneral = generalSocket;
-  return next();
-});
-app.keys = config.get('secret');
-
-const handlers = fs.readdirSync(path.join(__dirname, 'middlewares')).sort();
-handlers.forEach((handler) => require('./middlewares/' + handler).init(app));
-
-app.use(
-    compose([
-      require('./routes/user').routes(),
-      require('./routes/cities').routes(),
-      require('./routes/game').routes(),
-      require('./routes/auth').routes(),
-    ])
-);
-let server;
+let server
 if ('test' !== process.env.NODE_ENV) {
-  server = app.listen(config.get('port'));
+  server = app.listen(config.port)
 } else {
-  server = app.listen(config.get('port')+2);
+  server = app.listen(config.port+2)
 }
+generalSocket.attach(server, {pingTimeout: 60000})
+gameChat.attach(server, {pingTimeout: 60000})
 
-generalSocket.attach(server, {pingTimeout: 60000});
-gameChat.attach(server, {pingTimeout: 60000});
-module.exports = server;
+module.exports = server

@@ -2,8 +2,11 @@
 
 # dependencies
 /app/node_modules
+/api/node_modules
 /app/migrations
 /client/node_modules
+/api/dist
+
 /.pnp
 .pnp.js
 
