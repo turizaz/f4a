@@ -124,7 +124,7 @@ class GameForm extends React.Component {
             {'game-form' + (auth.isAuthenticated ? ' active': ' passive')}
           onSubmit={this.onSubmit}>
             <fieldset>
-              <legend>Добавить игру</legend>
+              <legend>Добавить игру.</legend>
               <div className="form-group" id="gameCitySection">
                 <label>Город</label>
                 <CityPicker
