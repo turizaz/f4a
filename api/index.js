@@ -22,13 +22,21 @@ fs.readdirSync(path.join(__dirname, 'app/routes')).forEach((path) => {
 })
 app.use(compose(routes))
 
-let server
-if ('test' !== process.env.NODE_ENV) {
-  server = app.listen(config.port)
-} else {
-  server = app.listen(config.port+2)
-}
+const server = runServer(process.env.NODE_ENV, app)
+
 generalSocket.attach(server, {pingTimeout: 60000})
 gameChat.attach(server, {pingTimeout: 60000})
-
 module.exports = server
+
+/**
+ * @param {string} env
+ * @param {object} app
+ * @return {*}
+ */
+function runServer(env, app) {
+  if ('test' !== env) {
+    return app.listen(config.port)
+  } else {
+    return app.listen(config.port+2)
+  }
+}

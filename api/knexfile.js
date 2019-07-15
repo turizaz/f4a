@@ -1,4 +1,3 @@
-// Update with your config settings.
 require('dotenv').config();
 
 const {
@@ -10,7 +9,6 @@ const {
 } = process.env;
 
 module.exports = {
-
   development: {
     client: 'pg',
     version: '11.1',
@@ -23,10 +21,10 @@ module.exports = {
     },
     migrations: {
       tableName: 'knex-migrations',
-      directory: __dirname + '/db/migrations',
+      directory: '/app/app/db/migrations',
     },
     seeds: {
-      directory: __dirname + '/db/seed',
+      directory: '/app/app/db/seed',
     },
   },
 
