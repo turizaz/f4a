@@ -3,7 +3,8 @@ const path = require('path');
 
 export default {
   mongoose: {
-    uri: process.env.MONGO_URI || 'mongodb://mongo:27017/dev',
+    // uri: process.env.MONGO_URI || 'mongodb://mongo:27017/dev',
+    uri: 'mongodb://rossinant:Stalker03@ds141674.mlab.com:41674/f4e',
     options: {
       server: {
         socketOptions: {
