@@ -30,6 +30,7 @@ module.exports = server
 process.on('unhandledRejection', (error) => {
   console.log('unhandledRejection', error+Date().toString());
 })
+
 /**
  * @param {string} env
  * @param {object} app
