@@ -27,7 +27,9 @@ const server = runServer(process.env.NODE_ENV, app)
 generalSocket.attach(server, {pingTimeout: 60000})
 gameChat.attach(server, {pingTimeout: 60000})
 module.exports = server
-
+process.on('unhandledRejection', (error) => {
+  console.log('unhandledRejection', error+Date().toString());
+})
 /**
  * @param {string} env
  * @param {object} app
