@@ -18,7 +18,6 @@ class GameService {
    */
   async add(game) {
     game.date = game.date.format().split('+')[0]+'+0000'
-    //game.date = game.date.getTime() + (game.date.getTimezoneOffset() * 60000);
     return await axios.post(`/game`, game);
   }
   /**
