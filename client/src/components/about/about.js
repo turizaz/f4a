@@ -10,10 +10,8 @@ class About extends Component {
   render() {
     return (
       <div>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-        Ab ex illum, laboriosam quaerat sapiente totam?
-        Architecto deleniti distinctio explicabo fugiat numquam,
-        obcaecati omnis quis quod ratione rem repudiandae sint vero.
+        Цель этого приложения помочь людям
+        находить себе партнеров по игре в футбол
       </div>
     );
   }
