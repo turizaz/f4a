@@ -97,7 +97,6 @@ class GameForm extends React.Component {
     }
     const {data} = this.state;
     setCity({name: data.city, id: data.city_id});
-    console.log(data);
     const errors = this.validate(data);
     this.setState({
       errors,

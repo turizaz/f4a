@@ -18,8 +18,8 @@ class SetCityItem extends React.Component {
           doChoice({name: name, country: country, id: id});
         }}>
         { this.composeAddress(this.props.name) }
-        { this.composeAddress(this.props.region, ', ') }
-        { this.composeAddress(this.props.country, ', ') }
+        <small>{ this.composeAddress(this.props.region, ', ') }</small>
+        <small>{ this.composeAddress(this.props.country, ', ') }</small>
       </div>
     );
   }
