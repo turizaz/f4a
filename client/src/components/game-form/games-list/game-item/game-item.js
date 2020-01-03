@@ -21,18 +21,44 @@ class GameItem extends Component {
     = this.props.item;
     console.log(this.props.item);
     return (
-      <tr
+      <div
         onClick={this.click}
         className="game-item"
         title={additional}
       >
-        <td>{district}</td>
-        <td>{address}</td>
-        <td>{new Date(date).toISOString().slice(0, 16).replace('T', ' ')}</td>
-        <td>{activePlayers || 0 } из {players}</td>
-        <td>{additional && additional.length > 40 ? additional.slice(0, 40)
-            + '...' : additional}</td>
-      </tr>
+        <div>
+          <div className={'label'}>
+            Район
+          </div>
+          <div>
+            {district}
+          </div>
+        </div>
+        <div className={'address'}>
+          <div className={'label'}>
+            Адресс
+          </div>
+          <div>
+            {address}
+          </div>
+        </div>
+        <div>
+          <div className={'label'}>
+            Время
+          </div>
+          <div>
+            {new Date(date).toISOString().slice(0, 16).replace('T', ' ')}
+          </div>
+        </div>
+        <div>
+          <div className={'label'}>
+            Игроков
+          </div>
+          <div>
+            {activePlayers || 0 } из {players}
+          </div>
+        </div>
+      </div>
     );
   }
 }

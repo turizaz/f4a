@@ -28,18 +28,14 @@ generalSocket.attach(server, {pingTimeout: 60000})
 gameChat.attach(server, {pingTimeout: 60000})
 module.exports = server
 process.on('unhandledRejection', (error) => {
-  console.log('unhandledRejection', error+Date().toString());
+  console.log('unhandledRejection', error+Date().toString())
 })
 
 /**
  * @param {string} env
  * @param {object} app
- * @return {*}
+ * @return {Server}
  */
 function runServer(env, app) {
-  if ('test' !== env) {
-    return app.listen(config.port)
-  } else {
-    return app.listen(config.port+2)
-  }
+  return 'test' !== env ? app.listen(config.port) : app.listen(config.port+2)
 }

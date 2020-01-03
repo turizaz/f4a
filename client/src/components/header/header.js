@@ -16,6 +16,10 @@ class Header extends React.Component {
       mainMenu.style.visibility === 'hidden' || !mainMenu.style.visibility
         ? 'visible' : 'hidden';
   };
+  closeMenu = () => {
+    const mainMenu = document.getElementById('main-menu-ul');
+    mainMenu.style.visibility = 'hidden';
+  };
   /**
    * Render app general header
    * @return {string} - HTML markup for the component
@@ -27,7 +31,7 @@ class Header extends React.Component {
           <div className="switcher" onClick={this.toggleMenu}>
             <i className="fas fa-bars"/>
           </div>
-          <ul id="main-menu-ul">
+          <ul id="main-menu-ul" onClick={this.closeMenu}>
             <li>
               <Link to="/">Главная</Link>
             </li>

@@ -12,6 +12,7 @@ import {connect} from 'react-redux';
 import DateTimeComponent from 'components/common/date-time';
 import SetCityWidget from 'components/common/set-city-widget';
 import {setCity} from 'ac/location';
+import {setUser} from 'ac/auth';
 
 const initialState = {
   data: {
@@ -39,6 +40,17 @@ class GameForm extends React.Component {
     super(props);
     this.state = initialState;
   }
+
+  /**
+   * Did mount hook
+   */
+  componentDidMount() {
+    const hash = window.location.hash.substr(1);
+    if (hash) {
+      const {setUser} = this.props;
+      setUser(hash);
+    }
+  }n;
   /**
    * Set city
    * @param {{name: string, id: number, country: string}} city
@@ -255,6 +267,8 @@ GameForm.propTypes = {
   auth: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
   setCity: PropTypes.func.isRequired,
+  setUser: PropTypes.func.isRequired,
+  match: PropTypes.object.isRequired,
 };
 
 export default connect(
@@ -265,5 +279,5 @@ export default connect(
         auth: state.auth,
       };
     },
-    {setCity}
+    {setCity, setUser}
 )(withGameService(GameForm));

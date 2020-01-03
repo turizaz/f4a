@@ -63,7 +63,7 @@ class Registration extends Component {
       const {registration} = this.props;
       registration(registrationData).then(
           () => {
-            this.props.history.push('/');
+            this.props.history.push('/complete-registration');
           },
           (err) => {
             switch (err.status) {
@@ -87,8 +87,9 @@ class Registration extends Component {
     return (
       <form className="col-6 login-form" onSubmit={this.onSubmit}>
         {
-          this.state.backendErrors.map(
-              (it) => <ErrorMessage key={it} message={it}/>)}
+          this.state.backendErrors ? this.state.backendErrors.map(
+              (it) => <ErrorMessage key={it} message={it}/>) : null
+        }
         <div className="form-group">
           <label>Ник</label>
           <input

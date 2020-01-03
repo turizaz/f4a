@@ -2,6 +2,7 @@ require('dotenv').config();
 const users = require('../db/queries/users');
 
 const {JWT_SECRET} = process.env;
+import {sendConfirmationEmail, confirmEmail} from '../services/auth'
 /**
  * @type {{authenticate}}
  */
@@ -22,6 +23,7 @@ module.exports = {
     const payload = createJwtPayload(user.id, user.email, user.name);
     const token = jwt.sign(payload, jwtSecret);
     ctx.status = 201;
+    await sendConfirmationEmail(user.email, ctx.mailer)
     ctx.body = {email: user.email, name: user.name, token};
   },
   async login(ctx, next) {
@@ -42,6 +44,14 @@ module.exports = {
         ctx.body = {token};
       }
     })(ctx, next);
+  },
+  async confirmEmail(ctx) {
+    const {hash} = ctx.params;
+    const user = confirmEmail(hash)
+    console.log('UUUUUUUUU', user)
+    const payload = createJwtPayload(user.id, user.email, user.name);
+    const token = jwt.sign(payload, jwtSecret);
+    ctx.redirect('/#'+token);
   },
   async logout(ctx, next) {
     ctx.session = null;

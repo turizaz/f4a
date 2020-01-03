@@ -27,7 +27,7 @@ class GamesList extends Component {
   render() {
     const {games} = this.props;
     return (
-      games.entities.size > 0 && <table className="games-list table-striped">
+      games.entities.size > 199 ? <table className="games-list table-striped">
         <thead>
           <tr className="list-header">
             <th scope="col">
@@ -55,7 +55,26 @@ class GamesList extends Component {
               }
           )}
         </tbody>
-      </table>
+      </table> : <div>
+        <div className="head-game-list">
+          <div>
+            <InputBarrette onChange={this.filterDistrict}/>
+          </div>
+        </div>
+        {games.entities.valueSeq().map(
+            (it) => {
+              if (
+                this.state.district !== null
+                &&
+                it.district.toLowerCase().indexOf(
+                    this.state.district.toLowerCase()) === -1
+              ) {
+                return null;
+              }
+              return <GameItem key={it.id} item={it} {...it}/>;
+            },
+        )}
+      </div>
     );
   }
 }

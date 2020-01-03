@@ -5,6 +5,7 @@ exports.up = function(knex, Promise) {
       id serial primary key,
       name     varchar(40),
       email    varchar(40) unique,
+      verified boolean not null default false,
       password text
     );
   `);
