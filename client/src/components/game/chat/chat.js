@@ -67,9 +67,10 @@ class Chat extends Component {
    * Submit chat message
    */
   async submit() {
+    document.getElementById('message').value = '';
     const {gameService, gameId} = this.props;
     const {message} = _.pick(this.state, ['message']);
-    if (message.length === 1) {
+    if (!message) {
       alert('Нет смысла отправлять пустое сообщение');
       return;
     }
@@ -97,6 +98,10 @@ class Chat extends Component {
             rows="3"
             onKeyUp={this.sendMessage}
           />
+          <br/>
+          <button
+            className="btn submit-btn mb-2"
+            onClick={this.submit.bind(this)}>Послать сообщение</button>
         </div>
         <form>
           <ul>

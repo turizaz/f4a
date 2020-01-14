@@ -38,9 +38,12 @@ class GameForm extends React.Component {
    */
   constructor(props) {
     super(props);
+    GameForm.setMeta();
     this.state = initialState;
   }
-
+  static setMeta() {
+    document.title = 'Football for everyone';
+  }
   /**
    * Did mount hook
    */
@@ -50,7 +53,7 @@ class GameForm extends React.Component {
       const {setUser} = this.props;
       setUser(hash);
     }
-  }n;
+  };
   /**
    * Set city
    * @param {{name: string, id: number, country: string}} city

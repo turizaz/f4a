@@ -1,24 +1,30 @@
 const crypto = require('crypto');
-
-const key = process.env.KEY;
-const iv = process.env.IV;
+const algorithm = 'aes-256-ctr';
+const password = 'qwewqe';
 
 /**
- * @param {string} t
+ * @param {string} text
  * @return {string}
  */
-export function encrypt(t) {
-  const cipher = crypto.createCipheriv('aes-256-cbc', key, iv);
-  cipher.update(t, 'utf-8', 'hex');
-  return cipher.final('hex');
+function encrypt(text) {
+  const cipher = crypto.createCipher(algorithm, password)
+  let crypted = cipher.update(text, 'utf8', 'hex')
+  crypted += cipher.final('hex');
+  return crypted;
 }
 
 /**
- * @param {string} t
+ * @param {string} text
  * @return {string}
  */
-export function decrypt(t) {
-  const decipher = crypto.createDecipheriv('aes-256-cbc', key, iv);
-  decipher.update(t, 'hex', 'utf-8');
-  return decipher.final('utf-8');
+function decrypt(text) {
+  const decipher = crypto.createDecipher(algorithm, password)
+  let dec = decipher.update(text, 'hex', 'utf8')
+  dec += decipher.final('utf8');
+  return dec;
+}
+
+export {
+  encrypt,
+  decrypt,
 }

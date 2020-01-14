@@ -47,11 +47,13 @@ module.exports = {
   },
   async confirmEmail(ctx) {
     const {hash} = ctx.params;
-    const user = confirmEmail(hash)
-    console.log('UUUUUUUUU', user)
-    const payload = createJwtPayload(user.id, user.email, user.name);
-    const token = jwt.sign(payload, jwtSecret);
-    ctx.redirect('/#'+token);
+    const user = await confirmEmail(hash)
+    if (user.length) {
+      const payload = createJwtPayload(user[0].id, user[0].email, user[0].name);
+      const token = jwt.sign(payload, jwtSecret);
+      return ctx.redirect('/#'+token);
+    }
+    return ctx.redirect('/');
   },
   async logout(ctx, next) {
     ctx.session = null;

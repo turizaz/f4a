@@ -26,7 +26,7 @@ class GameItem extends Component {
         className="game-item"
         title={additional}
       >
-        <div>
+        <div className={'district'}>
           <div className={'label'}>
             Район
           </div>

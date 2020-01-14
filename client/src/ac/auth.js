@@ -75,6 +75,7 @@ export function logout() {
 export function setUser(token) {
   return (dispatch) => {
     const info = decodeToken(token);
+    console.log('decode token', decodeToken(token));
     dispatch(setCurrentUser(info));
   };
 }

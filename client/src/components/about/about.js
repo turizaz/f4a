@@ -4,6 +4,11 @@ import React, {Component} from 'react';
  * About page
  */
 class About extends Component {
+
+  componentDidMount() {
+    About.setMeta();
+  }
+
   /**
    * @return {string} html
    */
@@ -14,6 +19,10 @@ class About extends Component {
         находить себе партнеров по игре в футбол
       </div>
     );
+  }
+
+  static setMeta() {
+    document.title = 'About';
   }
 }
 

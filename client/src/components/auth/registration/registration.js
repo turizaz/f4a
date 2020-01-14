@@ -53,7 +53,7 @@ class Registration extends Component {
    * Submit form
    * @param {object} e
    */
-  onSubmit = (e) => {
+  onSubmit = async (e) => {
     const {data} = this.state;
     e.preventDefault();
     const errors = this.validate(data);
@@ -61,22 +61,19 @@ class Registration extends Component {
     if (_.isEmpty(errors)) {
       const registrationData = _.pick(data, ['name', 'password', 'email']);
       const {registration} = this.props;
-      registration(registrationData).then(
-          () => {
-            this.props.history.push('/complete-registration');
-          },
-          (err) => {
-            switch (err.status) {
-              case 409:
-                this.setState(
-                    {backendErrors: ['Такой пользователь уже существует']}
-                );
-                break;
-              default:
-                this.setState({backendErrors: err.data.errors});
-            }
-          }
-      );
+      try {
+        await registration(registrationData);
+        this.props.history.push(`/complete-registration`);
+      } catch (err) {
+        switch (err.status) {
+          case 409:
+            this.setState({backendErrors: ['Такой пользователь уже существует']}
+            );
+            break;
+          default:
+            this.setState({backendErrors: err.data.errors});
+        }
+      }
     }
   };
   /**

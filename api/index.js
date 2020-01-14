@@ -3,18 +3,21 @@ import config from './app/config'
 import fs from 'fs'
 import path from 'path'
 import compose from 'koa-compose'
-
 const app = new Koa()
 
 if (process.env.NODE_ENV === 'development') {
-  console.info('development config has been used')
+  console.info('development config used')
   require('dotenv').config()
 }
-require('./app/sockets/init').init(app)
-import {generalSocket, gameChat} from './app/sockets/init'
+
+import {generalSocket, gameSocket, sockets} from './app/sockets/init'
+sockets(app)
+
 app.keys = config.secret
+
 const handlers = fs.readdirSync(path.join(__dirname, 'app/middlewares')).sort()
 handlers.forEach((handler) => require('./app/middlewares/' + handler).init(app))
+
 
 const routes = []
 fs.readdirSync(path.join(__dirname, 'app/routes')).forEach((path) => {
@@ -25,17 +28,13 @@ app.use(compose(routes))
 const server = runServer(process.env.NODE_ENV, app)
 
 generalSocket.attach(server, {pingTimeout: 60000})
-gameChat.attach(server, {pingTimeout: 60000})
+gameSocket.attach(server, {pingTimeout: 60000})
 module.exports = server
+
 process.on('unhandledRejection', (error) => {
-  console.log('unhandledRejection', error+Date().toString())
+  console.error('unhandledRejection', error+Date().toString())
 })
 
-/**
- * @param {string} env
- * @param {object} app
- * @return {Server}
- */
 function runServer(env, app) {
   return 'test' !== env ? app.listen(config.port) : app.listen(config.port+2)
 }
