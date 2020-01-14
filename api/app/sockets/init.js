@@ -1,13 +1,14 @@
-const gameChat = require('./game-chat')
+const gameSocket = require('./game-socket')
 const generalSocket = require('./general-socket')
 
-exports.init = (app) => app.use((ctx, next) => {
-  ctx.ioGame = gameChat
+const sockets = (app) => app.use((ctx, next) => {
+  ctx.ioGame = gameSocket
   ctx.ioGeneral = generalSocket
   return next()
 })
 
 export {
   generalSocket,
-  gameChat,
+  gameSocket,
+  sockets,
 }

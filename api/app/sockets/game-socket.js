@@ -4,7 +4,7 @@ const gameSocket = require('socket.io')({
 gameSocket.on('connection', (socket) => {
   console.log('connected to game socket'+ process.pid);
   socket.on('join', (room) => {
-    console.log('joined', room);
+    console.info('game socket | joined', room);
     socket.join(room);
   });
 });

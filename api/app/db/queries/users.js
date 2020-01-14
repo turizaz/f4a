@@ -14,6 +14,16 @@ function getSingleUser(id) {
  * @param {string} email
  * @return {Knex.QueryBuilder}
  */
+function confirmEmail(email) {
+  return knex('users')
+      .where({email})
+      .update('verified', true)
+      .returning(['id', 'name', 'email']);
+}
+/**
+ * @param {string} email
+ * @return {Knex.QueryBuilder}
+ */
 function getSingleUserByEmail(email) {
   return knex('users')
       .select('*')
@@ -63,4 +73,5 @@ module.exports = {
   getSingleUser,
   getSingleUserByEmail,
   addUser,
+  confirmEmail,
 };

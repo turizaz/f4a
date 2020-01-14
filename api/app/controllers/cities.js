@@ -8,7 +8,6 @@ module.exports = {
   getByName: async function(ctx) {
     const {name} = ctx.params;
     const uppercaseCity = _.upperFirst(name);
-    console.log('city - ', uppercaseCity)
     const cities =
       await ctx.pg.query(
           `

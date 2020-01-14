@@ -11,6 +11,7 @@ import Registration from './components/auth/registration';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
+import CompleteRegistration from './components/auth/complete-registration';
 
 /**
  * Root of application
@@ -25,11 +26,13 @@ class App extends Component {
       <div className={this.props.location.id && 'city-picked'}>
         <Header/>
         <div className="container main-content">
-          <Route path="/" exact component={GameForm} />
           <Route path="/about" exact component={About}/>
           <Route path="/login" exact component={Login}/>
           <Route path="/game/:id" exact component={Game}/>
           <Route path="/registration" exact component={Registration}/>
+          <Route path="/complete-registration" exact
+            component={CompleteRegistration}/>
+          <Route path="/" exact component={GameForm} />
         </div>
       </div>
     );

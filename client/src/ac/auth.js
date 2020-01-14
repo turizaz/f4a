@@ -24,7 +24,7 @@ export function login(credentials) {
     return new Promise((resolve, reject) => {
       axios.post(`/auth/login-jwt`, credentials).then((res) => {
         const {token} = res.data;
-        const info = loginViaToken(token);
+        const info = decodeToken(token);
         dispatch(setCurrentUser(info));
         resolve(info);
       }).catch((err)=> {
@@ -43,9 +43,9 @@ export function registration(user) {
       axios
           .post(`/auth/registration`, user)
           .then((res) => {
-            const {token} = res.data;
-            const info = loginViaToken(token);
-            dispatch(setCurrentUser(info));
+            // const {token} = res.data;
+            // const info = loginViaToken(token);
+            // dispatch(setCurrentUser(info));
             resolve(res);
           })
           .catch((err) => {
@@ -68,11 +68,23 @@ export function logout() {
 }
 
 /**
+ * Set user from token
+ * @param {string} token
+ * @return {Function}
+ */
+export function setUser(token) {
+  return (dispatch) => {
+    const info = decodeToken(token);
+    console.log('decode token', decodeToken(token));
+    dispatch(setCurrentUser(info));
+  };
+}
+/**
  * Set token to local storage, return user info data
  * @param {string} token
  * @return {Promise<void> | string}
  */
-function loginViaToken(token) {
+function decodeToken(token) {
   localStorage.setItem('jwt', token);
   setAuthorizationToken(token);
   return jwt.decode(token);

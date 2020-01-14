@@ -7,6 +7,7 @@ import _ from 'lodash';
 import {connect} from 'react-redux';
 import {login} from 'ac/auth';
 import PropTypes from 'prop-types';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 /**
  * Login component
@@ -43,6 +44,7 @@ class Login extends React.Component {
     const errors = this.validate(data);
     this.setState({errors});
     if (_.isEmpty(errors)) {
+      this.setState({loading: true})
       login(data).then(
           () => {
             this.props.history.push('/');
@@ -62,7 +64,9 @@ class Login extends React.Component {
                 });
             }
           }
-      );
+      ).then(()=> {
+        this.setState({loading: false});
+      });
     }
   };
   /**
@@ -83,51 +87,57 @@ class Login extends React.Component {
    */
   render() {
     const {data} = this.state;
+    console.log(this.state)
     return (
-      <form className="col-6 login-form" onSubmit={this.onSubmit}>
-        {
-          this.state.backendErrors.map(
-              (it) => <ErrorMessage key={it} message={it}/>)}
-        <div className="form-group">
-          <label htmlFor="exampleInputEmail1">E-mail адрес</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="example@gmail.com"
-            value={data.email}
-            onChange={this.onChange}
-            className="form-control"
-          />
-          {this.state.errors.email && (
-            <ErrorMessage message={this.state.errors.email} />
-          )}
-          <small className="form-text text-muted">
-            Мы никогда не передадим вашу электронную почту кому-либо еще.
-          </small>
-        </div>
-
-        <div className="form-group">
-          <label>Пароль</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={data.password}
-            onChange={this.onChange}
-            className="form-control"
-            placeholder="Дер пароль"
-          />
-          {this.state.errors.password && (
-            <ErrorMessage message={this.state.errors.password} />
-          )}
-        </div>
-        <div className="form-group">
-          <button type="submit" className="btn submit-btn mb-2">
-            Войти
-          </button>
-        </div>
-      </form>
+      <div>
+        {this.state.loading &&
+              <CircularProgress
+                className={'login-spinner'}
+                size={200} thickness={1}/>}
+        <form className="col-6 login-form" onSubmit={this.onSubmit}>
+          {
+            this.state.backendErrors.map((it) =>
+              <ErrorMessage key={it} message={it}/>)}
+          <div className="form-group">
+            <label htmlFor="exampleInputEmail1">E-mail адрес</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="example@gmail.com"
+              value={data.email}
+              onChange={this.onChange}
+              className="form-control"
+            />
+            {this.state.errors.email && (
+              <ErrorMessage message={this.state.errors.email} />
+            )}
+            <small className="form-text text-muted">
+              Мы никогда не передадим вашу электронную почту кому-либо еще.
+            </small>
+          </div>
+          <div className="form-group">
+            <label>Пароль</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={data.password}
+              onChange={this.onChange}
+              className="form-control"
+              placeholder="Дер пароль"
+            />
+            {this.state.errors.password && (
+              <ErrorMessage message={this.state.errors.password} />
+            )}
+          </div>
+          <div className="form-group">
+            <button type="submit" className="btn submit-btn mb-2">
+              Войти
+            </button>
+          </div>
+        </form>
+      </div>
     );
   }
 }

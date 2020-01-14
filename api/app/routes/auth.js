@@ -5,6 +5,7 @@ const authRoutes = new Router({
 const authController = require('../controllers/auth');
 
 authRoutes
+    .get('/confirm-email/:hash', authController.confirmEmail)
     .post('/registration', authController.registration)
     .post('/login', authController.login)
     .post('/login-jwt', authController.loginJwt)

@@ -1,3 +1,5 @@
+@import "~app.scss";
+
 .list-header {
   th {
     &:first-child {
@@ -16,11 +18,38 @@
 }
 .games-list {
   width: 100%;
-  td {
-    height: 60px;
-    color: #212529;
-    font-size: 14px;
-    padding: 0 20px;
-    cursor: pointer;
+}
+.head-game-list {
+  .address, .time, .players {
+    display: none;
+  }
+}
+@media only screen and (min-width: $mobile-limit+px) {
+  .head-game-list {
+    display: flex;
+    .address {
+      display: flex;
+      width: calc(30%);
+      padding-left: 10px;
+    }
+    .district {
+      display: flex;
+      width: calc(30%);
+    }
+    .time {
+      display: flex;
+      width: 20%;
+      padding-left: 10px;
+    }
+    .players {
+      display: flex;
+      width: 20%;
+      padding-left: 10px;
+    }
+    .table-label {
+      align-items: center;
+      font-size: 18px;
+      font-weight: bold;
+    }
   }
 }

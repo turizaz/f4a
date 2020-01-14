@@ -55,6 +55,10 @@ module.exports = {
    * @return {Promise<void>}
    */
   async join(ctx) {
+    if (!ctx.user) {
+      ctx.status = 403;
+      return;
+    }
     const {id} = ctx.user;
     const {gameId, playerNumber} = ctx.request.body;
     const playersInGame = await games.join(id, gameId, playerNumber);

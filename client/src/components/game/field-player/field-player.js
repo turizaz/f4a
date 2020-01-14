@@ -12,7 +12,6 @@ class FieldPlayer extends Component {
   applyGame = () => {
     const {gameService, game, index} = this.props;
     gameService.joinGame(game.id, index);
-    console.log('apply game');
   };
   /**
    * @return {JSX} html

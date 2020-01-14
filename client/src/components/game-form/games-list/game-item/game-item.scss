@@ -1,10 +1,60 @@
+@import "~app.scss";
+
 .game-item:hover {
-  padding: 5px 10px;
-  box-shadow: 0 14px 28px rgba(0,0,0,0.05), 0 10px 10px rgba(0,0,0,0.05);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.05), 0 10px 10px rgba(0,0,0,0.05);
 }
 .game-item{
+  cursor: pointer;
+  display: flex;
+  &:nth-child(even) {background-color: #fff}
+  &:nth-child(odd) {background-color: lighten($grey, 10);}
+  &:hover{
+    background-color: lighten($grey, 7);
+  }
   -webkit-transition: ease-out .5s;
   -moz-transition: ease-out .5s;
   -o-transition: ease-out .5s;
   transition: ease-out .5s;
+  border: solid 1px $grey;
+  margin-top: -1px;
+  &:first-child {
+    margin-top: 0;
+  }
+  .label {
+    display: none;
+  }
+  > div {
+    padding: 10px;
+  }
+}
+@media only screen and (min-width: $mobile-limit+px) {
+  .game-item {
+    > div {
+      &:first-child {
+        width: 30%;
+      }
+      &.address {
+        width:30%;
+      }
+      width: 20%;
+    }
+  }
+}
+@media only screen and (max-width: $mobile-limit+1+px) {
+  .game-item {
+    background-color: lighten($grey, 10);
+    &:hover{
+      background-color:  lighten($grey, 7);
+    }
+    .label{
+      font-size: 10px;
+      color: $black;
+      display: grid;
+    }
+    display: grid;
+    grid-template-columns: auto auto auto;
+    div {
+      color: $green;
+    }
+  }
 }
