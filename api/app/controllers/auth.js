@@ -35,9 +35,13 @@ module.exports = {
   },
   async loginJwt(ctx, next) {
     await passport.authenticate('local', function(err, user) {
+      console.log(user);
       if (user === false) {
         ctx.status = 401;
         ctx.body = 'Login failed';
+      } else if (!user.verified) {
+        ctx.status = 401;
+        ctx.body = 'Not verified';
       } else {
         const payload = createJwtPayload(user.id, user.email, user.name);
         const token = jwt.sign(payload, jwtSecret);

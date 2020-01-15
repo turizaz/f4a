@@ -23,6 +23,7 @@ class Game extends Component {
    * Init
    */
   componentDidMount() {
+    document.title = 'Football for everyone';
     const {
       match: {params},
       loadGame,
@@ -46,7 +47,7 @@ class Game extends Component {
             <div>
               <p>
                 Что бы присоединится
-                {auth.isAuthenticated || ', залогинтесь и'} нажми на футболку
+                {auth.isAuthenticated || ', залогинтесь и'} нажмите на футболку
               </p>
             </div>
             <div className="football-field-wrapper">
@@ -67,9 +68,7 @@ class Game extends Component {
                 <div>
                   игроков - {game.players}
                 </div>
-                <div>
-                  доп инфо - {game.additional}
-                </div>
+                {game.additional ? <div>доп инфо - {game.additional}</div>: ''}
               </div>
               <div className="col-md-6 padding-0">
                 <TeemsVsFlags/>

@@ -15,7 +15,9 @@ const client = new Client({
   password: POSTGRES_PASSWORD,
   port: POSTGRES_PORT,
 });
-client.connect().catch((err) => {
+client.connect().then((data) => {
+  console.log(`connected db, ${POSTGRES_HOST}`)
+}).catch((err) => {
   console.log('Connection error ', err);
 });
 
