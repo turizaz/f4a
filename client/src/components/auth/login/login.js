@@ -52,9 +52,15 @@ class Login extends React.Component {
           (err) => {
             switch (err.status) {
               case 401:
-                this.setState({
-                  backendErrors: ['Неверный логин или пароль'],
-                });
+                if (err.data === 'Not verified') {
+                  this.setState({
+                    backendErrors: ['Подтвердите ваш почтовый адресс'],
+                  });
+                } else {
+                  this.setState({
+                    backendErrors: ['Неверный логин или пароль1'],
+                  });
+                }
                 break;
               default:
                 this.setState({
@@ -87,7 +93,6 @@ class Login extends React.Component {
    */
   render() {
     const {data} = this.state;
-    console.log(this.state)
     return (
       <div>
         {this.state.loading &&

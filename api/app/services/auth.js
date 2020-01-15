@@ -5,13 +5,9 @@ import {confirmEmail as confirmEmailQuery} from '../db/queries/users';
  * @param {object} mailer
  */
 export function sendConfirmationEmail(email, mailer) {
-  const encryptedEmail = encrypt(email);
-  console.log('ENCYPT EMAIL', encryptedEmail)
-  console.log("EMAILLLLLLLLL", decrypt(encryptedEmail))
-
   mailer.sendMail({
     from: '"Football for everyone 👻" <f4econtacts@gmail.com>',
-    to: 'yaroslavudodov@gmail.com',
+    to: email,
     subject: 'Confirm email account ✔',
     text: 'Confirm your email account?',
     html: `
