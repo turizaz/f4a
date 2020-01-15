@@ -18,7 +18,7 @@ services:
       - "27017:27017"
   api:
     build:
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
       context: ./api
     volumes:
       - /app/node_modules
