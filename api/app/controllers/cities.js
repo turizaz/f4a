@@ -29,8 +29,6 @@ module.exports = {
             ORDER BY priority DESC, c.country_id ASC;
         `,
           [uppercaseCity + '%', uppercaseCity]);
-
-    console.info(cities)
     ctx.body = cities.rows;
   },
 };
