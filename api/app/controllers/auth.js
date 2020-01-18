@@ -23,7 +23,8 @@ module.exports = {
     const payload = createJwtPayload(user.id, user.email, user.name);
     const token = jwt.sign(payload, jwtSecret);
     ctx.status = 201;
-    await sendConfirmationEmail(user.email, ctx.mailer)
+    console.log(`send email to - ${email}`);
+    await sendConfirmationEmail(email, ctx.mailer)
     ctx.body = {email: user.email, name: user.name, token};
   },
   async login(ctx, next) {
