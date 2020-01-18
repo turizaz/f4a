@@ -27,6 +27,10 @@ app.use(compose(routes))
 
 const server = runServer(process.env.NODE_ENV, app)
 
+server.on('error', (err)=> {
+  console.log('server crushed')
+})
+
 generalSocket.attach(server, {pingTimeout: 60000})
 gameSocket.attach(server, {pingTimeout: 60000})
 module.exports = server
