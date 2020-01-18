@@ -5,6 +5,7 @@ import {confirmEmail as confirmEmailQuery} from '../db/queries/users';
  * @param {object} mailer
  */
 export function sendConfirmationEmail(email, mailer) {
+  console.log('sending email to '+ email);
   mailer.sendMail({
     from: '"Football for everyone 👻" <f4econtacts@gmail.com>',
     to: email,
@@ -19,9 +20,11 @@ export function sendConfirmationEmail(email, mailer) {
     </a>`,
   }, (err, data) => {
     if (err) {
+      console.log('email error!')
       console.error(err);
     }
     if (data) {
+      console.log('email sent', data)
       console.info(data);
     }
   });
