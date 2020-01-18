@@ -19,9 +19,11 @@ export function sendConfirmationEmail(email, mailer) {
     </a>`,
   }, (err, data) => {
     if (err) {
+      console.log('email error!')
       console.error(err);
     }
     if (data) {
+      console.log('email sent', data)
       console.info(data);
     }
   });
