@@ -27,6 +27,6 @@ const knex = require('knex')({
 });
 if ('test' !== process.env.NODE_ENV) {
   knex.migrate.latest();
-  knex.seed.run().then((res) => res);
+  // knex.seed.run().then((res) => res);
 }
 module.exports = knex;
