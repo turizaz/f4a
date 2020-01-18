@@ -1,3 +1,4 @@
+console.log("START")
 import Koa from 'koa'
 import config from './app/config'
 import fs from 'fs'
