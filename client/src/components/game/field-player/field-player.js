@@ -11,7 +11,11 @@ import {connect} from 'react-redux';
 class FieldPlayer extends Component {
   applyGame = () => {
     const {gameService, game, index} = this.props;
-    gameService.joinGame(game.id, index);
+    gameService.joinGame(game.id, index).catch((e) => {
+      if (e.response.status === 403) {
+        alert('Залогинтесь сначала');
+      }
+    });
   };
   /**
    * @return {JSX} html

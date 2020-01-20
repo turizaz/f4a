@@ -75,6 +75,10 @@ module.exports = {
    */
   async addChatMessage(ctx) {
     const {message, gameId} = ctx.request.body;
+    if (!ctx.user) {
+      ctx.status = 403;
+      return;
+    }
     const {name} = ctx.user;
     // store to mongo
     const res = await GameChatMessagesModel.add({

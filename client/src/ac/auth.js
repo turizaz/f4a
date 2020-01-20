@@ -43,9 +43,6 @@ export function registration(user) {
       axios
           .post(`/auth/registration`, user)
           .then((res) => {
-            // const {token} = res.data;
-            // const info = loginViaToken(token);
-            // dispatch(setCurrentUser(info));
             resolve(res);
           })
           .catch((err) => {

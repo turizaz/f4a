@@ -77,6 +77,10 @@ class Chat extends Component {
     await gameService.addChatMessage({
       ..._.pick(this.state, ['message']),
       gameId,
+    }).catch((e) => {
+      if (e.response.status === 403) {
+        alert('Залогинтесь пожалуйста');
+      }
     });
   }
   /**
