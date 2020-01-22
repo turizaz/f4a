@@ -22,7 +22,6 @@ class FieldPlayer extends Component {
    */
   render() {
     const {teem, index, gameRedux} = this.props;
-    console.log(gameRedux);
     const isActive = gameRedux.fieldNumbersInGame
       && gameRedux.fieldNumbersInGame.length > 0
       && gameRedux.fieldNumbersInGame.indexOf(index) !== -1;
