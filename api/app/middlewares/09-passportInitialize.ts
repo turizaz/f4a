@@ -1,5 +1,4 @@
-const passport = require('../libs/passport');
-
+import passport from '../libs/passport'
 // - инициализовать ctx.req._passport
 // (вспомогательный контекст, нам не понадобится)
 // - сделать на ctx методы

@@ -1,7 +1,8 @@
 // recieve multipart/form
 /* eslint-disable no-invalid-this */
 // for routes which require custom file handling
-// can introduce config to ignore them here
+
+export {};
 
 const busboy = require('co-busboy');
 const convert = require('koa-convert');
