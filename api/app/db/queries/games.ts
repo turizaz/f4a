@@ -1,30 +1,31 @@
-const knex = require('../../libs/knex');
-import {IGame} from './Igames';
+import knex from '../../libs/knex'
+import {IGame} from './Igames'
+import * as Knex from 'knex';
+
 /**
- * Add game event
- * @param {{city_id, author_id, additional, address, lat, long}} game
- * @return {Bluebird<any>}
+ * Add game to game list for city, return if of a game
  */
-function addGame(game) {
-  console.log(game);
+function addGame(game: IGame.IGame): number {
   return knex.transaction(async function(trx) {
-    const id = await trx.insert(game)
+    const id: number = await trx.insert(game)
         .into('games')
         .returning('id')
         .then((res) => res[0]);
     await trx.insert(
-        {player_id: game.author_id, player_field_number: 1, game_id: id}
-    )
+        {
+          player_id: game.author_id,
+          player_field_number: 1,
+          game_id: id
+        })
         .into('games_composition');
     return id;
   });
 }
 
 /**
- * @param {number} cityId
- * @return {Knex.Raw}
+ * Get games for city not not earlier then 2 hours from current time
  */
-function gamesForCity(cityId) {
+function gamesForCity(cityId: number): Knex.QueryBuilder {
   return knex.raw(
       `
     select g.id,
@@ -55,10 +56,8 @@ function gamesForCity(cityId) {
 
 /**
  * Getter for games
- * @param {number} id
- * @return {Knex.Raw}
  */
-function get(id) {
+function get(id: number) {
   return knex.raw(
       `select *,
             c.title_ru as city,
@@ -73,11 +72,8 @@ function get(id) {
                   `, {id}
   ).then((res) => res.rows[0]);
 }
-/**
- * @param {number} gameId
- * @return {*}
- */
-function playerInGame(gameId) {
+
+function playerInGame(gameId: number) {
   return knex.raw(`
         select array_agg(player_field_number) 
         from games_composition where game_id = :gameId`, {gameId})
@@ -85,14 +81,13 @@ function playerInGame(gameId) {
 }
 /**
  * Joining or leaving the game
- * @param {number} playerId
- * @param {number} gameId
- * @param {number} playerFieldNumber
- * @return {Promise<{gameId: *, players}> | boolean}
  */
-async function join(playerId, gameId, playerFieldNumber) {
+async function join(
+    playerId: number,
+    gameId: number,
+    playerFieldNumber: number) {
   if (await checkIfPositionOccupied(playerFieldNumber, gameId, playerId)) {
-    console.log('position occ');
+    console.log('position already taken');
     return;
   }
 
@@ -118,31 +113,20 @@ async function join(playerId, gameId, playerFieldNumber) {
   return {gameId, players: count, info};
 }
 
-/**
- * @param {number} playerFieldNumber
- * @param {number} gameId
- * @param {number} playerId
- * @return {Promise[]}
- */
 function checkIfPositionOccupied(
-    playerFieldNumber,
-    gameId,
-    playerId) {
+    playerFieldNumber: number,
+    gameId: number,
+    playerId: number) {
   return knex('games_composition').where({
     player_field_number: playerFieldNumber,
     game_id: gameId,
   }).andWhereNot({player_id: playerId}).then((res)=>res[0]);
 }
-/**
- * @param {number} playerFieldNumber
- * @param {number} gameId
- * @param {number} playerId
- * @return {Promise[]}
- */
+
 function checkIfAlreadyJoin(
-    playerFieldNumber,
-    gameId,
-    playerId) {
+    playerFieldNumber: number,
+    gameId: number,
+    playerId: number) {
   return knex('games_composition').where(
       {
         game_id: gameId,
@@ -150,48 +134,36 @@ function checkIfAlreadyJoin(
         player_field_number: playerFieldNumber,
       }).then((res) => res[0]);
 }
-/**
- * @param {number} playerFieldNumber
- * @param {number} gameId
- * @param {number} playerId
- * @return {Promise[]}
- */
-function leaveGame(playerFieldNumber, gameId, playerId) {
+
+function leaveGame(
+    playerFieldNumber: number,
+    gameId: number,
+    playerId: number) {
   return knex('games_composition').where({
     game_id: gameId,
     player_id: playerId,
     player_field_number: playerFieldNumber,
   }).del();
 }
-/**
- * @param {number} playerFieldNumber
- * @param {number} gameId
- * @param {number} playerId
- * @return {Promise[]}
- */
-function joinGame(playerFieldNumber, gameId, playerId) {
+
+function joinGame(
+    playerFieldNumber: number,
+    gameId: number,
+    playerId: number) {
   return knex('games_composition').insert({
     game_id: gameId,
     player_id: playerId,
     player_field_number: playerFieldNumber,
   });
 }
-/**
- * @param {number} gameId
- * @param {number} playerId
- * @return {Promise}
- */
-function cleanPrevPosition(gameId, playerId) {
+
+function cleanPrevPosition(gameId: number, playerId: number) {
   return knex('games_composition').where({
     game_id: gameId,
     player_id: playerId,
   }).del();
 }
-/**
- * @param {number} gameId
- * @return {Promise[]}
- */
-function countPlayersInGame(gameId) {
+function countPlayersInGame(gameId: number) {
   return knex('games_composition').
       where({game_id: gameId}).
       count().

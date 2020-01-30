@@ -2,7 +2,6 @@
 const _ = require('lodash');
 const games = require('../db/queries/games');
 const GameChatMessagesModel = require('../models/game-chat-message.model');
-require('dotenv').config();
 const {GAME_CHAT_ROOM_PREFIX} = process.env;
 const GameChatModel = require('../models/game-chat-message.model');
 export default {

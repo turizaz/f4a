@@ -1,24 +1,24 @@
 const assert = require('assert');
-const knex = require('../../libs/knex');
-const app = require('/app');
+import knex from '../../libs/knex'
+import app from '../../../'
 const chai = require('chai');
 const should = chai.should();
 const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 describe('routes : games', () => {
-  before(() => {
-    return knex.migrate
-        .rollback()
-        .then(() => {
-          return knex.migrate.latest();
-        })
-        .then(() => {
-          return knex.seed.run();
-        });
-  });
-  after(() => {
-    return knex.migrate.rollback();
-  });
+  // before(() => {
+  //   return knex.migrate
+  //       .rollback()
+  //       .then(() => {
+  //         return knex.migrate.latest();
+  //       })
+  //       .then(() => {
+  //         return knex.seed.run();
+  //       });
+  // });
+  // after(() => {
+  //   return knex.migrate.rollback();
+  // });
   it('should add new game', (done) => {
     chai
         .request(app)

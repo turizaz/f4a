@@ -4,7 +4,6 @@ const router = new Router({
   prefix: '/cities',
 });
 
-router.get('/', cities.get)
-    .get('/getByName/:name', cities.getByName);
+router.get('/getByName/:name', cities.getByName);
 
-export default router;
+module.exports = router;
