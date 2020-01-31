@@ -67,6 +67,5 @@
     "test-tsc": "POSTGRES_DB=test NODE_ENV=test mocha -r ts-node/register ",
     "start": "node --max-old-space-size=1024 dist/index.js"
   },
-  "author": "Yaroslav Udodov",
-  "license": "ISC"
+  "author": "Yaroslav Udodov"
 }
