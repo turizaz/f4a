@@ -3,15 +3,11 @@ const users = require('../db/queries/users');
 
 const {JWT_SECRET} = process.env;
 import {sendConfirmationEmail, confirmEmail} from '../services/auth'
-/**
- * @type {{authenticate}}
- */
+
 const passport = require('koa-passport');
-/**
- * @type {{sign}}
- */
 const jwt = require('jsonwebtoken');
 const jwtSecret = JWT_SECRET;
+
 module.exports = {
   async registration(ctx) {
     const {name, email, password} = ctx.request.body;
@@ -44,7 +40,8 @@ module.exports = {
         ctx.status = 401;
         ctx.body = 'Not verified';
       } else {
-        const payload = createJwtPayload(user.id, user.email, user.name);
+        const payload = createJwtPayload(user.id, user.email, user.name)
+        console.log(payload)
         const token = jwt.sign(payload, jwtSecret);
         ctx.body = {token};
       }

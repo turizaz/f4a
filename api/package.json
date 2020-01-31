@@ -7,6 +7,9 @@
     "app/test": "app/test"
   },
   "dependencies": {
+    "@types/jest": "^25.1.1",
+    "@types/mocha": "^7.0.1",
+    "@types/node": "^13.5.2",
     "bcryptjs": "^2.4.3",
     "chai": "^4.2.0",
     "chai-http": "^4.2.1",
@@ -34,8 +37,8 @@
     "koa2-cors": "^2.0.6",
     "lodash": "^4.17.15",
     "mocha": "^6.0.2",
-    "nodemailer": "^6.3.0",
     "mongoose": "^5.7.5",
+    "nodemailer": "^6.3.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "pg": "^7.8.0",
@@ -58,7 +61,10 @@
   "scripts": {
     "test": "POSTGRES_DB=test NODE_ENV=test node_modules/mocha/bin/mocha --exit --require @babel/register app/test/* --exit",
     "start-dev": "nodemon --max-old-space-size=2048 --exec babel-node index.js",
-    "build": "node_modules/eslint/bin/eslint.js app && npx babel index.js --out-dir dist --copy-files && npx babel ./app --out-dir dist/app --copy-files",
+    "start-dev-tsc": "nodemon --exec ts-node index.ts",
+    "build-old": "node_modules/eslint/bin/eslint.js app && npx babel index.js --out-dir dist --copy-files && npx babel ./app --out-dir dist/app --copy-files",
+    "build": "tsc",
+    "test-tsc": "POSTGRES_DB=test NODE_ENV=test mocha -r ts-node/register ",
     "start": "node --max-old-space-size=1024 dist/index.js"
   },
   "author": "Yaroslav Udodov",

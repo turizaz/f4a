@@ -1,7 +1,7 @@
 const pick = require('lodash/pick');
 const User = require('../models/user');
 const users = require('../db/queries/users');
-module.exports = {
+export default {
   async get(ctx) {
     ctx.body = pick(ctx.userById.toObject(), User.publicFields);
   },

@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "lib": [ "es6", "dom" ],
+    "outDir": "dist"
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}

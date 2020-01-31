@@ -1,6 +1,6 @@
-import Router from 'koa-router'
-const usersController = require('../controllers/user')
-
+import * as Router from 'koa-router'
+// const usersController = require('../controllers/user')
+import usersController from '../controllers/user'
 const userRouter = new Router({
   prefix: '/users',
 });

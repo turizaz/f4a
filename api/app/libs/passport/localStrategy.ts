@@ -62,3 +62,5 @@ passport.use(
 function comparePass(userPassword, databasePassword) {
   return bcrypt.compareSync(userPassword, databasePassword);
 }
+
+export {}

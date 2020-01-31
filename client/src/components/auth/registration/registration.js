@@ -82,7 +82,10 @@ class Registration extends Component {
   render() {
     const {data} = this.state;
     return (
-      <form className="col-6 login-form" onSubmit={this.onSubmit}>
+      <form className="col-6
+      col-md-12
+      col-sm-12
+      login-form" onSubmit={this.onSubmit}>
         {
           this.state.backendErrors ? this.state.backendErrors.map(
               (it) => <ErrorMessage key={it} message={it}/>) : null

@@ -1,4 +1,4 @@
-const FootballTeem = require('../../services/footbal-teem');
+import FootballTeem from '../../services/footbal-teem'
 const expect = require('chai').expect;
 describe('routes : games', () => {
   it('split players on two teems', () => {

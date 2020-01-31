@@ -1,5 +1,6 @@
-import Router from 'koa-router'
-const game = require('../controllers/game')
+import * as Router from 'koa-router'
+// const game = require('../controllers/game')
+import game from '../controllers/game'
 const router = new Router({
   prefix: '/game',
 });
