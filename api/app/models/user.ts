@@ -1,6 +1,6 @@
 /* eslint-disable no-invalid-this */
 const mongoose = require('mongoose');
-const crypto = require('crypto');
+import crypto from 'crypto'
 const config = require('../config');
 
 const userSchema = new mongoose.Schema({
