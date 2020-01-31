@@ -7,9 +7,6 @@ services:
     ports:
       - "5432:5432"
     environment:
-      DB_NAME: test
-      DB_USER: test
-      DB_PASS: test
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
   mongo:

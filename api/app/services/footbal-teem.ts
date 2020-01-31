@@ -2,11 +2,12 @@
  * Football teem service
  */
 class FootballTeem {
+  players: number;
+
   /**
    * Init amount of players
-   * @param {number} players
    */
-  constructor(players) {
+  constructor(players: number) {
     if (isNaN(players) || players < 0) {
       throw Error('Invalid parameter, should be number and > 0');
     }
@@ -15,9 +16,8 @@ class FootballTeem {
 
   /**
    * Calculate number of player for each teem
-   * @return {number[]}
    */
-  splitOnTeems() {
+  splitOnTeems(): Array<number> {
     if (this.players % 2) {
       const oddPlayers = (this.players - 1) / 2;
       return [oddPlayers + 1, oddPlayers];
@@ -27,4 +27,4 @@ class FootballTeem {
     }
   }
 }
-module.exports = FootballTeem;
+export default FootballTeem

@@ -22,4 +22,4 @@ MessageModel.add = function(message) {
     });
   });
 };
-module.exports = MessageModel;
+export default MessageModel;

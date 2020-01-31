@@ -1,4 +1,3 @@
-
 exports.up = function(knex, Promise) {
   return knex.raw(`
     alter table users add verified boolean default false not null;

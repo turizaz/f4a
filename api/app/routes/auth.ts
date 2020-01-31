@@ -1,4 +1,4 @@
-import Router from 'koa-router'
+const Router = require('koa-router');
 const authRoutes = new Router({
   prefix: '/auth',
 });

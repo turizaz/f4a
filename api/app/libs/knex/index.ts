@@ -7,6 +7,7 @@ const {
   POSTGRES_PASSWORD,
   POSTGRES_PORT,
 } = process.env;
+console.log(POSTGRES_DB, POSTGRES_HOST)
 const knex = require('knex')({
   client: 'pg',
   version: '11.1',
@@ -25,8 +26,4 @@ const knex = require('knex')({
     directory: __dirname + '/../../db/seed',
   },
 });
-if ('test' !== process.env.NODE_ENV) {
-  // knex.migrate.latest();
-  // knex.seed.run().then((res) => res);
-}
-module.exports = knex;
+export default knex;
