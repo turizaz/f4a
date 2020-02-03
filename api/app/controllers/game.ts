@@ -1,9 +1,11 @@
 'use strict';
+import {IMessage} from "../db/queries/Imessage";
+
 const _ = require('lodash');
 const games = require('../db/queries/games');
-const GameChatMessagesModel = require('../models/game-chat-message.model');
 const {GAME_CHAT_ROOM_PREFIX} = process.env;
-const GameChatModel = require('../models/game-chat-message.model');
+import {saveMessage, getMessages} from '../db/queries/messages'
+
 export default {
   /**
    * Add game, notify client
@@ -74,39 +76,34 @@ export default {
    */
   async addChatMessage(ctx) {
     const {message, gameId} = ctx.request.body;
+    if (!message) {
+      ctx.status = 400;
+      return;
+    }
     if (!ctx.user) {
       ctx.status = 403;
       return;
     }
-    const {name} = ctx.user;
-    // store to mongo
-    const res = await GameChatMessagesModel.add({
-      date: new Date(),
-      text: message,
-      username: name,
-      gameId,
-    });
+    const {name, id} = ctx.user;
+    // store
+    const savedMessage: IMessage = await saveMessage(message, id, gameId);
     // notify client
     ctx.ioGame
         .to(GAME_CHAT_ROOM_PREFIX+gameId)
         .emit('GAME_CHAT_MESSAGE_ADDED', {
-          id: res._id,
+          id: savedMessage.id,
           username: name,
-          text: message,
-          date: new Date(),
+          text: savedMessage.text,
+          date: savedMessage.date,
         });
     ctx.status = 200;
   },
   async getChatHistory(ctx) {
-    const {gameId} = ctx.params;
-    const messages = await GameChatModel.find({gameId})
-        .sort({date: -1})
-        .lean()
-        .exec();
-    for (const message of messages) message.id = message._id;
+    const {gameId} = ctx.params
+    const messages = getMessages(gameId)
     ctx.ioGame
         .to(GAME_CHAT_ROOM_PREFIX+gameId)
-        .emit('GAME_CHAT_MESSAGE_HISTORY', messages);
+        .emit('GAME_CHAT_MESSAGE_HISTORY', await messages);
     ctx.status = 200;
   },
 };

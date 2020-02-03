@@ -6,6 +6,7 @@ exports.seed = function(knex, Promise) {
           name: 'username0',
           email: 'user-email0',
           password: 'user-password0',
+          verified: true
         });
       })
       .then(function() {
@@ -13,6 +14,7 @@ exports.seed = function(knex, Promise) {
           name: 'username',
           email: 'user@email.com',
           password: 'user-password',
+          verified: true
         });
       });
 };

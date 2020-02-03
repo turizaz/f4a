@@ -15,7 +15,7 @@ export function sendConfirmationEmail(email, mailer) {
     <b>
         To confirm your account
     </b>
-    <a href="${process.env.HOST}/auth/confirm-email/${encrypt(email)}">
+    <a href="${process.env.HOST}/api/auth/confirm-email/${encrypt(email)}">
         Click here
     </a>`,
   }, (err, data) => {

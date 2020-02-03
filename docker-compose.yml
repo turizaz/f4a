@@ -9,10 +9,6 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
-  mongo:
-    image: mongo
-    ports:
-      - "27017:27017"
   api:
     build:
       dockerfile: Dockerfile.dev
