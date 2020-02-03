@@ -3,7 +3,6 @@ import knex from '../../libs/knex'
 
 import app from '../../../'
 const chai = require('chai');
-// import chai, {should} from 'chai'
 const chaiHttp = require('chai-http')
 chai.use(chaiHttp);
 

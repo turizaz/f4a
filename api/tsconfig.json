@@ -2,9 +2,13 @@
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "lib": [ "es6", "dom" ],
-    "outDir": "dist"
+    "outDir": "dist",
+    "types" : [
+      "node"
+    ]
   },
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "**/*.spec.ts"
   ]
 }
