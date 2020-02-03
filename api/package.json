@@ -45,7 +45,9 @@
     "pick": "0.0.1",
     "pug": "^2.0.3",
     "socket.io": "^2.2.0",
-    "socket.io-emitter": "^3.1.1"
+    "socket.io-emitter": "^3.1.1",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.7.5"
   },
   "devDependencies": {
     "@babel/polyfill": "^7.4.4",
@@ -59,12 +61,9 @@
     "@babel/preset-stage-2": "^7.0.0"
   },
   "scripts": {
-    "test": "POSTGRES_DB=test NODE_ENV=test node_modules/mocha/bin/mocha --exit --require @babel/register app/test/* --exit",
-    "start-dev": "nodemon --max-old-space-size=2048 --exec babel-node index.js",
-    "start-dev-tsc": "nodemon --exec ts-node index.ts",
-    "build-old": "node_modules/eslint/bin/eslint.js app && npx babel index.js --out-dir dist --copy-files && npx babel ./app --out-dir dist/app --copy-files",
+    "start-dev": "nodemon --exec ts-node index.ts",
     "build": "tsc",
-    "test-tsc": "POSTGRES_DB=test NODE_ENV=test mocha -r ts-node/register ",
+    "test": "POSTGRES_HOST=postgres POSTGRES_DB=test NODE_ENV=test mocha -r ts-node/register app/test/**/*.ts --exit",
     "start": "node --max-old-space-size=1024 dist/index.js"
   },
   "author": "Yaroslav Udodov"

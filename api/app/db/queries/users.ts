@@ -31,6 +31,7 @@ function addUser(user: IUser): Knex.QueryBuilder {
         email: user.email,
         name: user.name,
         password: hash,
+        verified: user.verified
       })
       .returning(['name', 'email', 'id'])
       .then((res)=> res[0]);

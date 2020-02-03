@@ -4,4 +4,4 @@ COPY ./package.json .
 RUN npm i && npm i --save-dev
 RUN npm i -g mocha && npm i -g knex && npm install -g typescript @types/node ts-node
 COPY . .
-CMD ["npm", "run", "start-dev-tsc"]
+CMD ["npm", "run", "start-dev"]

@@ -57,31 +57,39 @@ class Chat extends Component {
   /**
    * @param {Event} e
    */
-  sendMessage = (e) => {
-    if (e.key === 'Enter') {
-      e.target.value = '';
-      this.submit();
+  sendMessage = async (e) => {
+    if (e.keyCode !== 13) {
+      return;
     }
+    if (e.target.value.trim() === '') {
+      return;
+    }
+    await this.submit();
   };
   /**
    * Submit chat message
    */
   async submit() {
-    document.getElementById('message').value = '';
+    document.getElementById('message').value = null;
     const {gameService, gameId} = this.props;
     const {message} = _.pick(this.state, ['message']);
     if (!message) {
       alert('Нет смысла отправлять пустое сообщение');
       return;
     }
-    await gameService.addChatMessage({
-      ..._.pick(this.state, ['message']),
-      gameId,
-    }).catch((e) => {
-      if (e.response.status === 403) {
+    try {
+      await gameService.addChatMessage({
+        ..._.pick(this.state, ['message']),
+        gameId,
+      });
+      this.setState({
+        message: null,
+      });
+    } catch (error) {
+      if (error.response.status === 403) {
         alert('Залогинтесь пожалуйста');
       }
-    });
+    }
   }
   /**
    * Render game chat
