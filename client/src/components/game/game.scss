@@ -9,7 +9,6 @@
     color: white;
     justify-content: center;
     cursor: pointer;
-    font-weight: bold;
     @include transition(all, .2s);
     &:hover {
       background-color: darken($green, 5);
@@ -28,7 +27,6 @@
       padding-top: 0;
     }
     .game-info > div {
-      font-weight: bold;
       padding: 5px 10px;
     }
     border: none;
@@ -37,7 +35,7 @@
     div {
       border: solid 1px $grey;
       text-transform: uppercase;
-      margin-bottom: 20px;
+        margin-bottom: -1px;
     }
   }
   .half-field {

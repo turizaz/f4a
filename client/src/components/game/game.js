@@ -63,7 +63,7 @@ class Game extends Component {
                   {game.city}
                 </div>
                 <div>
-                  {game.address}
+                  {game.district + ', ' +game.address}
                 </div>
                 <div>
                   игроков - {game.players}

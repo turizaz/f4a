@@ -41,6 +41,7 @@ module.exports = {
       } else {
         const payload = createJwtPayload(user.id, user.email, user.name)
         const token = jwt.sign(payload, jwtSecret);
+        console.log(token)
         ctx.body = {token};
       }
     })(ctx, next);
