@@ -14,8 +14,6 @@ patch(gameSocket);
  * Common sockets func
  */
 function sockets() {
-  generalSocket.on('connect', ()=> {
-  });
   generalSocket.on('*', function(message) {
     switch (message.data[0]) {
       case GAME_ADDED:
