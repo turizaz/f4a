@@ -130,7 +130,7 @@ class Login extends React.Component {
               value={data.password}
               onChange={this.onChange}
               className="form-control"
-              placeholder="Дер пароль"
+              placeholder="Пароль"
             />
             {this.state.errors.password && (
               <ErrorMessage message={this.state.errors.password} />
