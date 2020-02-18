@@ -1,5 +1,13 @@
-/*----COLORS----*/
+
 @import url('https://fonts.googleapis.com/css?family=PT+Mono');
+
+@font-face {
+  font-family: 'PT Mono';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.googleapis.com/css?family=PT+Mono);
+  font-display: swap;
+}
 
 $mobile-limit: 1000;
 

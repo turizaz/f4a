@@ -15,12 +15,15 @@ class About extends Component {
   render() {
     return (
       <div>
-        <div>
+        <article>
           Если ты не знаешь, где <strong>
           найти людей для игры в футбол
           </strong>
           <span> - это сайт как раз для тебя!</span>
-        </div>
+        </article>
+        <article>
+           Тут ты можешь создать игру либо присоединится к уже существующей.
+        </article>
         <hr/>
         <div className={'guide padding-top-0'}>
           <p>Как создать игру:</p>
