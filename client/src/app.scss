@@ -1,6 +1,3 @@
-
-@import url('https://fonts.googleapis.com/css?family=PT+Mono');
-
 @font-face {
   font-family: 'PT Mono';
   font-style: normal;
@@ -24,6 +21,7 @@ $green: #38ae62;
 /*----FONTS----*/
 html, body, input, textarea, select, button {
   font-family: 'PT Mono', monospace;
+  font-display: swap;
 }
 .main-content {
   padding-top: 40px;
