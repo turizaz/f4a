@@ -32,10 +32,13 @@ class Header extends React.Component {
             <i className="fas fa-bars"/>
           </div>
           <ul id="main-menu-ul" onClick={this.closeMenu}>
-            <li>
+            <li className={
+              window.location.pathname === '/' ? 'active' : ''
+            }>
               <Link to="/">Главная</Link>
             </li>
-            <li>
+            <li className={
+              window.location.pathname === '/about' ? 'active' : ''}>
               <Link to="/about">О сервисе</Link>
             </li>
           </ul>

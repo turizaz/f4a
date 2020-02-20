@@ -10,9 +10,9 @@
     &:hover {
       color: $white;
     }
-    background-color: darken($green, 10);
+    background-color: $primary;
     &:hover {
-      background-color: darken($green, 20);
+      background-color: darken($primary, 4);
     }
     color: $white;
     border-radius: 0;
