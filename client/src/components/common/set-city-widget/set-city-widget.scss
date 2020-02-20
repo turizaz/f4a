@@ -1,6 +1,6 @@
 @import "~app.scss";
 .city-name {
-  background-color: $black;
+  background-color: $primary;
   padding: 10px 30px !important;
   width: 162px;
   height: 58px;
@@ -10,7 +10,7 @@
   position: relative;
 }
 .table-city-picker {
-  background-color: $black;
+  background-color: $primary;
   padding: 10px 20px;
   position: relative;
   input {
@@ -38,6 +38,6 @@
     bottom: -18px;
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
-    border-top: 20px solid $black;
+    border-top: 20px solid $primary;
   }
 }
