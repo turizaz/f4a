@@ -1,11 +1,11 @@
 import knex from '../../libs/knex'
-import {IGame} from './Igames'
+import {IGame} from './interfaces/Igames'
 import * as Knex from 'knex';
 
 /**
  * Add game to game list for city, return if of a game
  */
-function addGame(game: IGame.IGame): number {
+function addGame(game: IGame.IGame): Promise<number> {
   return knex.transaction(async function(trx) {
     const id: number = await trx.insert(game)
         .into('games')

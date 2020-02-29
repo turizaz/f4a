@@ -1,12 +1,12 @@
 import * as Router from 'koa-router'
-// const game = require('../controllers/game')
 import game from '../controllers/game'
+import authMiddleware from '../middlewares/auth'
 const router = new Router({
   prefix: '/game',
-});
+})
 
-router.post('/', game.add)
-router.post('/join', game.join)
+router.post('/', authMiddleware, game.add)
+router.post('/join', authMiddleware, game.join)
 router.get('/:id', game.get)
 router.get('/city/:id', game.list)
 

@@ -21,7 +21,7 @@
     width: 64px;
     height: 64px;
     border-radius: 50%;
-    background-color: #212529;
+    background-color: #fe5e4d;
     z-index: 100;
   }
   .lds-hourglass:after {
@@ -34,7 +34,7 @@
     box-sizing: border-box;
     border: 26px solid #fff;
     border-color: #fff transparent #fff transparent;
-    animation: lds-hourglass 1.2s infinite;
+    animation: lds-hourglass .8s infinite;
   }
   @keyframes lds-hourglass {
     0% {

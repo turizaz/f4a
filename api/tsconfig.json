@@ -1,11 +1,10 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
     "lib": [ "es6", "dom" ],
     "outDir": "dist",
-    "types" : [
-      "node"
-    ]
+    "types" : ["node", "jest", "mocha"]
   },
   "exclude": [
     "node_modules",

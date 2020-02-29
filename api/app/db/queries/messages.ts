@@ -1,5 +1,5 @@
 import knex from '../../libs/knex'
-import {IMessage} from './Imessage'
+import {IMessage} from './interfaces/Imessage'
 
 async function saveMessage(text: string, userId: number, gameId: number): Promise<IMessage> {
         return knex('messages')

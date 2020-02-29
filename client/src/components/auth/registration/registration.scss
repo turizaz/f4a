@@ -3,7 +3,7 @@
 .login-form {
   border: solid 1px $grey;
   input, select, textarea {
-    //-webkit-appearance: none;
+    -webkit-appearance: none;
     border-radius: 0;
     border: solid 1px $grey;
   }
@@ -19,6 +19,7 @@
   .submit-btn {
     &:hover {
       color: $white;
+      background-color: darken($green, 4);
     }
     background-color: $green;
     color: $white;
