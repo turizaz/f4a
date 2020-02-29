@@ -1,5 +1,14 @@
 .login-form {
   margin: 0 auto;
+  .forgot-password {
+    a {
+      color: deepskyblue;
+    }
+    a:hover {
+      color: darken(deepskyblue, 5);
+      text-decoration: none;
+    }
+  }
 }
 .login-spinner {
   position: absolute;

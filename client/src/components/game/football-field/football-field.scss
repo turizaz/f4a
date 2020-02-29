@@ -1,6 +1,17 @@
 @import "~app.scss";
 .football-field-wrapper {
   padding: 10px;
+  .north-socket, .south-socket {
+    height: 22px;
+    width: 100%;
+  }
+  .north-socket {
+    background: url(/img/socet.png) center top 0 no-repeat;
+  }
+  .south-socket {
+    transform: rotate(180deg);
+    background: url(/img/socet.png) center top 0 no-repeat;
+  }
   .football-field {
     .tactic-line {
       img {

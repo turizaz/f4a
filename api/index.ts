@@ -16,8 +16,8 @@ sockets(app)
 
 app.keys = config.secret
 
-const handlers = fs.readdirSync(path.join(__dirname, 'app/middlewares')).sort()
-handlers.forEach((handler) => require('./app/middlewares/' + handler).init(app))
+const handlers = fs.readdirSync(path.join(__dirname, 'app/middlewares/default')).sort()
+handlers.forEach((handler) => require('./app/middlewares/default/' + handler).init(app))
 
 const routes = []
 fs.readdirSync(path.join(__dirname, 'app/routes')).forEach((path) => {

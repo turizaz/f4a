@@ -1,6 +1,6 @@
 import knex from '../../libs/knex'
 import { _ } from 'lodash'
-import {ICity} from './Icities';
+import {ICity} from './interfaces/Icities';
 
 // Get list of cities for search
 async function getByName(name: string): Promise<ICity[]> {
@@ -29,7 +29,6 @@ async function getByName(name: string): Promise<ICity[]> {
                 cityLike: uppercaseCity + '%',
                 city: uppercaseCity
             });
-    console.log(cities.rows);
     return cities.rows;
 }
 

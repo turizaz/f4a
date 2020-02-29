@@ -1,41 +1,67 @@
-import {encrypt, decrypt} from './crypto';
-import {confirmEmail as confirmEmailQuery} from '../db/queries/users';
-/**
- * @param {string} email
- * @param {object} mailer
- */
-export function sendConfirmationEmail(email, mailer) {
-  console.log('sending email to '+ email);
+import {IRefreshToken, IUserInfo} from '../db/queries/interfaces/Iauth'
+export const JWT_TTL = '1s'
+export const JWT_REFRESH_TTL = '7d'
+
+const {JWT_SECRET} = process.env
+import {encrypt, decrypt} from './crypto'
+import * as userModel from '../db/queries/users'
+import mailer from '../libs/mailer'
+import * as jwt from 'jsonwebtoken'
+import authModel from '../db/queries/auth'
+import {IUser} from '../db/queries/interfaces/Iusers'
+import { v1 as uuidv1 } from 'uuid'
+export function sendConfirmationEmail(email: string) {
+  const template = `<b>To confirm your account</b>
+  <a href="${process.env.HOST}/api/auth/confirm-email/${encrypt(email)}">
+      Click here
+  </a>`
   mailer.sendMail({
     from: '"Football for everyone 👻" <f4econtacts@gmail.com>',
     to: email,
     subject: 'Confirm email account ✔',
     text: 'Confirm your email account?',
-    html: `
-    <b>
-        To confirm your account
-    </b>
-    <a href="${process.env.HOST}/api/auth/confirm-email/${encrypt(email)}">
-        Click here
-    </a>`,
-  }, (err, data) => {
-    if (err) {
-      console.log('email error!')
-      console.error(err);
-    }
-    if (data) {
-      console.log('email sent', data)
-      console.info(data);
-    }
-  });
+    html: template,
+  }, console.info)
+}
+async function storeJWTRefreshToken(data) {
+  return await authModel.storeRefreshToken(data)
+}
+export function createJWTToken({id, name}) {
+  return jwt.sign({id, name}, JWT_SECRET, { expiresIn: JWT_TTL })
+}
+export function removeRefreshToken(token) {
+  return authModel.removeRefreshToken(token)
+}
+export async function createJWTRefreshToken(user_id): Promise<string> {
+  const id = uuidv1()
+  const token = jwt.sign({id, user_id}, JWT_SECRET, { expiresIn: JWT_REFRESH_TTL })
+  await storeJWTRefreshToken({id: token, user_id})
+  return token
 }
 
-/**
- * Confirm email function
- * @param {string} hash
- * @return {string}
- */
-export async function confirmEmail(hash) {
-  const email = decrypt(hash);
-  return await confirmEmailQuery(email);
+export async function confirmEmail(hash: string): Promise<any> {
+  const email = decrypt(hash)
+  return await userModel.confirmEmail(email)
+}
+
+export async function getUserByRefreshToken(token: string): Promise<IUser> {
+  const {user_id} = await authModel.checkRefreshToken(token)
+  return await userModel.getSingleUser(user_id)
+}
+
+
+export async function tokenVerification(token, refreshTokenString): Promise<IUser & {refreshToken?: string}>{
+  let user
+  try {
+    const u: IUser = jwt.verify(token.split(' ')[1], JWT_SECRET)
+    user = {id: u.id, name: u.name}
+    return user
+  }
+  catch (e) {
+    const user: IUser = await getUserByRefreshToken(refreshTokenString)
+    const refreshToken = await createJWTRefreshToken(user.id)
+    await authModel.removeRefreshToken(refreshToken)
+    return {... user, refreshToken}
+  }
+
 }

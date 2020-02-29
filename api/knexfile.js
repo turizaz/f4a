@@ -20,6 +20,7 @@ module.exports = {
       port: POSTGRES_PORT,
     },
     migrations: {
+      extension: 'ts',
       tableName: 'knex-migrations',
       directory: '/app/app/db/migrations',
     },
@@ -39,6 +40,7 @@ module.exports = {
       port: POSTGRES_PORT,
     },
     migrations: {
+      extension: 'ts',
       tableName: 'knex-migrations',
       directory: __dirname + '/db/migrations',
     },
@@ -58,6 +60,7 @@ module.exports = {
       port: POSTGRES_PORT,
     },
     migrations: {
+      extension: 'ts',
       tableName: 'knex-migrations',
       directory: __dirname + '/db/migrations',
     },

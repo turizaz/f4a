@@ -1,4 +1,2 @@
-const generalSoket = require('socket.io')({
-  path: '/chat/general',
-});
-module.exports = generalSoket;
+const generalSocket = require('socket.io')({path: '/chat/general'});
+module.exports = generalSocket

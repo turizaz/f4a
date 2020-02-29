@@ -1,7 +1,21 @@
 @import "~app.scss";
+.input-barrette-wrap {
+  position: relative;
+  &:before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    right: 72px;
+    bottom: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 20px solid $primary;
+  }
+}
 .input-barrette {
   background-color: $primary;
-  padding: 10px 30px !important;
+  padding: 10px;
   width: 162px;
   height: 58px;
   display: flex;
@@ -21,17 +35,12 @@
   letter-spacing: 1px;
   font-size: 18px;
 }
-.input-barrette {
-  position: relative;
-  &:before {
-    content: "";
-    position: absolute;
-    width: 0;
-    height: 0;
-    right: 72px;
-    bottom: -18px;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-top: 20px solid $primary;
+@media only screen and (max-width: $mobile-limit+px) {
+  .input-barrette-wrap {
+    position: relative;
+    &:before {
+      left: 71px;
+      bottom: -20px;
+    }
   }
 }

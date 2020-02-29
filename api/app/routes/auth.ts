@@ -2,12 +2,11 @@ const Router = require('koa-router');
 const authRoutes = new Router({
   prefix: '/auth',
 });
-const authController = require('../controllers/auth');
-
+import authController from '../controllers/auth'
 authRoutes
     .get('/confirm-email/:hash', authController.confirmEmail)
     .post('/registration', authController.registration)
+    .post('/refresh-token', authController.refreshToken)
     .post('/login', authController.login)
-    .post('/login-jwt', authController.loginJwt)
     .post('/logout', authController.logout);
 module.exports = authRoutes;

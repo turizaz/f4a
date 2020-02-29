@@ -2,28 +2,31 @@ import * as Knex from 'knex'
 
 const bcrypt = require('bcryptjs')
 import knex from '../../libs/knex'
-import {IUser} from './Iusers'
+import {IUser} from './interfaces/Iusers'
 
-function getSingleUser(id: string): Knex.QueryBuilder {
+function getSingleUser(id: string): Promise<IUser> {
   return knex('users')
       .select('*')
-      .where({id: parseInt(id)});
+      .where({id: parseInt(id)})
+      .first()
 }
 
 function confirmEmail(email: string): Knex.QueryBuilder {
   return knex('users')
       .where({email})
       .update('verified', true)
-      .returning(['id', 'name', 'email']);
+      .returning(['id', 'name', 'email'])
+      .then(res=> res[0])
 }
 
-function getSingleUserByEmail(email: string): Knex.QueryBuilder {
+function getSingleUserByEmail(email: string): IUser {
   return knex('users')
       .select('*')
-      .where({email});
+      .where({email})
+      .then(res => res[0])
 }
 
-function addUser(user: IUser): Knex.QueryBuilder {
+function addUser(user: IUser): Promise<IUser> {
   const salt = bcrypt.genSaltSync();
   const hash = bcrypt.hashSync(user.password, salt);
   return knex('users')
