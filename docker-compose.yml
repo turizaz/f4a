@@ -1,3 +1,4 @@
+#dev
 version: '3'
 services:
   postgres:
@@ -34,3 +35,42 @@ services:
     ports:
       - '3050:80'
       - '3053:443'
+
+
+#prod
+#version: '3'
+#services:
+#  postgres:
+#    build:
+#      dockerfile: Dockerfile.dev
+#      context: ./postgres
+#    ports:
+#      - '5432:5432'
+#    environment:
+#      POSTGRES_USER: postgres
+#      POSTGRES_PASSWORD: password
+#  api:
+#    build:
+#      dockerfile: Dockerfile
+#      context: ./api
+#    volumes:
+#      - /app/node_modules
+#      - ./api:/app
+#    ports:
+#      - '9229:9229'
+#      - '9230:9230'
+#  client:
+#    build:
+#      dockerfile: Dockerfile
+#      context: ./client
+#    volumes:
+#      - /app/node_modules
+#      - ./client:/app
+#  nginx:
+#    restart: always
+#    build:
+#      dockerfile: Dockerfile.dev
+#      context: ./nginx
+#    ports:
+#      - '3050:80'
+#      - '3053:443'
