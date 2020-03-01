@@ -1,9 +1,14 @@
 import {SET_CURRENT_USER} from '../constants'
 import _ from 'lodash'
-
+let user
+try {
+  user = JSON.parse(localStorage.user)
+} catch (e) {
+  user = null
+}
 const initialState = {
-  user: JSON.parse(localStorage.user),
-  isAuthenticated: !_.isEmpty(JSON.parse(localStorage.user)),
+  user,
+  isAuthenticated: !_.isEmpty(user),
 }
 
 export default (state = initialState, action: any) => {
