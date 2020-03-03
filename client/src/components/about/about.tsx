@@ -22,7 +22,7 @@ class About extends Component {
           <span> - это сайт как раз для тебя!</span>
         </article>
         <article>
-           Тут ты можешь создать игру либо присоединится к уже существующей.
+           Тут ты можешь создать игру либо присоединится к уже существующей
         </article>
         <hr/>
         <div className={'guide padding-top-0'}>
