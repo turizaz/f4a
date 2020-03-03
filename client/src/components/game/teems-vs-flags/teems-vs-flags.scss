@@ -1,16 +1,14 @@
 .teems-vs-flags {
-  .first-teem {
-    padding: 0 !important;
-    height: 300px;
-    width: 100%;
-    overflow: hidden;
-    background-color: deepskyblue;
+  > div{
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    img {
+      width: 48px;
+      height: 48px;
+    }
+    flex-grow: 1;
   }
-  .second-teem {
-    padding: 0 !important;
-    width: 0;
-    height: 0;
-    border-top: 300px solid #fffc03;
-    border-right: 235px solid transparent;
-  }
+  display: flex;
 }

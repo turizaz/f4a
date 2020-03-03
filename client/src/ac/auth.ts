@@ -12,7 +12,18 @@ export function login(credentials: any) {
     try {
       const response = await axios.post(`/auth/login`, credentials)
       dispatch(setCurrentUser(response.data))
-      return response.data
+      return {...response.data, status: response.status}
+    } catch (e) {
+      return e.response
+    }
+  }
+}
+
+export function forgotPassword(email: string) {
+  return async (dispatch: any) => {
+    try{
+      const response = await axios.post(`/auth/forgot-password`, {email})
+      return {...response.data, status: response.status}
     } catch (e) {
       return e.response
     }

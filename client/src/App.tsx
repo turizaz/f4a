@@ -1,8 +1,10 @@
 import React, {Component} from 'react'
 import Header from './components/header'
 import CreateGame from './components/create-game'
+import ForgotPassword from './components/auth/forgot-password'
 import Login from './components/auth/login'
-import 'bootstrap/dist/css/bootstrap.min.css'
+//import 'bootstrap/dist/css/bootstrap.min.css'
+import './bootstrap.css'
 import {Route} from 'react-router-dom'
 import 'app.scss'
 import Game from './components/game'
@@ -29,6 +31,7 @@ class App extends Component<Props> {
           <Route path="/about" exact component={About}/>
           <Route path="/login" exact component={Login}/>
           <Route path="/game/:id" exact component={Game}/>
+          <Route path="/forgot-password" exact component={ForgotPassword}/>
           <Route path="/registration" exact component={Registration}/>
           <Route path="/complete-registration" exact
             component={CompleteRegistration}/>

@@ -27,8 +27,8 @@ function getSingleUserByEmail(email: string): IUser {
 }
 
 function addUser(user: IUser): Promise<IUser> {
-  const salt = bcrypt.genSaltSync();
-  const hash = bcrypt.hashSync(user.password, salt);
+  const hash = hashPassword(user.password)
+
   return knex('users')
       .insert({
         email: user.email,

@@ -47,14 +47,6 @@ class CreateGame extends React.Component<Props> {
     document.title = 'Football for everyone'
   }
 
-  componentDidMount() {
-    const hash = window.location.hash.substr(1)
-    if (hash) {
-      const {setUser} = this.props
-      setUser(hash)
-    }
-  };
-
   setCity = (city: {name: string, id: number, country: string}) => {
     this.setState({
       data: {...this.state.data, city: city.name, city_id: city.id},
@@ -90,8 +82,11 @@ class CreateGame extends React.Component<Props> {
         date: e,
       },
     });
-  };
-
+  }
+  getFormStatus() {
+    const {auth} = this.props
+    return auth.isAuthenticated ? ' active': ' passive';
+  }
   onSubmit = async (e: any) => {
     e.preventDefault()
     const {auth, setCity} = this.props
@@ -105,7 +100,6 @@ class CreateGame extends React.Component<Props> {
     this.setState({
       errors,
     });
-    console.log(errors)
     if (_.isEmpty(errors)) {
       const {gameService} = this.props;
       const res = await gameService.add(data)
@@ -116,16 +110,14 @@ class CreateGame extends React.Component<Props> {
   };
 
   render() {
-    const {auth} = this.props
+
     const {data, errors} = this.state
     return (
-      <div className="row">
-        <div className="col-6 col-md-3 left-col">
-          <form className=
-            {'game-form' + (auth.isAuthenticated ? ' active': ' passive')}
-          onSubmit={this.onSubmit}>
+      <div className="row main-content">
+        <div className="left-col">
+          <form className={'game-form' + this.getFormStatus()} onSubmit={this.onSubmit}>
             <fieldset>
-              <legend>Добавить игру.</legend>
+              <legend>Создать игру</legend>
               <div className="form-group" id="gameCitySection">
                 <label>Город</label>
                 {!this.state.data.city &&
@@ -163,44 +155,12 @@ class CreateGame extends React.Component<Props> {
                 />
                 {errors.address && <ErrorMessage message={errors.address} />}
               </div>
-              <div className="form-group">
-                <label>Дата</label>
+              <div className="form-group date">
                 <DateTimeComponent
                   onChange={this.changeDate}
                   value={data.date}/>
                 {errors.date && <ErrorMessage message={errors.date} />}
               </div>
-              {false && (
-                <div>
-                  <fieldset>
-                    <legend>Координаты (не обязательно)</legend>
-                    <div className="form-row">
-                      <div className="col-6">
-                        <label>с.ш.</label>
-                        <input
-                          type="number"
-                          className="form-control"
-                          value={data.lat}
-                          name="lat"
-                          onChange={this.onChange}
-                        />
-                        {errors.lat && <ErrorMessage message={errors.lat} />}
-                      </div>
-                      <div className="col-6">
-                        <label>в.д.</label>
-                        <input
-                          type="number"
-                          className="form-control"
-                          name="long"
-                          value={data.long}
-                          onChange={this.onChange}
-                        />
-                        {errors.long && <ErrorMessage message={errors.long} />}
-                      </div>
-                    </div>
-                  </fieldset>
-                </div>
-              )}
               <div className="form-group">
                 <label>Количество игроков</label>
                 <select
@@ -249,7 +209,7 @@ class CreateGame extends React.Component<Props> {
             </div>
           </form>
         </div>
-        <div className="col-12 col-md-9 flex right-col">
+        <div className="right-col">
           <div className="width-100">
             <SetCityWidget/>
             <GamesList />

@@ -1,4 +1,7 @@
-$mobile-limit: 1000;
+$mobile-limit: 500;
+$ipad-limit: 768;
+$max-with-ipad: ($ipad-limit + 1) + 'px';
+$min-with-ipad: $ipad-limit + 'px';
 $max-with: ($mobile-limit + 1) + 'px';
 $min-with: $mobile-limit + 'px';
 $black: #0d0d0d;
@@ -8,7 +11,7 @@ $error: #ff9494;
 $white: #f9f9f9;
 
 
-$grey: #dcdcdc;
+$grey: darken(#eee, 2);
 $green: #38ae62;
 
 
@@ -18,9 +21,10 @@ $primary: #38ae62;
 html, body, input, textarea, select, button {
   font-family: 'PT Mono', monospace;
 }
-.main-content {
-  padding-top: 40px;
+body{
+  background-color: lighten(#eee, 3);
 }
+
 .flex {
   display: flex;
 }
@@ -28,10 +32,10 @@ html, body, input, textarea, select, button {
   position: relative;
 }
 @mixin shadow-0 {
-  box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.1), 0px 4px 5px 0px rgba(0,0,0,0.07), 0px 1px 10px 0px rgba(0,0,0,0.06);
+  box-shadow: 0 2px 4px -1px rgba(0,0,0,0.1), 0px 4px 5px 0px rgba(0,0,0,0.07), 0px 1px 10px 0px rgba(0,0,0,0.06);
 }
 @mixin shadow-1 {
-  box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
+  box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
 }
 // functions
 @mixin transition($prop, $time) {
@@ -58,14 +62,8 @@ html, body, input, textarea, select, button {
 }
 // styles itself
 .main-content {
+  padding-top: 30px;
   @include transition(padding-top, .3s);
-  padding-top: 40px;
-  .right-col {
-    .width-100 {
-      @include transition(margin-top, .3s);
-      margin-top: 0;
-    }
-  }
 }
 
 .shadow-1 {
@@ -78,19 +76,27 @@ html, body, input, textarea, select, button {
 
 .city-picked {
   .main-content {
-    padding-top: 80px;
     .right-col {
       .width-100 {
-        margin-top: -90px;
+        margin-top: -35px;
       }
     }
   }
 }
-
-@media only screen and (max-width: $max-with) {
-  .right-col, .left-col {
-    border: none !important;
-    padding: 5px 0 !important;
-  }
+.right-col, .left-col {
+  border: solid 2px #eee;
+  background-color: white;
 }
+
+.left-col {
+  border-right: none;
+  flex: 1;
+  padding: 10px;
+}
+.right-col{
+  flex: 4;
+  padding: 10px;
+  border-left: solid 1px #eee;
+}
+
 

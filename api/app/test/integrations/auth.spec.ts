@@ -9,7 +9,19 @@ const chaiHttp = require('chai-http')
 import {encrypt} from '../../services/crypto'
 import * as auth from '../../../app/services/auth'
 chai.use(chaiHttp)
+async function registerUser() {
+    sinon.stub(auth, 'sendConfirmationEmail').callsFake(function fakeFn() {return true})
 
+    await chai
+        .request(app)
+        .post('/auth/registration')
+        .send(MockedUser)
+
+    await chai
+        .request(app)
+        .get(`/auth/confirm-email/${encrypt(MockedUser.email)}`)
+        .set('content-type', 'application/json')
+}
 describe('routes : auth', () => {
   beforeEach(() => {
     return knex.migrate
@@ -37,17 +49,7 @@ describe('routes : auth', () => {
   })
 
   it('should login user and provide tokens', async () => {
-      sinon.stub(auth, 'sendConfirmationEmail').callsFake(function fakeFn() {return true})
-
-      await chai
-          .request(app)
-          .post('/auth/registration')
-          .send(MockedUser)
-
-      await chai
-              .request(app)
-              .get(`/auth/confirm-email/${encrypt(MockedUser.email)}`)
-              .set('content-type', 'application/json')
+      await registerUser()
 
       const res = await chai
                           .request(app)
@@ -61,18 +63,7 @@ describe('routes : auth', () => {
   })
 
   it('should give credentials via refresh token only once', async () => {
-      sinon.stub(auth, 'sendConfirmationEmail').callsFake(function fakeFn() {return true})
-
-      await chai
-          .request(app)
-          .post('/auth/registration')
-          .send(MockedUser)
-
-      await chai
-          .request(app)
-          .get(`/auth/confirm-email/${encrypt(MockedUser.email)}`)
-          .set('content-type', 'application/json')
-
+      await registerUser()
 
       const loginRes = await chai
           .request(app)
@@ -92,7 +83,6 @@ describe('routes : auth', () => {
       assert.strictEqual(res.headers['set-cookie'][1].includes('refreshToken='), true)
       assert.strictEqual(res.statusCode, 200)
 
-
       const secondRes = await chai
           .request(app)
           .post(`/auth/refresh-token`)
@@ -102,4 +92,15 @@ describe('routes : auth', () => {
       assert.strictEqual(secondRes.headers['set-cookie'], undefined)
       assert.strictEqual(secondRes.statusCode, 403)
   })
-});
+
+  it.only('should update password on forgot password', async () => {
+      await registerUser()
+      const secondRes = await chai
+          .request(app)
+          .post(`/auth/forgot-password`)
+          .send({email: MockedUserCredetials.email})
+          .set('content-type', 'application/json')
+
+      assert.strictEqual(secondRes.statusCode, 200)
+  })
+})

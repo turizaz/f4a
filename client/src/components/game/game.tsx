@@ -1,57 +1,47 @@
-/* eslint-disable no-invalid-this */
 import React, {Component} from 'react'
 import {withGameService} from '../../hoc-helpers'
 import {loadGame} from '../../ac/games'
 import {connect} from 'react-redux'
 import {library} from '@fortawesome/fontawesome-svg-core'
 import {faFutbol} from '@fortawesome/free-solid-svg-icons'
+import GameInfo from './game-info'
 import TeemsVsFlags from './teems-vs-flags'
 import Chat from './chat'
 import './game.scss'
 import FootballField from './football-field'
 library.add(faFutbol)
+
 interface Props {
   match: any,
   loadGame: any,
   game: any,
   auth: any
 }
-/**
- * Game session
- */
+
 class Game extends Component<Props> {
   state = {
     gameOrder: [],
     players: 0,
-  };
-  /**
-   * Init
-   */
+  }
+
   componentDidMount() {
     document.title = 'Football for everyone';
-    const {
-      match: {params},
-      loadGame,
-    } = this.props;
+    const { match: {params}, loadGame} = this.props;
     const {id} = params;
     loadGame(id);
   }
-  /**
-   * @return {string} html
-   */
+
   render() {
     const {game, auth} = this.props;
-    const {
-      match: {params},
-    } = this.props;
+    const {match: {params}} = this.props;
     const {id} = params;
     return (
       <div>
         <div className="row game">
-          <div className="col-md-6 left-col">
+          <div className="left-col">
             <div>
               <p>
-                Что бы присоединится
+                Чтобы присоединится
                 {auth.isAuthenticated || ', залогинтесь и'} нажмите на футболку
               </p>
             </div>
@@ -61,29 +51,12 @@ class Game extends Component<Props> {
               </div>
             </div>
           </div>
-          <div className="col-md-6 right-col padding-0">
-            <div className="row">
-              <div className="col-md-6 game-info">
-                <div>
-                  {game.city}
-                </div>
-                <div>
-                  {game.district + ', ' +game.address}
-                </div>
-                <div>
-                  игроков - {game.players}
-                </div>
-                {game.additional ? <div>доп инфо - {game.additional}</div>: ''}
-              </div>
-              <div className="col-md-6 padding-0">
+          <div className='right-col'>
+              <div className='flags-info'>
+                <GameInfo game={game}/>
                 <TeemsVsFlags/>
               </div>
-            </div>
-            <div className='row'>
-              <div className="col-md-12">
-                <Chat gameId={id}/>
-              </div>
-            </div>
+              <Chat gameId={id}/>
           </div>
         </div>
       </div>

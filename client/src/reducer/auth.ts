@@ -1,11 +1,10 @@
 import {SET_CURRENT_USER} from '../constants'
 import _ from 'lodash'
-let user
-try {
-  user = JSON.parse(localStorage.user)
-} catch (e) {
-  user = null
-}
+import { Base64 } from 'js-base64'
+let user: {name: string} | null
+
+user = assignUser()
+
 const initialState = {
   user,
   isAuthenticated: !_.isEmpty(user),
@@ -26,4 +25,17 @@ export default (state = initialState, action: any) => {
 
 function pickUser(user: any) {
   return _.pick(user, ['name'])
+}
+
+function assignUser(): {name: string} | null {
+  if (window.location.hash) {
+    user = {name: Base64.decode(window.location.hash)}
+  } else {
+    try {
+      user = JSON.parse(localStorage.user)
+    } catch (e) {
+      user = null
+    }
+  }
+  return user
 }

@@ -3,60 +3,61 @@ import {connect} from 'react-redux';
 import {withGameService} from '../../../hoc-helpers';
 import GameItem from './game-item';
 import './games-list.scss';
-import InputBarrette from '../../../components/common/input-barrette';
+import InputBarrette from '../../../components/common/input-barrette'
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import TableContainer from '@material-ui/core/TableContainer';
+import Paper from '@material-ui/core/Paper'
+
 interface Props {
   games: any
 }
-/**
- * List of games based on city
- */
+
+
 class GamesList extends Component<Props> {
   state = {
     district: null,
   };
-  /**
-   * @param {Event} e
-   */
+
   filterDistrict = (e: any) => {
     this.setState({
       district: e.target.value,
     });
   };
-  /**
-   * @return {boolean|*}
-   */
+
   render() {
     const {games} = this.props;
-    console.log(games.entities.valueSeq().size)
     if (!games.entities.valueSeq().size) {
       return null;
     }
+
     return (
-      <div>
-        <div className="head-game-list">
-          <div className={'district'}>
-            <InputBarrette onChange={this.filterDistrict}/>
+        <div className='game-sessions-greed'>
+          <div className="head-game-list">
+            <div className={'district'}>
+              <InputBarrette onChange={this.filterDistrict}/>
+            </div>
           </div>
-          <div className={'address table-label'}>Адрес</div>
-          <div className={'time table-label'}>Дата</div>
-          <div className={'players table-label'}>Игроков</div>
+            <TableContainer component={Paper}>
+              <Table aria-label="simple table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Район</TableCell>
+                    <TableCell align="right">Адрес</TableCell>
+                    <TableCell align="right">Время</TableCell>
+                    <TableCell align="right">Игроков</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {games.entities.valueSeq().map((it: any) => <GameItem key={it.id} item={it}/>)}
+                </TableBody>
+              </Table>
+            </TableContainer>
         </div>
-        {games.entities.valueSeq().map(
-            (it: any) => {
-              if (
-                this.state.district !== null
-                &&
-                it.district.toLowerCase().indexOf(
-                    // @ts-ignore
-                    this.state.district.toLowerCase()) === -1
-              ) {
-                return null;
-              }
-              return <GameItem key={it.id} item={it} {...it}/>;
-            },
-        )}
-      </div>
-    );
+    )
   }
 }
 

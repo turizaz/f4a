@@ -10,7 +10,7 @@ router.post('/join', authMiddleware, game.join)
 router.get('/:id', game.get)
 router.get('/city/:id', game.list)
 
-router.post('/chat', game.addChatMessage)
+router.post('/chat', authMiddleware, game.addChatMessage)
 router.get('/chat/history/:gameId', game.getChatHistory)
 
 module.exports = router

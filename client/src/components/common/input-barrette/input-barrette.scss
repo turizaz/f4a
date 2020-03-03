@@ -1,13 +1,14 @@
 @import "~app.scss";
 .input-barrette-wrap {
   position: relative;
+  width: 168px;
   &:before {
     content: "";
     position: absolute;
     width: 0;
     height: 0;
-    right: 72px;
-    bottom: 0;
+    right: 78px;
+    bottom: -18px;
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
     border-top: 20px solid $primary;
