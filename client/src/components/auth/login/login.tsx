@@ -1,59 +1,51 @@
 import React from 'react'
 import './login.scss'
 import Validator from 'validator'
+import { Redirect } from 'react-router'
 import ErrorMessage from '../../../components/common/messages/error-message'
 import {connect} from 'react-redux'
 import {login} from '../../../ac/auth'
 import CircularProgress from '@material-ui/core/CircularProgress'
-
-interface Props {
-  history: any,
-  login: any
-}
+import {Link} from 'react-router-dom'
+interface Props {history: any, login: any}
 
 class Login extends React.Component<Props> {
+
   state = {
-    data: {
-      email: '',
-      password: '',
-    },
+    data: {email: '', password: ''},
     loading: false,
     backendErrors: [],
     errors: {email: null, password: null},
   }
 
+  goToRegister = (e: any) => {
+    e.preventDefault()
+    window.location.href = '/registration'
+  }
+
   onChange = (e: any) => {
-    this.setState({
-      data: {...this.state.data, [e.target.name]: e.target.value},
-    })
+    this.setState({data: {...this.state.data, [e.target.name]: e.target.value}})
   }
 
   handleErrors(status: number){
-    if (status > 399) {
+    if(status < 300) {
+      this.props.history.push('/')
+      return
+    } else {
       switch (status) {
         case 401:
-          this.setState({
-            backendErrors: ['Подтвердите ваш почтовый адресс'],
-          })
+          this.setState({backendErrors: ['Подтвердите ваш почтовый адресс']})
           break
         case 403:
-          this.setState({
-            backendErrors: ['Неверный логин или пароль'],
-          })
+          this.setState({backendErrors: ['Неверный логин или пароль']})
           break
         default:
-          this.setState({
-            backendErrors: [
-              'Произошла серверная ощибка, обратитесь к администратору',
-            ],
-          })
+          this.setState({backendErrors: ['Произошла серверная ощибка, обратитесь к администратору']})
       }
-    } else {
-      this.props.history.push('/')
     }
   }
 
-  onSubmit = async (e: any) => {
+  submit = async (e: any) => {
     const {login} = this.props
     const {data} = this.state
     e.preventDefault()
@@ -83,17 +75,12 @@ class Login extends React.Component<Props> {
               <CircularProgress
                 className={'login-spinner'}
                 size={200} thickness={1}/>}
-        <form className="
-        col-12
-        col-md-6
-        col-lg-6
-        col-xl-6
-        login-form" onSubmit={this.onSubmit}>
+        <form className="col-md-6 login-form" onSubmit={this.submit}>
           {
             this.state.backendErrors.map((it) =>
               <ErrorMessage key={it} message={it}/>)}
           <div className="form-group">
-            <label htmlFor="exampleInputEmail1">E-mail адрес</label>
+            <label>E-mail адрес</label>
             <input
               type="email"
               id="email"
@@ -106,9 +93,7 @@ class Login extends React.Component<Props> {
             {this.state.errors.email && (
               <ErrorMessage message={this.state.errors.email} />
             )}
-            <small className="form-text text-muted">
-              Мы никогда не передадим вашу электронную почту кому-либо еще.
-            </small>
+            <small className="form-text text-muted">Мы никогда не передадим вашу электронную почту кому-либо еще.</small>
           </div>
           <div className="form-group">
             <label>Пароль</label>
@@ -127,11 +112,11 @@ class Login extends React.Component<Props> {
           </div>
           <div className="form-group">
             <div className='forgot-password'>
-              <a href="#">Забыли пароль ?</a>
+              <Link to="/forgot-password">Забыли пароль ?</Link>
             </div>
-            <button type="submit" className="btn submit-btn mb-2">
-              Войти
-            </button>
+            <button type="submit" className="btn submit-btn mb-2">Войти</button>
+            &nbsp;
+            <button onClick={this.goToRegister} className="btn submit-btn mb-2">Зарегистрировтся</button>
           </div>
         </form>
       </div>
@@ -142,8 +127,5 @@ class Login extends React.Component<Props> {
 export default connect(
     (state: {auth: any}) => ({
       auth: state.auth,
-    }),
-    {
-      login,
-    }
+    }), {login}
 )(Login)

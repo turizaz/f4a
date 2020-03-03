@@ -1,11 +1,9 @@
-/* eslint-disable no-invalid-this */
 import React from 'react'
 import './input-barrette.scss'
 
 interface Props {
   onChange: any,
 }
-// Style input
 class InputBarrette extends React.Component<Props> {
   onChange = (e: any) => {
     this.props.onChange(e)

@@ -106,22 +106,18 @@ class Chat extends Component<Props> {
       }
     }
   }
-  /**
-   * Render game chat
-   * @return {*}
-   */
+
   render() {
     const {gameChat} = this.props;
     return (
       <div className="chat">
         <hr/>
-        <div className="form-group padding-0">
+        <div className="form-group">
           <textarea
             onChange={this.onChange}
             className="form-control"
             name="message"
             id="message"
-            placeholder="Чат"
             onKeyUp={this.sendMessage}
           />
           <br/>

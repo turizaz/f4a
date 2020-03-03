@@ -19,6 +19,12 @@ const authController = {
     }
   },
 
+  async forgotPassword(ctx) {
+    const {email} = ctx.request.body
+    await userService.sendNewPassword(email)
+    ctx.status = 200
+  },
+
   async registration(ctx) {
     const {name, email, password} = ctx.request.body
     const user: IUser = await userService.createUser({name, email, password})
@@ -56,15 +62,16 @@ const authController = {
     const {hash} = ctx.params;
     const user = await confirmEmail(hash)
     if (user) {
-      const token = authService.createJWTToken({id: user.id, name: user.name})
-      return ctx.redirect('/#'+token)
+      let buff = new Buffer(user.name)
+      let base64data = buff.toString('base64')
+      return ctx.redirect(`/#${base64data}`)
     }
     return ctx.redirect('/')
   },
 
   async logout(ctx) {
-    ctx.session = null;
-    ctx.redirect('/');
+    ctx.session = null
+    ctx.redirect('/')
   },
 };
 export default authController

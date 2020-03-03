@@ -1,49 +1,27 @@
 @import "~app.scss";
 .game {
-  .join-game{
-    background-color: $green;
-    padding: 10px 20px;
-    display: flex;
-    width: 250px;
-    margin-bottom: 20px;
-    color: white;
-    justify-content: center;
-    cursor: pointer;
-    @include transition(all, .2s);
-    &:hover {
-      background-color: darken($green, 5);
-    }
-  }
-  .game-table {
-    margin-left: -1px;
-  }
   .left-col {
     order: 1;
+    flex: 1;
   }
   .right-col {
+    flex: 1;
+    padding-top: 10px;
     order: 2;
-    padding-left: 20px !important;
-    .game-info {
-      padding-top: 0;
+    .flags-info {
+      .game-info, .teems-vs-flags {
+        width: 50%;
+      }
+      display: flex;
     }
-    .game-info > div {
-      padding: 5px 10px;
-    }
-    border: none;
-  }
-  .game-info{
-    div {
-      border: solid 1px $grey;
-      text-transform: uppercase;
-        margin-bottom: -1px;
-    }
-  }
-  .half-field {
-    height: 300px;
   }
 }
-@media only screen and (max-width: $mobile-limit+px) {
-  .right-col {
-    padding-top: 20px !important;
+
+@media only screen and (max-width: $min-with-ipad) {
+  .game {
+    .north-side, .south-side {
+      background-position-y: -30px !important;
+    }
+    flex-direction: column;
   }
 }

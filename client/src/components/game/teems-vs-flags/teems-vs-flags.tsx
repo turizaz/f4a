@@ -5,34 +5,22 @@ import './teems-vs-flags.scss';
  * Teem flags in game widget
  */
 class TeemsVsFlags extends React.Component {
-  /**
-   * Init
-   */
-  componentDidMount() {
-    this.alignUiFlags()
-  }
-  /**
-   * @return {JSX} html
-   */
   render() {
     return (
       <div className="teems-vs-flags">
         <div className="first-teem">
-          <div className="second-teem"/>
+          <div>
+            <img src='/img/blue-shirt.png'/>
+          </div>
+        </div>
+        <div className="vs">—</div>
+        <div className="second-teem">
+          <div>
+            <img src='/img/yellow-shirt.png'/>
+          </div>
         </div>
       </div>
     );
   }
-  /**
-   * Align ui flags
-   */
-  alignUiFlags() {
-    const widthFirstTeem =
-    // @ts-ignore
-      document.getElementsByClassName('first-teem')[0].offsetWidth
-    // @ts-ignore
-    document.getElementsByClassName('second-teem')[0].style.borderRight =
-        widthFirstTeem+'px solid transparent'
-  }
-};
+}
 export default TeemsVsFlags;

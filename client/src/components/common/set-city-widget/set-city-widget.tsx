@@ -13,9 +13,7 @@ interface Props {
  * Set city on which all further game sessions will be based on
  */
 class SetCityWidget extends React.Component<Props> {
-  /**
-   * Init location
-   */
+
   componentDidMount() {
     const strLocation = localStorage.getItem('location');
     if (!strLocation) {
@@ -32,18 +30,12 @@ class SetCityWidget extends React.Component<Props> {
     const {setCity} = this.props;
     setCity(null);
   };
-  /**
-   * Set City
-   * @param {{name: string, id: number, country: string}}city
-   */
+
   setCity = (city: any) => {
     const {setCity} = this.props;
     setCity(city)
   };
-  /**
-   * Main view for widget
-   *  @return {string} - html
-   */
+
   render() {
     return (
       <div className="city-widget">

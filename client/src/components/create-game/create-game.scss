@@ -1,7 +1,6 @@
 @import "~app.scss";
 
 .left-col {
-  border: solid 1px $grey;
   padding-top: 10px;
   .game-form {
     &.passive {
@@ -9,10 +8,19 @@
     }
     input, select, textarea {
       border-radius: 0;
-      padding: 10px;
+      padding: 5px 0 5px 5px;
+      font-size: 1.4rem;
       border: solid 1px $grey;
       &:focus {
         outline: none;
+      }
+    }
+    .date {
+      label {
+        width: 100%;
+      }
+       input {
+         width: 120px;
       }
     }
     .success-panel {
@@ -31,6 +39,8 @@
     }
     legend {
       font-size: 16px;
+      margin-bottom: 5px;
+      border: none;
     }
     label {
       font-size: 12px;
@@ -49,28 +59,20 @@
     }
   }
 }
-.padding-0 {
-  padding: 0 !important;
-}
-.right-col {
-  border: solid 1px $grey;
-  padding: 20px;
-  border-left: 0;
-  .width-100 {
+
+@media only screen and (max-width: $max-with) {
+  .right-col, .left-col {
     width: 100%;
   }
-}
-@media only screen and (max-width: $mobile-limit+px) {
+  .main-content {
+    flex-direction: column;
+  }
   .right-col {
-    max-width: 100% !important;
-    flex: 0 0 100% !important;
     order: 1;
     border-left: solid 1px $grey;
   }
   .left-col {
     border-top: none;
-    max-width: 100% !important;
-    flex: 0 0 100% !important;
     order: 2;
   }
 }
