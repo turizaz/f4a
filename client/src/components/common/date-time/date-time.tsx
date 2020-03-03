@@ -71,31 +71,7 @@ class DateTimeComponent extends React.Component<Props> {
                 </MuiPickersUtilsProvider>
             </MuiThemeProvider>
         </div>
-
     )
-    // return (
-    //   <MuiPickersUtilsProvider utils={MomentUtils}>
-    //     <MuiThemeProvider theme={materialTheme}>
-    //       <div className="pickers">
-    //         <DatePicker
-    //           className="col-6"
-    //           okLabel="Ок"
-    //           cancelLabel="Не ок"
-    //           value={this.props.value}
-    //           onChange={this.handleDateChange}
-    //         />
-    //         <TimePicker
-    //           okLabel="Ок"
-    //           className="col-6"
-    //           cancelLabel="Не ок"
-    //           ampm={false}
-    //           value={this.props.value}
-    //           onChange={this.handleDateChange}
-    //         />
-    //       </div>
-    //     </MuiThemeProvider>
-    //   </MuiPickersUtilsProvider>
-    // );
   }
 }
 export default DateTimeComponent
