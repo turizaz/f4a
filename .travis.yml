@@ -23,7 +23,6 @@ deploy:
   bucket_path: f4a
   on:
     branch: master
-  access_key_id:
-    secure: "Encrypted $AWS_ACCESS_KEY="
+  access_key_id: $AWS_ACCESS_KEY
   secret_access_key:
-    secure: "Encrypted $AWS_SECRET_KEY="
+    secure: "Encrypted <$AWS_SECRET_KEY>="
