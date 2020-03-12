@@ -25,7 +25,7 @@ class ForgotPassword extends React.Component<any> {
         if(!data.email) errors.email = 'Не может быть пустым'
         return errors
     }
-    submit = (e: any) => {
+    submit = async (e: any) => {
         const {forgotPassword} = this.props
         e.preventDefault()
         const errors = ForgotPassword.validate(this.state.data)
@@ -33,7 +33,9 @@ class ForgotPassword extends React.Component<any> {
             this.setState({errors})
             return
         }
-        forgotPassword(this.state.data.email)
+        await forgotPassword(this.state.data.email)
+        window.location.href = '/'
+
     }
     render() {
         const {email} = this.state.data
@@ -47,7 +49,9 @@ class ForgotPassword extends React.Component<any> {
                         <label>Email</label>
                         <input value={email} name={'email'} onChange={this.onChange} className="form-control" type="text"/>
                     </div>
-                    <button type="submit" className="btn submit-btn mb-2">Войти</button>
+                    <p>
+                        <button type="submit" className="btn submit-btn mb-2">Войти</button>
+                    </p>
                 </form>
             </div>
         )

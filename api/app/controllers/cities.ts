@@ -1,6 +1,6 @@
 import { getByName } from '../db/queries/cities'
 export = {
-  getByName: async function(ctx) {
+  async getByName(ctx) {
     const {name} = ctx.params;
     ctx.body = await getByName(name);
   },

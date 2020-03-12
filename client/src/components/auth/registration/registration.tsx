@@ -1,4 +1,3 @@
-/* eslint-disable no-invalid-this */
 import React, {Component} from 'react'
 import './registration.scss'
 import ErrorMessage from '../../../components/common/messages/error-message'
@@ -61,10 +60,7 @@ class Registration extends Component<Props> {
     if (!Validator.isEmail(data.email)) errors.email = `Не валидный емейл`
     return errors
   };
-  /**
-   * Submit form
-   * @param {object} e
-   */
+
   onSubmit = async (e: any) => {
     const {data} = this.state
     e.preventDefault()
@@ -76,7 +72,7 @@ class Registration extends Component<Props> {
       }
     }
     const registrationData = _.pick(data, ['name', 'password', 'email'])
-    const {registration} = this.props
+    const { registration } = this.props
     try {
       await registration(registrationData)
       this.props.history.push(`/complete-registration`)
@@ -91,9 +87,7 @@ class Registration extends Component<Props> {
       }
     }
   };
-  /**
-   * @return {JSX} html
-   */
+
   render() {
     const {data} = this.state;
     return (

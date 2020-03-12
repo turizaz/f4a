@@ -83,6 +83,9 @@ body{
     }
   }
 }
+.width-100 {
+  transition: 0.5s;
+}
 .right-col, .left-col {
   border: solid 2px #eee;
   background-color: white;
