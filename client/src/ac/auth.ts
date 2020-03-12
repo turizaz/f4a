@@ -47,7 +47,8 @@ export function registration(user: any) {
 }
 
 export function logout() {
-  return (dispatch: any) => {
+  return async (dispatch: any) => {
+    await axios.post(`/auth/logout`, {})
     localStorage.removeItem('user')
     dispatch(setCurrentUser({}))
   };

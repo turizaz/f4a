@@ -34,6 +34,7 @@ const authController = {
   },
 
   async login(ctx) {
+
     const {email, password} = ctx.request.body
     const user = await userService.checkUser({email, password})
 
@@ -49,7 +50,6 @@ const authController = {
       return
     }
 
-
     ctx.cookies.set('token', `Bearer ${authService.createJWTToken({id: user.id, name: user.name})}`)
     const refreshToken = await authService.createJWTRefreshToken(user.id)
 
@@ -62,16 +62,18 @@ const authController = {
     const {hash} = ctx.params;
     const user = await confirmEmail(hash)
     if (user) {
-      let buff = new Buffer(user.name)
-      let base64data = buff.toString('base64')
+      const buff = new Buffer(user.name)
+      const base64data = buff.toString('base64')
       return ctx.redirect(`/#${base64data}`)
     }
     return ctx.redirect('/')
   },
 
   async logout(ctx) {
-    ctx.session = null
-    ctx.redirect('/')
+    ctx.cookies.set('token', null)
+    ctx.cookies.set('refreshToken', null)
+    ctx.status = 200
+    // ctx.redirect('/')
   },
 };
 export default authController

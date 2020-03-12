@@ -19,15 +19,13 @@ interface Props {
 }
 const materialTheme = createMuiTheme({
     palette: {
-        primary: green,
+        primary: green
     },
 });
 
 class DateTimeComponent extends React.Component<Props> {
   handleDateChange = (e: any) => {
     const {onChange} = this.props
-      console.log(e)
-      console.log(this.props.value)
     onChange(e)
   }
 

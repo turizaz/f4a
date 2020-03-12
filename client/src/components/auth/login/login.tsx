@@ -1,7 +1,6 @@
 import React from 'react'
 import './login.scss'
 import Validator from 'validator'
-import { Redirect } from 'react-router'
 import ErrorMessage from '../../../components/common/messages/error-message'
 import {connect} from 'react-redux'
 import {login} from '../../../ac/auth'
