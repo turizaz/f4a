@@ -21,6 +21,10 @@ $primary: #38ae62;
 html, body, input, textarea, select, button {
   font-family: 'PT Mono', monospace;
 }
+@font-face {
+  font-family: "Font Awesome 5 Free";
+  font-display: swap;
+}
 body{
   background-color: lighten(#eee, 3);
 }
