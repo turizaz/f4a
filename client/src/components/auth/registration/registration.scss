@@ -16,13 +16,4 @@
   small {
     font-size: 10px;
   }
-  .submit-btn {
-    &:hover {
-      color: $white;
-      background-color: darken($green, 4);
-    }
-    background-color: $green;
-    color: $white;
-    border-radius: 0;
-  }
 }

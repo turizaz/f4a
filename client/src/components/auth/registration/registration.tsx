@@ -6,6 +6,7 @@ import Validator from 'validator'
 import _ from 'lodash'
 import {registration} from '../../../ac/auth'
 import {connect} from 'react-redux'
+import {loaded, loading} from "../../../ac/loader";
 
 interface Props {
   registration: any,
@@ -74,6 +75,7 @@ class Registration extends Component<Props> {
     const registrationData = _.pick(data, ['name', 'password', 'email'])
     const { registration } = this.props
     try {
+      loading()
       await registration(registrationData)
       this.props.history.push(`/complete-registration`)
     } catch (err) {
@@ -85,6 +87,8 @@ class Registration extends Component<Props> {
         default:
           this.setState({backendErrors: err.data.errors})
       }
+    } finally {
+      loaded()
     }
   };
 
@@ -172,4 +176,4 @@ class Registration extends Component<Props> {
   }
 }
 
-export default connect(null, {registration})(Registration)
+export default connect(null, {registration, loading, loaded})(Registration)

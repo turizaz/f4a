@@ -7,7 +7,7 @@ export function setCurrentUser(user: any) {
   }
 }
 
-export function login(credentials: any) {
+export function login(credentials: any): any {
   return async (dispatch: any) => {
     try {
       const response = await axios.post(`/auth/login`, credentials)
@@ -29,7 +29,16 @@ export function forgotPassword(email: string) {
     }
   }
 }
-
+export function changePassword(password: string) {
+  return async (dispatch: any) => {
+    try {
+      const response = await axios.post(`/auth/change-password`, {password})
+      return {...response.data, status: response.status}
+    } catch (e) {
+      return e.response
+    }
+  }
+}
 export function registration(user: any) {
   return (dispatch: any) => {
     return new Promise((resolve, reject)=> {

@@ -4,9 +4,9 @@ import Validator from 'validator'
 import ErrorMessage from '../../../components/common/messages/error-message'
 import {connect} from 'react-redux'
 import {login} from '../../../ac/auth'
-import CircularProgress from '@material-ui/core/CircularProgress'
 import {Link} from 'react-router-dom'
-interface Props {history: any, login: any}
+import {loaded, loading} from "../../../ac/loader";
+interface Props {history: any, login: any, loading: any, loaded: any}
 
 class Login extends React.Component<Props> {
 
@@ -45,16 +45,19 @@ class Login extends React.Component<Props> {
   }
 
   submit = async (e: any) => {
-    const {login} = this.props
+    const {login, loading, loaded} = this.props
     const {data} = this.state
     e.preventDefault()
     const errors = this.validate(data)
     this.setState({errors})
     if (!errors.email && !errors.password) {
-      this.setState({loading: true})
-      const res = await login(data)
-      this.handleErrors(res.status)
-      this.setState({loading: false})
+      try {
+        loading()
+        const res = await login(data)
+        this.handleErrors(res.status)
+      } finally {
+        loaded()
+      }
     }
   }
 
@@ -70,10 +73,6 @@ class Login extends React.Component<Props> {
     const {data} = this.state;
     return (
       <div>
-        {this.state.loading &&
-              <CircularProgress
-                className={'login-spinner'}
-                size={200} thickness={1}/>}
         <form className="col-md-6 login-form" onSubmit={this.submit}>
           {
             this.state.backendErrors.map((it) =>
@@ -92,7 +91,7 @@ class Login extends React.Component<Props> {
             {this.state.errors.email && (
               <ErrorMessage message={this.state.errors.email} />
             )}
-            <small className="form-text text-muted">Мы никогда не передадим вашу электронную почту кому-либо еще.</small>
+            <small className="form-text text-muted">Мы не передадим вашу электронную почту кому-либо еще.</small>
           </div>
           <div className="form-group">
             <label>Пароль</label>
@@ -126,5 +125,5 @@ class Login extends React.Component<Props> {
 export default connect(
     (state: {auth: any}) => ({
       auth: state.auth,
-    }), {login}
+    }), {login, loading, loaded}
 )(Login)

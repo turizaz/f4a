@@ -1,28 +1,21 @@
 import {LOAD_GAMES, GAME_ADDED, LOAD_GAME, PLAYER_JOINED, GAME_CHAT_MESSAGE_HISTORY, GAME_CHAT_MESSAGE_ADDED} from '../constants'
 import {ICallApiAc, ICommonAc} from './IAc'
 
-/**
- * Set city action
- * @param {object} city
- */
+
 export function loadGames(city: any): ICallApiAc {
   return {
     type: LOAD_GAMES,
     callApi: `/game/city/${city.id}`,
   };
 }
-/**
- * Load game
- */
+
 export function loadGame(id: number): ICallApiAc {
   return {
     type: LOAD_GAME,
     callApi: `/game/${id}`,
   };
 }
-/**
- * Game added event
- */
+
 export function gameAdded(id: number): ICallApiAc {
   return {
     type: GAME_ADDED,

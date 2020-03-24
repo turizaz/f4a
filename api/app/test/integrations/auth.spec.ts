@@ -93,7 +93,7 @@ describe('routes : auth', () => {
       assert.strictEqual(secondRes.statusCode, 403)
   })
 
-  it.only('should update password on forgot password', async () => {
+  it('should update password on forgot password', async () => {
       await registerUser()
       const secondRes = await chai
           .request(app)
@@ -102,5 +102,33 @@ describe('routes : auth', () => {
           .set('content-type', 'application/json')
 
       assert.strictEqual(secondRes.statusCode, 200)
+  })
+
+  it('should change password', async () => {
+      await registerUser()
+
+      const res = await chai
+          .request(app)
+          .post(`/auth/login`)
+          .set('content-type', 'application/json')
+          .send(MockedUserCredetials)
+      const token = res.headers['set-cookie'][0]
+      const refreshToken = res.headers['set-cookie'][1]
+
+      const secondRes = await chai
+          .request(app)
+          .post(`/auth/change-password`)
+          .send({password: MockedUserCredetials.password+'1'})
+          .set('Cookie', token+';'+refreshToken)
+          .set('content-type', 'application/json')
+      assert.strictEqual(secondRes.statusCode, 200)
+
+      const newPasswordRes = await chai
+          .request(app)
+          .post(`/auth/login`)
+          .set('content-type', 'application/json')
+          .send({email: MockedUserCredetials.email, password:  MockedUserCredetials.password+'1'})
+
+      assert.strictEqual(newPasswordRes.statusCode, 200)
   })
 })

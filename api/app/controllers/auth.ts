@@ -25,6 +25,16 @@ const authController = {
     ctx.status = 200
   },
 
+  async changePassword(ctx) {
+    const {password} = ctx.request.body
+    try {
+      await userService.changePassword(password, ctx.user.id)
+      ctx.status = 200
+    } catch (e) {
+      ctx.status = 500
+    }
+  },
+
   async registration(ctx) {
     const {name, email, password} = ctx.request.body
     const user: IUser = await userService.createUser({name, email, password})
@@ -73,7 +83,6 @@ const authController = {
     ctx.cookies.set('token', null)
     ctx.cookies.set('refreshToken', null)
     ctx.status = 200
-    // ctx.redirect('/')
   },
 };
 export default authController

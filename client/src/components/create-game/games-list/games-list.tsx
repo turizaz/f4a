@@ -52,7 +52,10 @@ class GamesList extends Component<Props> {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {games.entities.valueSeq().map((it: any) => <GameItem key={it.id} item={it}/>)}
+                  {games.entities.valueSeq().filter((it: any) => {
+                    if (!this.state.district) return true;
+                    return it.district.includes(this.state.district);
+                  }).map((it: any) => <GameItem key={it.id} item={it}/>)}
                 </TableBody>
               </Table>
             </TableContainer>

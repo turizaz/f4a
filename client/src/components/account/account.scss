@@ -1,0 +1,13 @@
+.login-form {
+  button {
+    color: white !important;
+
+    &:visited {
+      color: white;
+    }
+
+    &:focus {
+      outline: none !important;
+    }
+  }
+}
