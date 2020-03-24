@@ -5,6 +5,7 @@ import knex from '../../libs/knex'
 import {IUser} from './interfaces/Iusers'
 
 function getSingleUser(id: string): Promise<IUser> {
+    console.log(1)
   return knex('users')
       .select('*')
       .where({id: parseInt(id)})

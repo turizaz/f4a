@@ -8,6 +8,9 @@ function removeRefreshToken(id: string): Promise<number> {
     return knex('refresh_tokens').where({id}).delete()
 }
 function checkRefreshToken(id: string): Promise<{id: string, user_id: string}> {
+    if (!id) {
+        throw Error('Invalid arguments');
+    }
     return knex('refresh_tokens')
         .where({id})
         .andWhere('timestamp', '>', knex.raw(`NOW() - INTERVAL '${JWT_REFRESH_TTL}'`))

@@ -36,12 +36,6 @@ class CityPicker extends React.Component<Props> {
     return this.props.doChoice(city);
   };
 
-  componentWillReceiveProps(nextProps: any) {
-    if (nextProps.city !== this.state.city) {
-      this.setState({city: nextProps.city})
-    }
-  }
-
   render() {
     return (
       <div className="city-auto-complete">

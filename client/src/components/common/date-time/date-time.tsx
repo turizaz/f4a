@@ -30,7 +30,6 @@ class DateTimeComponent extends React.Component<Props> {
   }
 
   render() {
-      console.log(this.props.value)
     return (
         <div className="date">
             <MuiThemeProvider theme={materialTheme}>
@@ -56,6 +55,7 @@ class DateTimeComponent extends React.Component<Props> {
                             margin="normal"
                             id="time-picker"
                             label="Время"
+                            ampm={false}
                             cancelLabel="Отмена"
                             okLabel="Подтвердить"
                             value={this.props.value}

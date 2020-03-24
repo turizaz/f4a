@@ -10,6 +10,10 @@ async function checkUser(userCred: IUserCredentials): Promise<null | IUser> {
     }
     return null
 }
+async function changePassword(password: string, id: string) {
+    const user = await userModel.getSingleUser(id)
+    return userModel.updateUser({...user, password})
+}
 async function sendNewPassword(email: string) {
     const newPassword = Math.random().toString(36).substring(7)
     const user = await userModel.getSingleUserByEmail(email)
@@ -34,5 +38,6 @@ async function createUser(user: IUser): Promise<IUser> {
 export default {
     createUser,
     checkUser,
+    changePassword,
     sendNewPassword
 }

@@ -1,7 +1,7 @@
 import {IRefreshToken, IUserInfo} from '../db/queries/interfaces/Iauth'
 export const JWT_TTL = '1s'
 export const JWT_REFRESH_TTL = '7d'
-
+import {_} from 'lodash'
 const {JWT_SECRET} = process.env
 import {encrypt, decrypt} from './crypto'
 import * as userModel from '../db/queries/users'
@@ -51,11 +51,9 @@ export async function getUserByRefreshToken(token: string): Promise<IUser> {
 
 
 export async function tokenVerification(token, refreshTokenString): Promise<IUser & {refreshToken?: string}>{
-  let user
   try {
     const u: IUser = jwt.verify(token.split(' ')[1], JWT_SECRET)
-    user = {id: u.id, name: u.name}
-    return user
+    return _.pick(u, ['name', 'id'])
   }
   catch (e) {
     const user: IUser = await getUserByRefreshToken(refreshTokenString)
@@ -63,5 +61,4 @@ export async function tokenVerification(token, refreshTokenString): Promise<IUse
     await authModel.removeRefreshToken(refreshToken)
     return {... user, refreshToken}
   }
-
 }

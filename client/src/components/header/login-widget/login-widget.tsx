@@ -20,7 +20,11 @@ class LoginWidget extends React.Component<Props> {
     const {auth, logout} = this.props
     return auth.isAuthenticated ? (
       <div className="absolute-login-widget">
-        {auth.user.name} <i onClick={logout} className="fas fa-sign-out-alt"/>
+          <Link to='/account'>
+              {auth.user.name}
+              <i className="fas fa-user"/>
+          </Link>
+          <i onClick={logout} className="fas fa-sign-out-alt"/>
       </div>
     ) : (
       <div className="absolute-login-widget">

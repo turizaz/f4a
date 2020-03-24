@@ -11,6 +11,7 @@ import SetCityWidget from '../../components/common/set-city-widget'
 import {setCity} from '../../ac/location'
 import {setUser} from '../../ac/auth'
 import moment from 'moment'
+import {loading, loaded} from "../../ac/loader";
 moment.locale('ru')
 
 const initialState = {
@@ -87,24 +88,41 @@ class CreateGame extends React.Component<Props> {
     const {auth} = this.props
     return auth.isAuthenticated ? ' active': ' passive';
   }
-  onSubmit = async (e: any) => {
-    e.preventDefault()
-    const {auth, setCity} = this.props
+  checkIfAllowedCreate() {
+    const {auth} = this.props
     if (!auth.isAuthenticated) {
       alert('Зарегистрируйтесь чтобы создать игру')
+    }
+    return auth.isAuthenticated;
+  }
+
+  initCity(data: {city: string, city_id: number}) {
+    const {setCity} = this.props
+    setCity({name: data.city, id: data.city_id});
+  }
+
+  onSubmit = async (e: any) => {
+    e.preventDefault()
+
+    const {data} = this.state;
+    if (!this.checkIfAllowedCreate()) {
       return
     }
-    const {data} = this.state;
-    setCity({name: data.city, id: data.city_id});
+    this.initCity(data)
     const errors = this.validate(data);
     this.setState({
       errors,
     });
     if (_.isEmpty(errors)) {
       const {gameService} = this.props;
-      const res = await gameService.add(data)
-      if (res.status === 201) {
-        this.setState(initialState)
+      try {
+        loading()
+        const res = await gameService.add(data)
+        if (res.status === 201) {
+          this.setState(initialState)
+        }
+      } finally {
+        loaded()
       }
     }
   };
@@ -228,5 +246,5 @@ export default connect(
         auth: state.auth,
       };
     },
-    {setCity, setUser}
+    {setCity, setUser, loading, loaded}
 )(withGameService(CreateGame))

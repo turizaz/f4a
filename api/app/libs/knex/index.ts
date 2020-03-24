@@ -7,7 +7,7 @@ const {
   POSTGRES_PASSWORD,
   POSTGRES_PORT,
 } = process.env;
-console.log(POSTGRES_DB, POSTGRES_HOST)
+
 const knex = require('knex')({
   client: 'pg',
   version: '11.1',
