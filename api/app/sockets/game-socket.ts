@@ -1,9 +1,9 @@
-const gameSocket = require('socket.io')({path: '/chat/game'})
+import * as socketIo from 'socket.io'
+const gameSocket = socketIo({path: '/chat/game'});
 gameSocket.on('connection', (socket) => {
-  console.log(`connected to game socket`)
   socket.on('join', (room) => {
-    console.info('game socket | joined', room)
+    process.stdout.write(`connected to room - ${room}`);
     socket.join(room)
   })
-})
-module.exports = gameSocket
+});
+export default gameSocket

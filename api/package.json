@@ -64,7 +64,7 @@
     "tslint": "^6.1.0"
   },
   "scripts": {
-    "start-dev": "nodemon --exec 'node --inspect=0.0.0.0:9230 -r ts-node/register index.ts' --watch 'app/**/*.ts'",
+    "start-dev": "nodemon --config nodemon.json",
     "build": "tsc",
     "test": "POSTGRES_HOST=postgres POSTGRES_DB=test NODE_ENV=test mocha -t 20000 -r ts-node/register app/test/**/*.ts --inspect-brk=0.0.0.0:9229 --exit",
     "start": "node --max-old-space-size=1024 dist/index.js"
