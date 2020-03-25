@@ -1,2 +1,3 @@
-const generalSocket = require('socket.io')({path: '/chat/general'});
-module.exports = generalSocket
+import * as socketIo from 'socket.io'
+const generalSocket = socketIo({path: '/chat/general'});
+export default generalSocket

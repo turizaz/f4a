@@ -1,6 +1,8 @@
 {
+  "watch": ["app"],
   "env": {
     "NODE_ENV": "development"
   },
-  "ext": "ts"
+  "ext": "ts",
+  "exec": "node --inspect=0.0.0.0:9230 -r ts-node/register index.ts"
 }

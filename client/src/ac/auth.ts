@@ -1,5 +1,6 @@
 import {SET_CURRENT_USER} from '../constants'
 import axios from '../libs/axios'
+
 export function setCurrentUser(user: any) {
   return {
     type: SET_CURRENT_USER,
@@ -29,6 +30,7 @@ export function forgotPassword(email: string) {
     }
   }
 }
+
 export function changePassword(password: string) {
   return async (dispatch: any) => {
     try {

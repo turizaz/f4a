@@ -1,7 +1,7 @@
-const gameSocket = require('./game-socket')
-const generalSocket = require('./general-socket')
+import gameSocket from './game-socket'
+import generalSocket from './general-socket'
 
-const sockets = (app) => app.use((ctx, next) => {
+const addSocketsToContext = (app) => app.use((ctx, next) => {
   ctx.ioGame = gameSocket
   ctx.ioGeneral = generalSocket
   return next()
@@ -10,5 +10,5 @@ const sockets = (app) => app.use((ctx, next) => {
 export {
   generalSocket,
   gameSocket,
-  sockets,
+  addSocketsToContext,
 }
