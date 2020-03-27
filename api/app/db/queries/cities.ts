@@ -2,7 +2,6 @@ import knex from '../../libs/knex'
 import { _ } from 'lodash'
 import {ICity} from './interfaces/Icities';
 
-// Get list of cities for search
 async function getByName(name: string): Promise<ICity[]> {
     const uppercaseCity: string = _.upperFirst(name);
     const cities =
@@ -20,13 +19,13 @@ async function getByName(name: string): Promise<ICity[]> {
                    end  as priority
             FROM (select * from _cities c where c.country_id < 20) as city
                    JOIN _countries as c on c.country_id = city.country_id
-            WHERE 
+            WHERE
                   city.title_ru LIKE :cityLike
                OR city.title_ua LIKE :cityLike
             ORDER BY priority DESC, c.country_id ASC;
         `,
             {
-                cityLike: uppercaseCity + '%',
+                cityLike: `${uppercaseCity}%`,
                 city: uppercaseCity
             });
     return cities.rows;

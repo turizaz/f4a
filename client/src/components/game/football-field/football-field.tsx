@@ -24,9 +24,9 @@ class FootballField extends Component<Props> {
   }
 
   render() {
-    const {auth} = this.props
-    let fieldClass = ` football-field `
-    fieldClass += auth.isAuthenticated ? `active` : `regular`
+    const {auth} = this.props;
+    let fieldClass = ` football-field `;
+    fieldClass += auth.isAuthenticated ? `active` : `regular`;
     return (
         <div>
           <div className="north-socket" />
@@ -46,12 +46,12 @@ class FootballField extends Component<Props> {
    * Generate tactic lines on field, each line contains few players
    */
   generateLines() {
-    const lines = []
-    const {game} = this.props
-    let total = game.players
-    const teemsOnField = [[], []]
-    let row = []
-    let rowNum = 1
+    const lines = [];
+    const {game} = this.props;
+    let total = game.players;
+    const teemsOnField = [[], []];
+    let row = [];
+    let rowNum = 1;
     this.state.gameOrder.forEach((it: any, index) => {
       it.forEach((it: any)=> {
         row = [];
@@ -62,7 +62,7 @@ class FootballField extends Component<Props> {
                 key={i}
                 game={game}
                 index={total}
-                isActive={false}/>)
+                isActive={false}/>);
           total--
         }
         teemsOnField[index].push(
@@ -70,15 +70,15 @@ class FootballField extends Component<Props> {
             <div key={rowNum++} className={'tactic-line '}>{row}</div>
         )
       })
-    })
+    });
     lines.push(<div
       key={'north-side'}
       className={`half-field north-side lines-${teemsOnField[0].length}`}>
-      {teemsOnField[0]}</div>)
+      {teemsOnField[0]}</div>);
     lines.push(<div
       key={'south-side'}
       className={`half-field south-side lines-${teemsOnField[1].length}`}>
-      {teemsOnField[1]}</div>)
+      {teemsOnField[1]}</div>);
     return lines
   }
 }

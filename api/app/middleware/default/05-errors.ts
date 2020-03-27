@@ -5,7 +5,7 @@ exports.init = (app) =>
     } catch (e) {
       ctx.set('X-Content-Type-Options', 'nosniff');
       const preferredType = ctx.accepts('html', 'json');
-      if (parseInt(e.code) === 23505) {
+      if (parseInt(e.code, 10) === 23505) {
         ctx.status = 409;
         ctx.body = {errors: ['Запись уже существует']};
       } else if (e.status) {
@@ -39,4 +39,4 @@ exports.init = (app) =>
         console.error(e.message, e.stack);
       }
     }
-  })
+  });

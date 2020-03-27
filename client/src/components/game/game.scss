@@ -19,6 +19,9 @@
 
 @media only screen and (max-width: $min-with-ipad) {
   .game {
+    .left-col {
+      border: 0;
+    }
     .north-side, .south-side {
       background-position-y: -30px !important;
     }

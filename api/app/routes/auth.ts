@@ -1,10 +1,8 @@
-import authMiddleware from "../middlewares/auth";
-
-const Router = require('koa-router');
-const authRoutes = new Router({
-  prefix: '/auth',
-});
+import authMiddleware from '../middleware/auth'
+import * as Router from 'koa-router'
 import authController from '../controllers/auth'
+
+const authRoutes = new Router({prefix: '/auth'});
 authRoutes
     .get('/confirm-email/:hash', authController.confirmEmail)
     .post('/registration', authController.registration)

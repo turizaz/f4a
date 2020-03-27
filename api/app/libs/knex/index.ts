@@ -1,5 +1,3 @@
-require('dotenv').config();
-
 const {
   POSTGRES_HOST,
   POSTGRES_USER,
@@ -7,7 +5,7 @@ const {
   POSTGRES_PASSWORD,
   POSTGRES_PORT,
 } = process.env;
-
+// tslint:disable-next-line
 const knex = require('knex')({
   client: 'pg',
   version: '11.1',

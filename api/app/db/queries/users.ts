@@ -1,14 +1,12 @@
 import * as Knex from 'knex'
-
-const bcrypt = require('bcryptjs')
+import * as bcrypt from 'bcryptjs'
 import knex from '../../libs/knex'
 import {IUser} from './interfaces/Iusers'
 
 function getSingleUser(id: string): Promise<IUser> {
-    console.log(1)
   return knex('users')
       .select('*')
-      .where({id: parseInt(id)})
+      .where({id: parseInt(id, 10)})
       .first()
 }
 
