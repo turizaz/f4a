@@ -1,12 +1,8 @@
 import knex from '../../libs/knex'
 import {IGame} from './interfaces/Igames'
-import * as Knex from 'knex';
 
-/**
- * Add game to game list for city, return if of a game
- */
 function addGame(game: IGame.IGame): Promise<number> {
-  return knex.transaction(async function(trx) {
+  return knex.transaction(async (trx) => {
     const id: number = await trx.insert(game)
         .into('games')
         .returning('id')
@@ -22,10 +18,7 @@ function addGame(game: IGame.IGame): Promise<number> {
   });
 }
 
-/**
- * Get games for city not not earlier then 2 hours from current time
- */
-function gamesForCity(cityId: number): Knex.QueryBuilder {
+function gamesForCity(cityId: number): Promise<{rows: any}> {
   return knex.raw(
       `
     select g.id,
@@ -38,14 +31,14 @@ function gamesForCity(cityId: number): Knex.QueryBuilder {
            gp.active_players as "activePlayers"
     from games as g
     join _cities c on g.city_id = c.city_id
-    left join 
+    left join
       (
         select
           coalesce(count(game_id), 0) as active_players,
           game_id
         from games_composition group by game_id
-      ) 
-    gp on gp.game_id = g.id 
+      )
+    gp on gp.game_id = g.id
     where c.city_id = ?
     and g.status = 'forming'
     and g.date > CURRENT_TIMESTAMP + interval '2h'
@@ -75,7 +68,7 @@ function get(id: number) {
 
 function playerInGame(gameId: number) {
   return knex.raw(`
-        select array_agg(player_field_number) 
+        select array_agg(player_field_number)
         from games_composition where game_id = :gameId`, {gameId})
       .then((res)=> res.rows[0].array_agg);
 }
@@ -87,11 +80,10 @@ async function join(
     gameId: number,
     playerFieldNumber: number) {
   if (await checkIfPositionOccupied(playerFieldNumber, gameId, playerId)) {
-    console.log('position already taken');
     return;
   }
 
-  let info:IGame.IInfo = {
+  const info:IGame.IInfo = {
     playerFieldNumber,
     gameId,
     playerId
@@ -108,7 +100,7 @@ async function join(
     await knex.raw(`
     select array_agg(player_field_number)
     from games_composition where game_id = ?`, gameId)
-        .then((res)=> res.rows[0]['array_agg']);
+        .then((res)=> res.rows[0].array_agg);
   const {count} = await countPlayersInGame(gameId);
   return {gameId, players: count, info};
 }
@@ -169,7 +161,7 @@ function countPlayersInGame(gameId: number) {
       count().
       then((res) => res[0]);
 }
-export {
+export default {
   addGame,
   get,
   join,

@@ -1,37 +1,38 @@
-'use strict';
-import {IMessage} from "../db/queries/interfaces/Imessage";
-
-const _ = require('lodash');
-const games = require('../db/queries/games');
-const {GAME_CHAT_ROOM_PREFIX} = process.env;
+import {IMessage} from '../db/queries/interfaces/Imessage'
+import games from '../db/queries/games'
+import {_} from 'lodash'
 import {saveMessage, getMessages} from '../db/queries/messages'
+const {GAME_CHAT_ROOM_PREFIX} = process.env;
 
 export default {
+    async add(ctx) {
+        const data = prepare(ctx.request.body);
+        const id = await games.addGame({
+            author_id: ctx.user.id,
+            ...data,
+        });
+        ctx.ioGeneral.emit('GAME_ADDED', id);
+        ctx.status = 201;
 
-  async add(ctx) {
-    const {body} = ctx.request
-    const data = _.pick(
-        ctx.request.body,
-        [
-          'players',
-          'additional',
-          'lat',
-          'long',
-          'address',
-          'city_id',
-          'district',
-          'date',
-        ].filter((it) => {
-          return body[it] !== ''
-        })
-    )
-    const id = await games.addGame({
-      author_id: ctx.user.id,
-      ...data,
-    })
-    ctx.ioGeneral.emit('GAME_ADDED', id)
-    ctx.status = 201
-  },
+        function prepare(body: any) {
+            return _.pick(
+                body,
+                [
+                    'players',
+                    'additional',
+                    'lat',
+                    'long',
+                    'address',
+                    'city_id',
+                    'district',
+                    'date',
+                ].filter((it) => {
+                    return body[it] !== ''
+                })
+            );
+        }
+    },
+
   async get(ctx) {
     const {id} = ctx.params;
     ctx.body = await games.get(id);
@@ -45,14 +46,9 @@ export default {
   },
 
   async join(ctx) {
-    if (!ctx.user) {
-      ctx.status = 403;
-      return;
-    }
     const {id} = ctx.user;
     const {gameId, playerNumber} = ctx.request.body;
     const playersInGame = await games.join(id, gameId, playerNumber);
-    console.log('pl', playersInGame);
     if (playersInGame) {
       ctx.ioGeneral.emit('PLAYER_JOINED', playersInGame);
     }
@@ -61,16 +57,14 @@ export default {
 
   async addChatMessage(ctx) {
     const {message, gameId} = ctx.request.body;
+
     if (!message) {
-      ctx.status = 400;
+      ctx.status = 422;
       return;
     }
-    if (!ctx.user) {
-      ctx.status = 403;
-      return;
-    }
+
     const {name, id} = ctx.user;
-    const savedMessage: IMessage = await saveMessage(message, id, gameId)
+    const savedMessage: IMessage = await saveMessage(message, id, gameId);
     ctx.ioGame
         .to(GAME_CHAT_ROOM_PREFIX+gameId)
         .emit('GAME_CHAT_MESSAGE_ADDED', {
@@ -78,13 +72,13 @@ export default {
           username: name,
           text: savedMessage.text,
           date: savedMessage.date,
-        })
+        });
     ctx.status = 201
   },
 
   async getChatHistory(ctx) {
-    const {gameId} = ctx.params
-    const messages = getMessages(gameId)
+    const {gameId} = ctx.params;
+    const messages = getMessages(gameId);
     ctx.ioGame
         .to(GAME_CHAT_ROOM_PREFIX+gameId)
         .emit('GAME_CHAT_MESSAGE_HISTORY', await messages);

@@ -1,8 +1,5 @@
-const defer = require('config/defer').deferConfig;
-const path = require('path');
-
 export default {
-  port: 5000,
-  secret: ['4692800310'],
+  port: Number(process.env.PORT) || 5000,
+  env: process.env.NODE_ENV || 'development',
   root: process.cwd(),
 };

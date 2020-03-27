@@ -9,7 +9,7 @@ function removeRefreshToken(id: string): Promise<number> {
 }
 function checkRefreshToken(id: string): Promise<{id: string, user_id: string}> {
     if (!id) {
-        throw Error('Invalid arguments');
+        throw new Error('Invalid arguments');
     }
     return knex('refresh_tokens')
         .where({id})

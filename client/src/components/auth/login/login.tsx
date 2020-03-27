@@ -115,6 +115,8 @@ class Login extends React.Component<Props> {
             <button type="submit" className="btn submit-btn mb-2">Войти</button>
             &nbsp;
             <button onClick={this.goToRegister} className="btn submit-btn mb-2">Зарегистрировтся</button>
+            <br/>
+            {/*<a href="/login/google">войте с гугл</a>*/}
           </div>
         </form>
       </div>
