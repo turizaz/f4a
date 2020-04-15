@@ -6,6 +6,7 @@ import {connect} from 'react-redux'
 import {login} from '../../../ac/auth'
 import {Link} from 'react-router-dom'
 import {loaded, loading} from "../../../ac/loader";
+import SingInGoogle from './oauth/google'
 interface Props {history: any, login: any, loading: any, loaded: any}
 
 class Login extends React.Component<Props> {
@@ -91,7 +92,6 @@ class Login extends React.Component<Props> {
             {this.state.errors.email && (
               <ErrorMessage message={this.state.errors.email} />
             )}
-            <small className="form-text text-muted">Мы не передадим вашу электронную почту кому-либо еще.</small>
           </div>
           <div className="form-group">
             <label>Пароль</label>
@@ -116,7 +116,7 @@ class Login extends React.Component<Props> {
             &nbsp;
             <button onClick={this.goToRegister} className="btn submit-btn mb-2">Зарегистрировтся</button>
             <br/>
-            {/*<a href="/login/google">войте с гугл</a>*/}
+            <SingInGoogle/>
           </div>
         </form>
       </div>

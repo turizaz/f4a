@@ -2,13 +2,13 @@ import {IMessage} from '../db/queries/interfaces/Imessage'
 import games from '../db/queries/games'
 import {_} from 'lodash'
 import {saveMessage, getMessages} from '../db/queries/messages'
-const {GAME_CHAT_ROOM_PREFIX} = process.env;
+import config from '../config'
 
 export default {
     async add(ctx) {
         const data = prepare(ctx.request.body);
         const id = await games.addGame({
-            author_id: ctx.user.id,
+            author_id: ctx.req.user.id,
             ...data,
         });
         ctx.ioGeneral.emit('GAME_ADDED', id);
@@ -46,7 +46,7 @@ export default {
   },
 
   async join(ctx) {
-    const {id} = ctx.user;
+    const {id} = ctx.req.user;
     const {gameId, playerNumber} = ctx.request.body;
     const playersInGame = await games.join(id, gameId, playerNumber);
     if (playersInGame) {
@@ -62,11 +62,10 @@ export default {
       ctx.status = 422;
       return;
     }
-
-    const {name, id} = ctx.user;
+    const {name, id} = ctx.req.user;
     const savedMessage: IMessage = await saveMessage(message, id, gameId);
     ctx.ioGame
-        .to(GAME_CHAT_ROOM_PREFIX+gameId)
+        .to(config.GAME_CHAT_ROOM_PREFIX+gameId)
         .emit('GAME_CHAT_MESSAGE_ADDED', {
           id: savedMessage.id,
           username: name,
@@ -80,7 +79,7 @@ export default {
     const {gameId} = ctx.params;
     const messages = getMessages(gameId);
     ctx.ioGame
-        .to(GAME_CHAT_ROOM_PREFIX+gameId)
+        .to(config.GAME_CHAT_ROOM_PREFIX+gameId)
         .emit('GAME_CHAT_MESSAGE_HISTORY', await messages);
     ctx.status = 200;
   },

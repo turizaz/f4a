@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {withGameService} from '../../hoc-helpers'
+import {withGameService} from '../../HOCs'
 import {loadGame} from '../../ac/games'
 import {connect} from 'react-redux'
 import {library} from '@fortawesome/fontawesome-svg-core'

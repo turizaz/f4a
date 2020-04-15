@@ -3,7 +3,7 @@ import './create-game.scss'
 import CityPicker from '../../components/common/city-picker'
 import ErrorMessage from '../../components/common/messages/error-message'
 import _ from 'lodash'
-import {withGameService} from '../../hoc-helpers'
+import {withGameService} from '../../HOCs'
 import GamesList from './games-list'
 import {connect} from 'react-redux'
 import DateTimeComponent from '../../components/common/date-time'
@@ -12,6 +12,7 @@ import {setCity} from '../../ac/location'
 import {setUser} from '../../ac/auth'
 import moment from 'moment'
 import {loading, loaded} from "../../ac/loader";
+import {JSX} from "@babel/types";
 moment.locale('ru')
 
 const initialState = {
@@ -55,7 +56,6 @@ class CreateGame extends React.Component<Props> {
   }
 
   resetCity = () => {
-    console.log('reset')
     this.setState({data: {...this.state.data, city: ''}})
   }
 
@@ -83,7 +83,8 @@ class CreateGame extends React.Component<Props> {
         date: e,
       },
     });
-  }
+  };
+
   getFormStatus() {
     const {auth} = this.props
     return auth.isAuthenticated ? ' active': ' passive';
@@ -99,6 +100,12 @@ class CreateGame extends React.Component<Props> {
   initCity(data: {city: string, city_id: number}) {
     const {setCity} = this.props
     setCity({name: data.city, id: data.city_id});
+  }
+
+  static printFieldPlayersOptionList(): JSX.Element[] {
+    const out = [];
+    for(let i = 6; i<23; i++) { out.push(i) }
+    return out.map((it:number) => <option key={it}>{it}</option>)
   }
 
   onSubmit = async (e: any) => {
@@ -187,23 +194,7 @@ class CreateGame extends React.Component<Props> {
                   value={data.players}
                   name="players"
                 >
-                  <option>6</option>
-                  <option>7</option>
-                  <option>8</option>
-                  <option>9</option>
-                  <option>10</option>
-                  <option>11</option>
-                  <option>12</option>
-                  <option>13</option>
-                  <option>14</option>
-                  <option>15</option>
-                  <option>16</option>
-                  <option>17</option>
-                  <option>18</option>
-                  <option>19</option>
-                  <option>20</option>
-                  <option>21</option>
-                  <option>22</option>
+                  {CreateGame.printFieldPlayersOptionList()}
                 </select>
                 {errors.players && <ErrorMessage message={errors.players} />}
               </div>

@@ -11,36 +11,47 @@ function getSingleUser(id: string): Promise<IUser> {
 }
 
 function confirmEmail(email: string): Knex.QueryBuilder {
-  return knex('users')
-      .where({email})
-      .update('verified', true)
-      .returning(['id', 'name', 'email'])
-      .then(res=> res[0])
+    return knex.raw(`
+        update users set
+        local = local || '{"verified": true}'::jsonb
+        where local->>'email'=?
+        returning id, local
+        ;
+    `, [email]).then(({rows})=> rows[0]);
 }
 
 function getSingleUserByEmail(email: string): IUser {
   return knex('users')
       .select('*')
-      .where({email})
+      .whereRaw(`local->>'email'=?`, [email])
       .then(res => res[0])
 }
 
-function addUser(user: IUser): Promise<IUser> {
+function addLocalUser(user: {name: string, email: string, password: string, verified?: boolean}): Promise<IUser> {
   const hash = hashPassword(user.password)
-
   return knex('users')
       .insert({
-        email: user.email,
-        name: user.name,
-        password: hash,
-        verified: user.verified
+          method: 'local',
+          local:
+              {
+                  email: user.email,
+                  name: user.name,
+                  password: hash,
+                  verified: user.verified || null
+              },
       })
-      .returning(['name', 'email', 'id'])
+      .returning(['id', 'local'])
       .then((res)=> res[0]);
 }
-
+function updateLocalPassword(id, password) {
+    return knex.raw(`
+            update users set
+            local = local || '{"password": "${hashPassword(password)}"}'::jsonb
+            where id=?
+    `, [id])
+}
 function updateUser(user: IUser): Knex.QueryBuilder {
-  user.password = hashPassword(user.password);
+  user.local.password = hashPassword(user.local.password);
   return knex('users')
       .update(user)
       .where('id', user.id)
@@ -57,6 +68,7 @@ export {
   updateUser,
   getSingleUser,
   getSingleUserByEmail,
-  addUser,
+  addLocalUser,
   confirmEmail,
+  updateLocalPassword
 };

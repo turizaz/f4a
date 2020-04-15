@@ -9,6 +9,7 @@ const chai = require('chai')
 const chaiHttp = require('chai-http')
 chai.use(chaiHttp)
 const sinon = require('sinon')
+import {filterRefreshToken, filterAuthToken} from './auth.spec';
 
 describe('routes : games', () => {
     beforeEach(() => {
@@ -39,9 +40,8 @@ describe('routes : games', () => {
                 date: '2019-02-09T22:22',
                 players: 5,
             })
-        assert.strictEqual(res.status, 403)
+        assert.strictEqual(res.status, 401)
     })
-
     it('should add game if logged', async () => {
 
         sinon.stub(auth, 'sendConfirmationEmail').callsFake(function fakeFn() {return true})
@@ -62,8 +62,8 @@ describe('routes : games', () => {
             .set('content-type', 'application/json')
             .send(MockedUserCredetials)
 
-        const token = res.headers['set-cookie'][0]
-        const refreshToken = res.headers['set-cookie'][1]
+        const token = filterAuthToken(res.headers['set-cookie'])
+        const refreshToken = filterRefreshToken(res.headers['set-cookie'])
 
         const addGameRes = await chai
             .request(app)
@@ -99,8 +99,8 @@ describe('routes : games', () => {
           .set('content-type', 'application/json')
           .send(MockedUserCredetials)
 
-      const token = res.headers['set-cookie'][0]
-      const refreshToken = res.headers['set-cookie'][1]
+      const token = filterAuthToken(res.headers['set-cookie'])
+      const refreshToken = filterRefreshToken(res.headers['set-cookie'])
 
       await chai
           .request(app)
@@ -121,4 +121,12 @@ describe('routes : games', () => {
 
     assert.strictEqual(resGet.body.status, 'forming');
   });
+
+  it('should list games', async () => {
+      const response = await chai.request(app)
+          .get('/cities/getByName/kie')
+          .set('content-type', 'application/json')
+      assert.strictEqual(response.status, 200);
+  });
+
 });

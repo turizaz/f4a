@@ -11,7 +11,7 @@ const authController = {
     try {
       const user = await authService.getUserByRefreshToken(refreshToken);
       await authService.removeRefreshToken(refreshToken);
-      ctx.cookies.set('token', `Bearer ${authService.createJWTToken({id: user.id, name: user.name})}`);
+      ctx.cookies.set('token', `Bearer ${authService.createJWTToken({id: user.id, name: user.local.name || user.google.name})}`);
       ctx.cookies.set('refreshToken', await authService.createJWTRefreshToken(user.id));
       ctx.status = 200
     } catch (e) {
@@ -36,55 +36,53 @@ const authController = {
   },
 
   async registration(ctx) {
-    const {name, email, password} = ctx.request.body;
-    const user: IUser = await userService.createUser({name, email, password});
-    const token = authService.createJWTToken(_.pick(user, ['id', 'name']));
+    const {name, email, password} = ctx.request.body
+    const user: IUser = await userService.createLocalUser({name, email, password});
+    const token = authService.createJWTToken({id: user.id, name: user.local.name});
     await sendConfirmationEmail(email);
-    ctx.body = {name: user.name, token}
+    ctx.body = {name: user.local.name, token}
   },
 
   async login(ctx) {
-
     const {email, password} = ctx.request.body;
     const user = await userService.checkUser({email, password});
-
     if (!user) {
       ctx.status = 403;
       ctx.body = 'Wrong email or password';
       return
     }
-
-    if (user && !user.verified) {
+    if (user && !user.local.verified) {
       ctx.body = 'Email not verified';
       ctx.status = 401;
       return
     }
-
-    ctx.cookies.set('token', `Bearer ${authService.createJWTToken({id: user.id, name: user.name})}`);
+    const token = authService.createJWTToken({id: user.id, name: user.local.name});
     const refreshToken = await authService.createJWTRefreshToken(user.id);
-
-    ctx.cookies.set('refreshToken', refreshToken);
-    ctx.body = {name: user.name};
+    authService.setAuthTokens(token, refreshToken, ctx);
+    ctx.body = {name: user.local.name};
     ctx.status = 200
   },
-
   async confirmEmail(ctx) {
     const {hash} = ctx.params;
     const user = await confirmEmail(hash);
     if (user) {
-      const buff = new Buffer(user.name);
+      const buff = new Buffer(user.local.name);
       const base64data = buff.toString('base64');
       return ctx.redirect(`/#${base64data}`)
     }
     return ctx.redirect('/')
   },
-
   async logout(ctx) {
     ctx.cookies.set('token', null);
     ctx.cookies.set('refreshToken', null);
     ctx.status = 200
   },
+  secretRoute(ctx) {
+    ctx.status = 200;
+  },
+  googleOAuth(ctx) {
+    const email: string = ctx.req.user.emails[0].value;
+    ctx.body = email;
+  }
 };
 export default authController
-
-

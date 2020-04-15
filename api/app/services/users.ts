@@ -5,14 +5,13 @@ import mailer from '../libs/mailer'
 
 async function checkUser(userCred: IUserCredentials): Promise<null | IUser> {
     const user: IUser = await userModel.getSingleUserByEmail(userCred.email)
-    if(user && bcrypt.compareSync(userCred.password, user.password)) {
+    if(user && bcrypt.compareSync(userCred.password, user.local.password)) {
         return user
     }
     return null
 }
 async function changePassword(password: string, id: string) {
-    const user = await userModel.getSingleUser(id)
-    return userModel.updateUser({...user, password})
+    return await userModel.updateLocalPassword(id, password)
 }
 async function sendNewPassword(email: string) {
     const newPassword = Math.random().toString(36).substring(7)
@@ -25,18 +24,17 @@ async function sendNewPassword(email: string) {
             subject: 'Your new password',
             text: 'Your new password',
             html: `<div>Your new password is - ${newPassword}</div>`,
-        }, console.info)
-
-        return userModel.updateUser({...user, password: newPassword})
+        })
+        return await userModel.updateLocalPassword(user.id, newPassword)
     }
 }
 
-async function createUser(user: IUser): Promise<IUser> {
-    return await userModel.addUser(user)
+async function createLocalUser(user: {name: string, email: string, password: string}): Promise<IUser> {
+    return await userModel.addLocalUser(user)
 }
 
 export default {
-    createUser,
+    createLocalUser,
     checkUser,
     changePassword,
     sendNewPassword

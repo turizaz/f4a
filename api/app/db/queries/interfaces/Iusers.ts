@@ -1,9 +1,14 @@
 export interface IUser {
     id?: number,
-    email: string,
-    name: string,
-    password: string
-    verified?: boolean | null
+    local: {
+        email: string,
+        name: string,
+        password: string
+        verified?: boolean | null
+    }
+    google: {
+        name: string,
+    }
 }
 export interface IUserCredentials {
     email: string,
