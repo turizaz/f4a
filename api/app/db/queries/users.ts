@@ -1,7 +1,7 @@
 import * as Knex from 'knex'
 import * as bcrypt from 'bcryptjs'
 import knex from '../../libs/knex'
-import {IUser} from './interfaces/Iusers'
+import {IGoogleUser, IUser} from './interfaces/Iusers'
 
 function getSingleUser(id: string): Promise<IUser> {
   return knex('users')
@@ -20,6 +20,26 @@ function confirmEmail(email: string): Knex.QueryBuilder {
     `, [email]).then(({rows})=> rows[0]);
 }
 
+function getGoogleUserByEmail(email: string): IUser {
+    return knex('users')
+        .select('*')
+        .whereRaw(`google->>'email'=?`, [email])
+        .then(res => res[0])
+}
+function storeGoogleUser(user: IGoogleUser) {
+    return knex('users')
+        .insert({
+            method: 'google',
+            verified: true,
+            google:
+                {
+                    email: user.email,
+                    name: user.name,
+                },
+        })
+        .returning(['id', 'google'])
+        .then((res)=> res[0]);
+}
 function getSingleUserByEmail(email: string): IUser {
   return knex('users')
       .select('*')
@@ -66,6 +86,8 @@ function hashPassword(password: string): string {
 
 export {
   updateUser,
+  getGoogleUserByEmail,
+  storeGoogleUser,
   getSingleUser,
   getSingleUserByEmail,
   addLocalUser,

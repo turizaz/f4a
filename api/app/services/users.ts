@@ -1,5 +1,5 @@
 import * as userModel from '../db/queries/users'
-import {IUser, IUserCredentials} from '../db/queries/interfaces/Iusers'
+import {IGoogleUser, IUser, IUserCredentials} from '../db/queries/interfaces/Iusers'
 import * as bcrypt from 'bcryptjs'
 import mailer from '../libs/mailer'
 
@@ -12,6 +12,15 @@ async function checkUser(userCred: IUserCredentials): Promise<null | IUser> {
 }
 async function changePassword(password: string, id: string) {
     return await userModel.updateLocalPassword(id, password)
+}
+async function gerUserByEmail(email: string): Promise<IUser> {
+    return userModel.getSingleUserByEmail(email)
+}
+async function storeGoogleUser(user: IGoogleUser) {
+    return userModel.storeGoogleUser(user);
+}
+async function getGoogleUserByEmail(email: string): Promise<IUser> {
+    return userModel.getGoogleUserByEmail(email)
 }
 async function sendNewPassword(email: string) {
     const newPassword = Math.random().toString(36).substring(7)
@@ -36,6 +45,9 @@ async function createLocalUser(user: {name: string, email: string, password: str
 export default {
     createLocalUser,
     checkUser,
+    getGoogleUserByEmail,
+    storeGoogleUser,
+    gerUserByEmail,
     changePassword,
     sendNewPassword
 }

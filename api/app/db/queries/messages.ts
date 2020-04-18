@@ -14,7 +14,11 @@ async function saveMessage(text: string, userId: number, gameId: number): Promis
 async function getMessages(gameId) {
     return knex
         .select('messages.id as id',
-                knex.raw(`users.local->>'name' as username`),
+                knex.raw(`
+                (CASE WHEN
+                (users.local->>'name' IS NULL OR users.local->>'name' = '')
+                 THEN users.google->>'name' ELSE users.local->>'name' END)
+                 as username`),
                 'messages.date as date',
                 'messages.text as text')
         .from('messages')

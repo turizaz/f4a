@@ -1,4 +1,3 @@
-import authMiddleware from '../middleware/auth'
 import * as Router from 'koa-router'
 import authController from '../controllers/auth'
 import passport from '../libs/passport'
@@ -7,9 +6,8 @@ const googleScope = passport.authenticate('google', {scope: ['openid', 'https://
 authRoutes
     .get('/confirm-email/:hash', authController.confirmEmail)
     .post('/registration', authController.registration)
-    .post('/refresh-token', authController.refreshToken)
     .post('/forgot-password', authController.forgotPassword)
-    .post('/change-password', authMiddleware, authController.changePassword)
+    .post('/change-password', authController.changePassword)
     .post('/login', authController.login)
     .post('/logout', authController.logout)
     .get('/google', googleScope,  authController.secretRoute)

@@ -6,18 +6,18 @@ import {IUser} from '../db/queries/interfaces/Iusers'
 
 const authController = {
 
-  async refreshToken(ctx) {
-    const {refreshToken} = ctx.request.body;
-    try {
-      const user = await authService.getUserByRefreshToken(refreshToken);
-      await authService.removeRefreshToken(refreshToken);
-      ctx.cookies.set('token', `Bearer ${authService.createJWTToken({id: user.id, name: user.local.name || user.google.name})}`);
-      ctx.cookies.set('refreshToken', await authService.createJWTRefreshToken(user.id));
-      ctx.status = 200
-    } catch (e) {
-      ctx.status = 403
-    }
-  },
+  // async refreshToken(ctx) {
+  //   const {refreshToken} = ctx.request.body;
+  //   try {
+  //     const user = await authService.getUserByRefreshToken(refreshToken);
+  //     await authService.removeRefreshToken(refreshToken);
+  //     ctx.cookies.set('token', `Bearer ${authService.createJWTToken({id: user.id, name: user.local.name || user.google.name})}`);
+  //     ctx.cookies.set('refreshToken', await authService.createJWTRefreshToken(user.id));
+  //     ctx.status = 200
+  //   } catch (e) {
+  //     ctx.status = 403
+  //   }
+  // },
 
   async forgotPassword(ctx) {
     const {email} = ctx.request.body;
@@ -66,12 +66,17 @@ const authController = {
     const {hash} = ctx.params;
     const user = await confirmEmail(hash);
     if (user) {
-      const buff = new Buffer(user.local.name);
+      const buff = new Buffer(JSON.stringify({name: user.local.name, type: 'local'}));
       const base64data = buff.toString('base64');
+
+      const token = authService.createJWTToken({id: user.id, name: user.local.name});
+      const refreshToken = await authService.createJWTRefreshToken(user.id);
+      authService.setAuthTokens(token, refreshToken, ctx);
       return ctx.redirect(`/#${base64data}`)
     }
     return ctx.redirect('/')
   },
+
   async logout(ctx) {
     ctx.cookies.set('token', null);
     ctx.cookies.set('refreshToken', null);
@@ -80,9 +85,26 @@ const authController = {
   secretRoute(ctx) {
     ctx.status = 200;
   },
-  googleOAuth(ctx) {
-    const email: string = ctx.req.user.emails[0].value;
-    ctx.body = email;
+  async googleOAuth(ctx) {
+    try {
+      const email: string = ctx.req.user.emails[0].value;
+      const name : string = ctx.req.user.displayName;
+      const user = await userService.getGoogleUserByEmail(email)
+      if (!user) {
+        await userService.storeGoogleUser({
+          name,
+          email: ctx.req.user.emails[0].value
+        });
+      }
+      const token = authService.createJWTToken({id: user.id, name});
+      const refreshToken = await authService.createJWTRefreshToken(user.id);
+      authService.setAuthTokens(token, refreshToken, ctx);
+      const buff = new Buffer(JSON.stringify({name, type: 'google'}));
+      const base64data = buff.toString('base64');
+      return ctx.redirect(`/#${base64data}`)
+    } catch (e) {
+      return ctx.redirect(`/`)
+    }
   }
 };
 export default authController

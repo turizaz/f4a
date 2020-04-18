@@ -32,33 +32,52 @@ function localStrategies() {
     };
     opts.secretOrKey = config.JWT_SECRET;
     opts.jwtFromRequest = cookieExtractor;
-    passport.use(new Jwt.Strategy(opts, async (payload, done) => {
-        const {id} = payload;
-        const user: IUser = await userModel.getSingleUser(id);
-        if(!user) {
-            return done(null, false)
+
+    // passport.use('jwt', new Jwt.Strategy(opts, async (payload, cb) => {
+    //     return cb(null, false);
+    //     try {
+    //         const {id} = payload;
+    //         const user: IUser = await userModel.getSingleUser(id);
+    //         if(!user) {
+    //             return cb(null, false)
+    //         }
+    //         if (user) {
+    //             const userPayload = {
+    //                 id: user.id,
+    //                 name: user[user.method].name
+    //             };
+    //             return cb(null, userPayload)
+    //         }
+    //     } catch (e) {
+    //         return cb(null, false);
+    //     }
+    // }));
+
+    passport.use('jwt', new CustomStrategy(
+        async (req, cb) => {
+            try {
+                const token = req.ctx.cookie.token.replace('Bearer ', '');
+                const user = authService.verifyToken(token);
+                return cb(null, {id: user.id, name: user.name});
+            } catch (e) {
+                return cb(null, false);
+            }
         }
-        if (user) {
-            const userPayload = {
-                id: user.id,
-                name: user.local.name || user.google.name
-            };
-            return done(null, userPayload)
-        }
-    }));
+    ));
+
     passport.use('jwt-refresh', new CustomStrategy(
         async (req, cb) => {
             try {
-                const refreshToken = req.header.cookie.split('refreshToken=')[1].split(';')[0];
+                const refreshToken = req.ctx.cookie.refreshToken;
                 const user: IUser = await authService.getUserByRefreshToken(refreshToken);
                 if(!user) {
                     return cb(null, false)
                 }
+                await authModel.removeRefreshToken(user.id);
                 const newRefreshToken = await authService.createJWTRefreshToken(user.id);
-                await authModel.removeRefreshToken(refreshToken);
                 const userPayload = {
                     id: user.id,
-                    name: user.local.name || user.google.name
+                    name: user[user.method].name
                 };
                 const token = authService.createJWTToken(userPayload);
                 authService.setAuthTokens(token, newRefreshToken, req.ctx)

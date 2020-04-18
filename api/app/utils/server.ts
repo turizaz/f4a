@@ -15,8 +15,9 @@ class Server {
     }
     static addRoutes(app): void {
         const routes = [];
+        app.use(cookie())
         fs.readdirSync(path.join(__dirname, './../routes')).forEach((middlewarePath) => {
-            routes.push(require('./../routes/'+middlewarePath).use(cookie()).routes())
+            routes.push(require('./../routes/'+middlewarePath).routes())
         });
         app.use(compose(routes));
     }

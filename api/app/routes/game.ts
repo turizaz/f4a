@@ -1,6 +1,5 @@
 import * as Router from 'koa-router'
 import game from '../controllers/game'
-import authMiddleware from '../middleware/auth'
 const router = new Router({prefix: '/game'});
 import passport from '../libs/passport'
 const passportMiddleware = passport.authenticate(['jwt', 'jwt-refresh'], {session: false})
