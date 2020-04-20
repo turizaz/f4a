@@ -3,9 +3,11 @@ import games from '../db/queries/games'
 import {_} from 'lodash'
 import {saveMessage, getMessages} from '../db/queries/messages'
 import config from '../config'
+import {CANT_PROCESS_ENTITY} from "../templates/errors";
 
 export default {
-    async add(ctx) {
+    async add(ctx)
+    {
         const data = prepare(ctx.request.body);
         const id = await games.addGame({
             author_id: ctx.req.user.id,
@@ -33,34 +35,34 @@ export default {
         }
     },
 
-  async get(ctx) {
+  async get(ctx)
+  {
     const {id} = ctx.params;
     ctx.body = await games.get(id);
     ctx.body.fieldNumbersInGame = await games.playerInGame(id);
   },
 
-  async list(ctx) {
+  async list(ctx)
+  {
     const {id} = ctx.params;
     const {rows} = await games.gamesForCity(id);
     ctx.body = rows;
   },
 
-  async join(ctx) {
+  async join(ctx)
+  {
     const {id} = ctx.req.user;
     const {gameId, playerNumber} = ctx.request.body;
     const playersInGame = await games.join(id, gameId, playerNumber);
-    if (playersInGame) {
-      ctx.ioGeneral.emit('PLAYER_JOINED', playersInGame);
-    }
+    ctx.ioGeneral.joinGame(playersInGame);
     ctx.status = 200;
   },
 
-  async addChatMessage(ctx) {
+  async addChatMessage(ctx)
+  {
     const {message, gameId} = ctx.request.body;
-
-    if (!message) {
-      ctx.status = 422;
-      return;
+    if (!message || 1) {
+        throw CANT_PROCESS_ENTITY
     }
     const {name, id} = ctx.req.user;
     const savedMessage: IMessage = await saveMessage(message, id, gameId);
@@ -74,8 +76,8 @@ export default {
         });
     ctx.status = 201
   },
-
-  async getChatHistory(ctx) {
+  async getChatHistory(ctx)
+  {
     const {gameId} = ctx.params;
     const messages = getMessages(gameId);
     ctx.ioGame

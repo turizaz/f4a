@@ -1,15 +1,13 @@
-import config from '../../config'
 exports.init = (app) =>
     app.use(async (ctx, next) => {
         try {
             await next();
         } catch (e) {
-            if (config.env === 'development') {
-                console.log(e)
+            if(!e.httpStatus) {
+                return ctx.status = 500
             }
-            ctx.status = parseInt(e.status,10);
-            ctx.body = {
-                error: e.message,
-            };
+            console.error(e)
+            ctx.body = e.body
+            return ctx.status = e.httpStatus
         }
     });

@@ -2,6 +2,7 @@ import * as Knex from 'knex'
 import * as bcrypt from 'bcryptjs'
 import knex from '../../libs/knex'
 import {IGoogleUser, IUser} from './interfaces/Iusers'
+import {ALREADY_EXISTS} from '../../templates/errors';
 
 function getSingleUser(id: string): Promise<IUser> {
   return knex('users')
@@ -10,12 +11,12 @@ function getSingleUser(id: string): Promise<IUser> {
       .first()
 }
 
-function confirmEmail(email: string): Knex.QueryBuilder {
+function confirmEmail(email: string): Promise<IUser> {
     return knex.raw(`
         update users set
         local = local || '{"verified": true}'::jsonb
         where local->>'email'=?
-        returning id, local
+        returning id, local, type
         ;
     `, [email]).then(({rows})=> rows[0]);
 }
@@ -29,7 +30,7 @@ function getGoogleUserByEmail(email: string): IUser {
 function storeGoogleUser(user: IGoogleUser) {
     return knex('users')
         .insert({
-            method: 'google',
+            type: 'google',
             verified: true,
             google:
                 {
@@ -37,7 +38,7 @@ function storeGoogleUser(user: IGoogleUser) {
                     name: user.name,
                 },
         })
-        .returning(['id', 'google'])
+        .returning(['id', 'google', 'type'])
         .then((res)=> res[0]);
 }
 function getSingleUserByEmail(email: string): IUser {
@@ -47,11 +48,15 @@ function getSingleUserByEmail(email: string): IUser {
       .then(res => res[0])
 }
 
-function addLocalUser(user: {name: string, email: string, password: string, verified?: boolean}): Promise<IUser> {
-  const hash = hashPassword(user.password)
-  return knex('users')
+async function addLocalUser(user: {name: string, email: string, password: string, verified?: boolean}): Promise<IUser> {
+    const u = await getSingleUserByEmail(user.email);
+    if (u) {
+        throw ALREADY_EXISTS
+    }
+    const hash = hashPassword(user.password)
+    return knex('users')
       .insert({
-          method: 'local',
+          type: 'local',
           local:
               {
                   email: user.email,

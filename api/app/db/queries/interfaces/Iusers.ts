@@ -1,6 +1,6 @@
 export interface IUser {
     id?: number,
-    method: string,
+    type: userTypes,
     local: {
         email: string,
         name: string,
@@ -18,4 +18,9 @@ export interface IUserCredentials {
 export interface IGoogleUser {
     email: string,
     name: string
+}
+
+const enum userTypes {
+    'google',
+    'local'
 }

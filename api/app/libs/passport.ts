@@ -33,26 +33,6 @@ function localStrategies() {
     opts.secretOrKey = config.JWT_SECRET;
     opts.jwtFromRequest = cookieExtractor;
 
-    // passport.use('jwt', new Jwt.Strategy(opts, async (payload, cb) => {
-    //     return cb(null, false);
-    //     try {
-    //         const {id} = payload;
-    //         const user: IUser = await userModel.getSingleUser(id);
-    //         if(!user) {
-    //             return cb(null, false)
-    //         }
-    //         if (user) {
-    //             const userPayload = {
-    //                 id: user.id,
-    //                 name: user[user.method].name
-    //             };
-    //             return cb(null, userPayload)
-    //         }
-    //     } catch (e) {
-    //         return cb(null, false);
-    //     }
-    // }));
-
     passport.use('jwt', new CustomStrategy(
         async (req, cb) => {
             try {
@@ -64,7 +44,6 @@ function localStrategies() {
             }
         }
     ));
-
     passport.use('jwt-refresh', new CustomStrategy(
         async (req, cb) => {
             try {
@@ -73,11 +52,10 @@ function localStrategies() {
                 if(!user) {
                     return cb(null, false)
                 }
-                await authModel.removeRefreshToken(user.id);
                 const newRefreshToken = await authService.createJWTRefreshToken(user.id);
                 const userPayload = {
                     id: user.id,
-                    name: user[user.method].name
+                    name: user[user.type].name
                 };
                 const token = authService.createJWTToken(userPayload);
                 authService.setAuthTokens(token, newRefreshToken, req.ctx)

@@ -11,5 +11,7 @@ const transporter = nodemailer.createTransport({
         clientSecret: config.GMAIL_CLIENT_SECRET,
     },
 });
-
+export interface IMailerResponse {
+    messageId: string;
+}
 export default transporter

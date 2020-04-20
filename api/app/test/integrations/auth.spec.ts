@@ -66,38 +66,6 @@ describe('routes : auth', () => {
       assert.strictEqual(res.statusCode, 200)
   })
 
-  it('should give credentials via refresh token only once', async () => {
-      await registerUser()
-
-      const loginRes = await chai
-          .request(app)
-          .post(`/auth/login`)
-          .set('content-type', 'application/json')
-          .send(MockedUserCredetials)
-
-      const refreshToken = loginRes.headers['set-cookie']
-          .filter(it => it.includes('refresh'))[0].split('refreshToken=')[1].split(';')[0]
-
-      const res = await chai
-          .request(app)
-          .post(`/auth/refresh-token`)
-          .send({refreshToken})
-          .set('content-type', 'application/json')
-
-      assert.strictEqual(filterAuthToken(res.headers['set-cookie']).includes('token=Bearer'), true)
-      assert.strictEqual(filterRefreshToken(res.headers['set-cookie']).includes('refreshToken='), true)
-      assert.strictEqual(res.statusCode, 200)
-
-      const secondRes = await chai
-          .request(app)
-          .post(`/auth/refresh-token`)
-          .send({refreshToken})
-          .set('content-type', 'application/json')
-
-      assert.strictEqual(secondRes.headers['set-cookie'], undefined)
-      assert.strictEqual(secondRes.statusCode, 403)
-  })
-
   it('should update password on forgot password', async () => {
       await registerUser()
       const secondRes = await chai

@@ -1,8 +1,8 @@
 import * as userModel from '../db/queries/users'
 import {IGoogleUser, IUser, IUserCredentials} from '../db/queries/interfaces/Iusers'
 import * as bcrypt from 'bcryptjs'
-import mailer from '../libs/mailer'
-
+import mailer from '../services/mailer'
+import * as authService from '../services/auth'
 async function checkUser(userCred: IUserCredentials): Promise<null | IUser> {
     const user: IUser = await userModel.getSingleUserByEmail(userCred.email)
     if(user && bcrypt.compareSync(userCred.password, user.local.password)) {
@@ -25,21 +25,17 @@ async function getGoogleUserByEmail(email: string): Promise<IUser> {
 async function sendNewPassword(email: string) {
     const newPassword = Math.random().toString(36).substring(7)
     const user = await userModel.getSingleUserByEmail(email)
-
-    if (user) {
-        mailer.sendMail({
-            from: '"Football for everyone 👻" <f4econtacts@gmail.com>',
-            to: email,
-            subject: 'Your new password',
-            text: 'Your new password',
-            html: `<div>Your new password is - ${newPassword}</div>`,
-        })
-        return await userModel.updateLocalPassword(user.id, newPassword)
+    if(!user) {
+        return
     }
+    await mailer.sendNewPassword(email, newPassword)
+    return await userModel.updateLocalPassword(user.id, newPassword)
 }
 
 async function createLocalUser(user: {name: string, email: string, password: string}): Promise<IUser> {
-    return await userModel.addLocalUser(user)
+    const u: IUser = await userModel.addLocalUser(user)
+    await authService.sendConfirmationEmail(user.email)
+    return u
 }
 
 export default {
