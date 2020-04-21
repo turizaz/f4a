@@ -13,7 +13,7 @@ export const filterAuthToken = (arr) => arr.filter(it => it.includes('token=Bear
 export const filterRefreshToken = (arr) => arr.filter(it => it.includes('refresh'))[0]
 
 chai.use(chaiHttp)
-async function registerUser() {
+export async function registerUser() {
     sinon.stub(auth, 'sendConfirmationEmail').callsFake(function fakeFn() {return true})
 
     await chai
@@ -25,6 +25,16 @@ async function registerUser() {
         .request(app)
         .get(`/auth/confirm-email/${encrypt(MockedUser.email)}`)
         .set('content-type', 'application/json')
+}
+export async function testLogin() {
+    const res = await chai
+        .request(app)
+        .post(`/auth/login`)
+        .set('content-type', 'application/json')
+        .send(MockedUserCredetials)
+    const token = filterAuthToken(res.headers['set-cookie'])
+    const refreshToken = filterRefreshToken(res.headers['set-cookie'])
+    return {token, refreshToken}
 }
 describe('routes : auth', () => {
   beforeEach(() => {
@@ -80,13 +90,7 @@ describe('routes : auth', () => {
   it('should change password', async () => {
       sinon.stub(userService, 'sendNewPassword').callsFake(function fakeFn() {return true})
       await registerUser()
-      const res = await chai
-          .request(app)
-          .post(`/auth/login`)
-          .set('content-type', 'application/json')
-          .send(MockedUserCredetials)
-      const token = filterAuthToken(res.headers['set-cookie'])
-      const refreshToken = filterRefreshToken(res.headers['set-cookie'])
+      const {token, refreshToken} = await testLogin();
 
       const secondRes = await chai
           .request(app)

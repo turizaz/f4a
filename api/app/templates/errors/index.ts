@@ -11,6 +11,10 @@ export const WRONG_PASSWORD = {
     body: `Wrong email or passwprd`
 }
 export const EMAIL_NOT_VERIFIED = {
-    status: 401,
+    httpStatus: 401,
     body: 'Email not verified'
+}
+export const BAD_REQUEST = {
+    httpStatus: 400,
+    body: 'Bad request'
 }

@@ -3,7 +3,7 @@ import games from '../db/queries/games'
 import {_} from 'lodash'
 import {saveMessage, getMessages} from '../db/queries/messages'
 import config from '../config'
-import {CANT_PROCESS_ENTITY} from "../templates/errors";
+import {BAD_REQUEST, CANT_PROCESS_ENTITY} from '../templates/errors';
 
 export default {
     async add(ctx)
@@ -42,7 +42,7 @@ export default {
     ctx.body.fieldNumbersInGame = await games.playerInGame(id);
   },
 
-  async list(ctx)
+  async listForCity(ctx)
   {
     const {id} = ctx.params;
     const {rows} = await games.gamesForCity(id);
@@ -53,6 +53,7 @@ export default {
   {
     const {id} = ctx.req.user;
     const {gameId, playerNumber} = ctx.request.body;
+    if(!gameId || !playerNumber) {throw BAD_REQUEST;}
     const playersInGame = await games.join(id, gameId, playerNumber);
     ctx.ioGeneral.joinGame(playersInGame);
     ctx.status = 200;
@@ -61,7 +62,7 @@ export default {
   async addChatMessage(ctx)
   {
     const {message, gameId} = ctx.request.body;
-    if (!message || 1) {
+    if (!message) {
         throw CANT_PROCESS_ENTITY
     }
     const {name, id} = ctx.req.user;

@@ -7,7 +7,7 @@ const passportMiddleware = passport.authenticate(['jwt', 'jwt-refresh'], {sessio
 router.post('/', passportMiddleware, game.add);
 router.post('/join', passportMiddleware, game.join);
 router.get('/:id', game.get);
-router.get('/city/:id', game.list);
+router.get('/city/:id', game.listForCity);
 
 router.post('/chat', passportMiddleware, game.addChatMessage);
 router.get('/chat/history/:gameId', game.getChatHistory);

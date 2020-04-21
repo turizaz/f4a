@@ -47,9 +47,6 @@ function gamesForCity(cityId: number): Promise<{rows: any}> {
   );
 }
 
-/**
- * Getter for games
- */
 function get(id: number) {
   return knex.raw(
       `select *,
@@ -72,9 +69,7 @@ function playerInGame(gameId: number) {
         from games_composition where game_id = :gameId`, {gameId})
       .then((res)=> res.rows[0].array_agg);
 }
-/**
- * Joining or leaving the game
- */
+
 async function join(
     playerId: number,
     gameId: number,
