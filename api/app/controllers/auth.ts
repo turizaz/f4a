@@ -15,7 +15,6 @@ const authController = {
   async changePassword(ctx)
   {
     const {id} = ctx.req.user;
-    // console.log(id)
     await userService.changePassword(ctx.request.body.password, id);
     ctx.status = 200
   },

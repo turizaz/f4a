@@ -16,10 +16,10 @@ after_success:
 
 deploy:
   provider: elasticbeanstalk
-  region: us-east-2
+  region: eu-north-1
   app: f4a
   env: F4a-env
-  bucket_name: elasticbeanstalk-us-east-2-167510155361
+  bucket_name: elasticbeanstalk-eu-north-1-242064348210
   bucket_path: f4a
   on:
     branch: master
