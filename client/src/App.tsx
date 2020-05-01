@@ -14,6 +14,7 @@ import {withRouter} from 'react-router-dom'
 import CompleteRegistration from './components/auth/complete-registration'
 import Account from "./components/account";
 import CircularProgress from '@material-ui/core/CircularProgress';
+import {authGuard} from './HOCs'
 
 interface Props {
   location: any,
@@ -33,7 +34,7 @@ class App extends Component<Props> {
           {loading && <CircularProgress className={'loader-spinner'} color='primary' size={400} thickness={0.3}/>}
           <div className="container main-content">
             <Route path="/about" exact component={About}/>
-            <Route path="/account" exact component={Account}/>
+            <Route path="/account" exact component={authGuard(Account)}/>
             <Route path="/login" exact component={Login}/>
             <Route path="/game/:id" exact component={Game}/>
             <Route path="/forgot-password" exact component={ForgotPassword}/>

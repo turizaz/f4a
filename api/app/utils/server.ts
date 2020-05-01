@@ -1,24 +1,21 @@
 import config from '../config'
 import * as fs from 'fs'
 import * as path from 'path'
-import * as dotEnv from 'dotenv'
 import * as compose from 'koa-compose'
-import {gameSocket, generalSocket} from '../sockets/init';
+import cookie from 'koa-cookie'
+import {gameSocket, generalSocket} from '../sockets/init'
+
 class Server {
     static addMiddleware(app): void {
         const handlers = fs.readdirSync(path.join(__dirname, './../middleware/default/')).sort();
         handlers.forEach((handler) => require('./../middleware/default/' + handler).init(app));
     }
-    static runServer(env, koaApp) {
-        return 'test' !== env ? koaApp.listen(config.port) : koaApp.listen(config.port+2)
-    }
-    static loadConfig(): void {
-        if (config.env === 'development') {
-            dotEnv.config()
-        }
+    static runServer(koaApp) {
+        return 'test' !== config.env ? koaApp.listen(config.PORT) : koaApp.listen(config.PORT+2)
     }
     static addRoutes(app): void {
         const routes = [];
+        app.use(cookie())
         fs.readdirSync(path.join(__dirname, './../routes')).forEach((middlewarePath) => {
             routes.push(require('./../routes/'+middlewarePath).routes())
         });

@@ -1,14 +1,18 @@
-import authMiddleware from '../middleware/auth'
 import * as Router from 'koa-router'
 import authController from '../controllers/auth'
+import passport from '../libs/passport'
+const authRoutes = new Router({prefix: '/auth'})
+const googleScope = passport.authenticate('google', {scope: ['openid', 'https://www.googleapis.com/auth/userinfo.profile', 'https://www.googleapis.com/auth/userinfo.email'], session: false});
+const passportMiddleware = passport.authenticate(['jwt', 'jwt-refresh'], {session: false})
 
-const authRoutes = new Router({prefix: '/auth'});
 authRoutes
     .get('/confirm-email/:hash', authController.confirmEmail)
     .post('/registration', authController.registration)
-    .post('/refresh-token', authController.refreshToken)
     .post('/forgot-password', authController.forgotPassword)
-    .post('/change-password', authMiddleware, authController.changePassword)
+    .post('/change-password', passportMiddleware, authController.changePassword)
     .post('/login', authController.login)
-    .post('/logout', authController.logout);
+    .post('/logout', authController.logout)
+    .get('/google', googleScope)
+    .get('/google/oauth/callback', googleScope, authController.googleOAuth)
+
 module.exports = authRoutes;

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {withGameService} from '../../../hoc-helpers';
+import {withGameService} from '../../../HOCs';
 import GameItem from './game-item';
 import './games-list.scss';
 import InputBarrette from '../../../components/common/input-barrette'

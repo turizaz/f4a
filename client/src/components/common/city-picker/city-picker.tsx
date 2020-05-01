@@ -1,7 +1,7 @@
 import React from 'react'
 import SetCityItem from './set-city-item'
 import './city-picker.scss'
-import {withCityService} from '../../../hoc-helpers'
+import {withCityService} from '../../../HOCs'
 
 interface Props {
   doChoice: any;

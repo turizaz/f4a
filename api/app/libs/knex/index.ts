@@ -1,10 +1,12 @@
+import config from '../../config'
+
 const {
   POSTGRES_HOST,
   POSTGRES_USER,
   POSTGRES_DB,
   POSTGRES_PASSWORD,
   POSTGRES_PORT,
-} = process.env;
+} = config;
 // tslint:disable-next-line
 const knex = require('knex')({
   client: 'pg',

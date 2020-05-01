@@ -14,13 +14,11 @@ sockets();
 ReactDOM.render(
     <BrowserRouter>
       <Provider store={store}>
-        {/* eslint-disable */}
         <CityServiceProvider value={new CityService()}>
         <GameServiceProvider value={new GameService()}>
           <App />
         </GameServiceProvider>
         </CityServiceProvider>
-        {/* eslint-enable */}
       </Provider>
     </BrowserRouter>,
     document.getElementById('root')

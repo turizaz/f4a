@@ -5,7 +5,7 @@ import ChatMessage from './chat-message';
 import {connect} from 'react-redux';
 import {addChatMessage, loadChatHistory} from '../../../ac/games';
 import _ from 'lodash';
-import {withGameService} from '../../../hoc-helpers';
+import {withGameService} from '../../../HOCs';
 
 interface Props {
   gameId: any,

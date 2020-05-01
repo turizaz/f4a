@@ -61,16 +61,25 @@ class Account extends Component<Props> {
         } finally {
            loaded()
         }
-
-        // window.location.href = '/'
     }
     render(): React.ReactNode {
+        const {user} = this.props.auth;
+        if(user.type === 'google') {
+            return (
+              <div>
+                  <h3>{user.name}</h3>
+                  <p>google account</p>
+              </div>
+            )
+        }
         return (
             <form className='col-12 col-md-12 col-sm-12 col-lg-6 col-xl-6 login-form'
                   onSubmit={this.onSubmit}>
                 {this.state.errors.password && (
                     <ErrorMessage message={this.state.errors.password} />
                 )}
+                <h2>{user.name}</h2>
+                <h3>Сменить пароль</h3>
                 <div>
                     <label>Новый пароль</label>
                 </div>

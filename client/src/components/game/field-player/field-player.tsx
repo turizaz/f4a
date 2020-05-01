@@ -2,7 +2,7 @@
 import React, {Component} from 'react'
 
 import './field-player.scss'
-import {withGameService} from '../../../hoc-helpers'
+import {withGameService} from '../../../HOCs'
 import {connect} from 'react-redux'
 interface Props {
   gameService: any,

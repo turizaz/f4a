@@ -1,16 +1,16 @@
-const users = require('../queries/users');
-exports.seed = function(knex, Promise) {
+import * as users from '../queries/users'
+exports.seed = (knex, Promise) => {
   return knex('users')
-      .then(function() {
-        return users.addUser({
+      .then(() => {
+        return users.addLocalUser({
           name: 'username0',
           email: 'user-email0',
           password: 'user-password0',
           verified: true
         });
       })
-      .then(function() {
-        return users.addUser({
+      .then(() => {
+        return users.addLocalUser({
           name: 'username',
           email: 'user@email.com',
           password: 'user-password',

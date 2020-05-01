@@ -2,13 +2,15 @@ import {IMessage} from '../db/queries/interfaces/Imessage'
 import games from '../db/queries/games'
 import {_} from 'lodash'
 import {saveMessage, getMessages} from '../db/queries/messages'
-const {GAME_CHAT_ROOM_PREFIX} = process.env;
+import config from '../config'
+import {BAD_REQUEST, CANT_PROCESS_ENTITY} from '../templates/errors';
 
 export default {
-    async add(ctx) {
+    async add(ctx)
+    {
         const data = prepare(ctx.request.body);
         const id = await games.addGame({
-            author_id: ctx.user.id,
+            author_id: ctx.req.user.id,
             ...data,
         });
         ctx.ioGeneral.emit('GAME_ADDED', id);
@@ -33,40 +35,40 @@ export default {
         }
     },
 
-  async get(ctx) {
+  async get(ctx)
+  {
     const {id} = ctx.params;
     ctx.body = await games.get(id);
     ctx.body.fieldNumbersInGame = await games.playerInGame(id);
   },
 
-  async list(ctx) {
+  async listForCity(ctx)
+  {
     const {id} = ctx.params;
     const {rows} = await games.gamesForCity(id);
     ctx.body = rows;
   },
 
-  async join(ctx) {
-    const {id} = ctx.user;
+  async join(ctx)
+  {
+    const {id} = ctx.req.user;
     const {gameId, playerNumber} = ctx.request.body;
+    if(!gameId || !playerNumber) {throw BAD_REQUEST;}
     const playersInGame = await games.join(id, gameId, playerNumber);
-    if (playersInGame) {
-      ctx.ioGeneral.emit('PLAYER_JOINED', playersInGame);
-    }
+    ctx.ioGeneral.joinGame(playersInGame);
     ctx.status = 200;
   },
 
-  async addChatMessage(ctx) {
+  async addChatMessage(ctx)
+  {
     const {message, gameId} = ctx.request.body;
-
     if (!message) {
-      ctx.status = 422;
-      return;
+        throw CANT_PROCESS_ENTITY
     }
-
-    const {name, id} = ctx.user;
+    const {name, id} = ctx.req.user;
     const savedMessage: IMessage = await saveMessage(message, id, gameId);
     ctx.ioGame
-        .to(GAME_CHAT_ROOM_PREFIX+gameId)
+        .to(config.GAME_CHAT_ROOM_PREFIX+gameId)
         .emit('GAME_CHAT_MESSAGE_ADDED', {
           id: savedMessage.id,
           username: name,
@@ -75,12 +77,12 @@ export default {
         });
     ctx.status = 201
   },
-
-  async getChatHistory(ctx) {
+  async getChatHistory(ctx)
+  {
     const {gameId} = ctx.params;
     const messages = getMessages(gameId);
     ctx.ioGame
-        .to(GAME_CHAT_ROOM_PREFIX+gameId)
+        .to(config.GAME_CHAT_ROOM_PREFIX+gameId)
         .emit('GAME_CHAT_MESSAGE_HISTORY', await messages);
     ctx.status = 200;
   },
