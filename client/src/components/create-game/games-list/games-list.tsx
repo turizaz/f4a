@@ -11,9 +11,11 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableContainer from '@material-ui/core/TableContainer';
 import Paper from '@material-ui/core/Paper'
+import {withNamespaces} from "react-i18next";
 
 interface Props {
-  games: any
+  games: any,
+  t: any
 }
 
 
@@ -29,7 +31,7 @@ class GamesList extends Component<Props> {
   };
 
   render() {
-    const {games} = this.props;
+    const {games, t} = this.props;
     if (!games.entities.valueSeq().size) {
       return null;
     }
@@ -46,9 +48,9 @@ class GamesList extends Component<Props> {
                 <TableHead>
                   <TableRow>
                     <TableCell>Район</TableCell>
-                    <TableCell align="right">Адрес</TableCell>
-                    <TableCell align="right">Время</TableCell>
-                    <TableCell align="right">Игроков</TableCell>
+                    <TableCell align="right">{t('Адрес')}</TableCell>
+                    <TableCell align="right">{t('Время')}</TableCell>
+                    <TableCell align="right">{t('Игроков')}</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -64,6 +66,7 @@ class GamesList extends Component<Props> {
   }
 }
 
+
 export default connect(
     (state: any) => {
       return {
@@ -72,4 +75,6 @@ export default connect(
       };
     },
     null
-)(withGameService(GamesList));
+)(withGameService(
+    // @ts-ignore
+    withNamespaces()(GamesList)));

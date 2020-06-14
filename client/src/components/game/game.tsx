@@ -8,14 +8,16 @@ import GameInfo from './game-info'
 import TeemsVsFlags from './teems-vs-flags'
 import Chat from './chat'
 import './game.scss'
-import FootballField from './football-field'
+import FootballField from './football-field';
+import { withNamespaces } from 'react-i18next';
 library.add(faFutbol)
 
 interface Props {
   match: any,
   loadGame: any,
   game: any,
-  auth: any
+  auth: any,
+  t: any
 }
 
 class Game extends Component<Props> {
@@ -32,7 +34,7 @@ class Game extends Component<Props> {
   }
 
   render() {
-    const {game, auth} = this.props;
+    const {game, auth, t} = this.props;
     const {match: {params}} = this.props;
     const {id} = params;
     return (
@@ -41,8 +43,7 @@ class Game extends Component<Props> {
           <div className="left-col">
             <div>
               <p>
-                Чтобы присоединится
-                {auth.isAuthenticated || ', залогинтесь и'} нажмите на футболку
+                {auth.isAuthenticated ? t('Чтобы присоединится нажмите на футболку') : t('Чтобы присоединится, залогинтесь и нажмите на футболку')}
               </p>
             </div>
             <div className="football-field-wrapper shadow-1">
@@ -63,6 +64,7 @@ class Game extends Component<Props> {
     );
   }
 }
+
 export default connect(
     (state: any) => {
       return {
@@ -70,5 +72,5 @@ export default connect(
         auth: state.auth,
       };
     },
-    {loadGame}
-)(withGameService(Game));
+    // @ts-ignore
+    {loadGame})(withGameService(withNamespaces()(Game)));

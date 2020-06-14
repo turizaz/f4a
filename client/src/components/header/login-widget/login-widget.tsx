@@ -3,6 +3,7 @@ import './login-widget.scss'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {logout} from '../../../ac/auth'
+import Locales from "../../locales";
 interface Props {
     auth: any,
     logout: any
@@ -20,19 +21,19 @@ class LoginWidget extends React.Component<Props> {
     const {auth, logout} = this.props
     return auth.isAuthenticated ? (
       <div className="absolute-login-widget">
-          <Link to='/account'>
+          <Locales/>
               {auth.user.name}
               <i className="fas fa-user"/>
-          </Link>
           <i onClick={logout} className="fas fa-sign-out-alt"/>
       </div>
     ) : (
       <div className="absolute-login-widget">
+          <Locales/>
         <div>
-          <Link to="/login">
+            <Link to="/login">
               <i className="fas fa-user"/>
               <i className="fas fa-sign-in-alt"/>
-          </Link>
+            </Link>
         </div>
       </div>
     )

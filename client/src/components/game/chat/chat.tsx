@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import {addChatMessage, loadChatHistory} from '../../../ac/games';
 import _ from 'lodash';
 import {withGameService} from '../../../HOCs';
+import {withNamespaces} from "react-i18next";
 
 interface Props {
   gameId: any,
@@ -13,6 +14,7 @@ interface Props {
   loadChatHistory: any,
   gameService: any,
   gameChat: any,
+  t: any
 }
 
 /**
@@ -86,7 +88,7 @@ class Chat extends Component<Props> {
   async submit() {
     // @ts-ignore
     document.getElementById('message').value = null
-    const {gameService, gameId} = this.props;
+    const {gameService, gameId, t} = this.props;
     const {message} = _.pick(this.state, ['message']);
     if (!message) {
       alert('Нет смысла отправлять пустое сообщение');
@@ -101,14 +103,14 @@ class Chat extends Component<Props> {
         message: null,
       });
     } catch (error) {
-      if (error.response.status === 403) {
-        alert('Залогинтесь пожалуйста');
+      if (error.response.status > 400 && error.response.status < 500) {
+        alert(t('Залогинтесь, для того чтобы послать сообщение в чат'));
       }
     }
   }
 
   render() {
-    const {gameChat} = this.props;
+    const {gameChat, t} = this.props;
     return (
       <div className="chat">
         <hr/>
@@ -123,7 +125,7 @@ class Chat extends Component<Props> {
           <br/>
           <button
             className="btn submit-btn mb-2 shadow-0"
-            onClick={this.submit.bind(this)}>Послать сообщение</button>
+            onClick={this.submit.bind(this)}>{t('Послать сообщение')}</button>
         </div>
         <form>
           <ul>
@@ -139,8 +141,10 @@ class Chat extends Component<Props> {
   }
 }
 
+
 export default connect((state: any) => {
   return {
     gameChat: state.gameChat,
   };
-}, {addChatMessage, loadChatHistory})(withGameService(Chat));
+  // @ts-ignore
+}, {addChatMessage, loadChatHistory})(withGameService(withNamespaces()(Chat)));

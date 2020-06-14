@@ -1,9 +1,13 @@
 import React, {Component} from 'react';
 import './about.scss';
+import {withNamespaces} from "react-i18next";
+interface Props {
+    t: any
+}
 /**
  * About page
  */
-class About extends Component {
+class About extends Component<Props> {
 
   componentDidMount() {
     About.setMeta();
@@ -13,21 +17,15 @@ class About extends Component {
    * @return {string} html
    */
   render() {
+    const {t} = this.props
     return (
-      <div>
+      <h3>
         <article>
-          Если ты не знаешь, где <strong>
-          найти людей для игры в футбол
-          </strong>
-          <span> - это сайт как раз для тебя!</span>
-        </article>
-          <article>
-              Тут ты можешь собрать команду для игры в футбол.
-          </article>
-        <article>
-           Тут ты можешь создать игру либо присоединится к уже существующей.
-        </article>
-      </div>
+            <i>
+            {t('Если ты не знаешь, где найти людей для игры в футбол - это сайт как раз для тебя! Тут ты можешь собрать команду для игры в футбол. Тут ты можешь создать игру либо присоединится к уже существующей.')}
+            </i>
+            </article>
+      </h3>
     );
   }
 
@@ -36,4 +34,5 @@ class About extends Component {
   }
 }
 
-export default About;
+// @ts-ignore
+export default withNamespaces()(About);

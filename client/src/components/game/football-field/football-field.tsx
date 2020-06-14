@@ -58,7 +58,7 @@ class FootballField extends Component<Props> {
         for (let i = 1; i <= it && total > 0; i++) {
           row.push(
               <FieldPlayer
-                teem={index === 0 ? 'yellow' : 'blue'}
+                teem={index === 0 ? 'orange' : 'white'}
                 key={i}
                 game={game}
                 index={total}

@@ -63,6 +63,10 @@ const authController = {
     await authService.authenticateUser(user, ctx);
     const base64data = authService.hashObject({name, type: 'google'});
     return ctx.redirect(`/#${base64data}`)
+  },
+  async ping(ctx)
+  {
+    ctx.status = 200
   }
 };
 export default authController

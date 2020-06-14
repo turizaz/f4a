@@ -13,6 +13,8 @@ import {setUser} from '../../ac/auth'
 import moment from 'moment'
 import {loading, loaded} from "../../ac/loader";
 import {JSX} from "@babel/types";
+import {withNamespaces} from "react-i18next";
+
 moment.locale('ru')
 
 const initialState = {
@@ -35,6 +37,7 @@ interface Props {
   setCity: any,
   setUser: any,
   match: any,
+  t: any
 }
 
 class CreateGame extends React.Component<Props> {
@@ -85,14 +88,10 @@ class CreateGame extends React.Component<Props> {
     });
   };
 
-  getFormStatus() {
-    const {auth} = this.props
-    return auth.isAuthenticated ? ' active': ' passive';
-  }
   checkIfAllowedCreate() {
-    const {auth} = this.props
+    const {auth, t} = this.props
     if (!auth.isAuthenticated) {
-      alert('Зарегистрируйтесь чтобы создать игру')
+      alert(t('Зарегистрируйтесь чтобы создать игру'))
     }
     return auth.isAuthenticated;
   }
@@ -137,14 +136,15 @@ class CreateGame extends React.Component<Props> {
   render() {
 
     const {data, errors} = this.state
+    const {t} = this.props
     return (
       <div className="row main-content">
         <div className="left-col">
-          <form className={'game-form' + this.getFormStatus()} onSubmit={this.onSubmit}>
+          <form className={'game-form' } onSubmit={this.onSubmit}>
             <fieldset>
-              <legend>Создать игру</legend>
+              <legend>{t('Создать игру')}</legend>
               <div className="form-group" id="gameCitySection">
-                <label>Город</label>
+                <label>{t('Город')}</label>
                 {!this.state.data.city &&
                 <CityPicker
                   doChoice={this.setCity}
@@ -159,7 +159,7 @@ class CreateGame extends React.Component<Props> {
                 {errors.city && <ErrorMessage message={errors.city} />}
               </div>
               <div className="form-group">
-                <label>Район.</label>
+                <label>{t('Район')}</label>
                 <input
                   type="text"
                   className="form-control"
@@ -170,7 +170,7 @@ class CreateGame extends React.Component<Props> {
                 {errors.district && <ErrorMessage message={errors.district} />}
               </div>
               <div className="form-group">
-                <label>Адрес</label>
+                <label>{t('Адрес')}</label>
                 <input
                   type="text"
                   className="form-control"
@@ -187,7 +187,7 @@ class CreateGame extends React.Component<Props> {
                 {errors.date && <ErrorMessage message={errors.date} />}
               </div>
               <div className="form-group">
-                <label>Количество игроков</label>
+                <label>{t('Количество игроков')}</label>
                 <select
                   className="form-control col-2"
                   onChange={this.onChange}
@@ -200,7 +200,7 @@ class CreateGame extends React.Component<Props> {
               </div>
             </fieldset>
             <div className="form-group">
-              <label>Дополнительно</label>
+              <label>{t('Дополнительно')}</label>
               <textarea
                 className="form-control"
                 name="additional"
@@ -213,7 +213,7 @@ class CreateGame extends React.Component<Props> {
             </div>
             <div className="form-group">
               <button type="submit" className="btn submit-btn shadow-0">
-                Создать
+                {t('Создать')}
               </button>
             </div>
           </form>
@@ -229,6 +229,7 @@ class CreateGame extends React.Component<Props> {
   }
 }
 
+
 export default connect(
     (state: {location: any, game: any, auth: any}) => {
       return {
@@ -238,4 +239,5 @@ export default connect(
       };
     },
     {setCity, setUser, loading, loaded}
-)(withGameService(CreateGame))
+    // @ts-ignore
+)(withGameService(withNamespaces()(CreateGame)))

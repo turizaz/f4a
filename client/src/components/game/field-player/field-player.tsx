@@ -18,7 +18,7 @@ class FieldPlayer extends Component<Props> {
   applyGame = () => {
     const {gameService, game, index} = this.props
     gameService.joinGame(game.id, index).catch((e: any) => {
-      if (e.response.status === 403) {
+      if (e.response.status > 400 && e.response.status < 500) {
         alert('Залогинтесь сначала')
       }
     })
@@ -31,16 +31,16 @@ class FieldPlayer extends Component<Props> {
     const isActive = gameRedux.fieldNumbersInGame
       && gameRedux.fieldNumbersInGame.length > 0
       && gameRedux.fieldNumbersInGame.indexOf(index) !== -1;
-    const activeShirt = '/img/'+teem+'-shirt.png';
+    const activeShirt = '/img/'+teem+'-shirt.svg';
     return (
       <div className={'relative player'} onClick={this.applyGame}>
         <div className={'number'}>{index}</div>
         {isActive ?
-          <img alt={'active-shirt'} src={activeShirt}/>
+          <img className='shirt' alt={'active-shirt'} src={activeShirt}/>
           : <img
             alt={'grey-shirt'}
-            className={'t-shirt-grey'}
-            src='/img/grey-shirt.png' />}
+            className={'t-shirt-grey shirt'}
+            src='/img/gray-shirt.svg' />}
       </div>
     );
   }

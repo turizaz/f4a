@@ -26,7 +26,7 @@ class Account extends Component<Props> {
         this.setState({data: {...this.state.data, [e.target.name]: e.target.value}})
     }
     componentDidMount(): void {
-        const { auth } = this.props
+        const { auth } = this.props;
         if (!auth.isAuthenticated) {
             window.location.href  = '/';
         }
