@@ -7,7 +7,20 @@ export function setCurrentUser(user: any) {
     user,
   }
 }
-
+export function checkIfLogged() {
+  return async (dispatch: any) => {
+    let response;
+    try {
+      response = await axios.get(`/auth/ping`);
+    } catch (e) {
+      if (e.message.indexOf('code 401') !== -1) {
+        dispatch(setCurrentUser(null))
+      }
+      response = e.message
+    }
+    return response
+  }
+}
 export function login(credentials: any): any {
   return async (dispatch: any) => {
     try {
@@ -50,6 +63,7 @@ export function registration(user: any) {
             resolve(res)
           })
           .catch((err) => {
+            console.log(err.response.data)
             dispatch(setCurrentUser({}))
             reject(err.response)
           });
@@ -66,8 +80,8 @@ export function logout() {
 }
 
 export function setUser(user: any) {
+  console.log(`set user`)
   return (dispatch: any) => {
     dispatch(setCurrentUser(user))
   };
 }
-

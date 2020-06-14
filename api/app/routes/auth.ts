@@ -13,6 +13,7 @@ authRoutes
     .post('/login', authController.login)
     .post('/logout', authController.logout)
     .get('/google', googleScope)
+    .get('/ping', passportMiddleware, authController.ping)
     .get('/google/oauth/callback', googleScope, authController.googleOAuth)
 
 module.exports = authRoutes;

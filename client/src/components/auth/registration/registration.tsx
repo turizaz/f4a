@@ -10,7 +10,9 @@ import {loaded, loading} from "../../../ac/loader";
 
 interface Props {
   registration: any,
-  history: any
+  history: any,
+  loading:any,
+  loaded: any
 }
 
 /**
@@ -73,14 +75,14 @@ class Registration extends Component<Props> {
       }
     }
     const registrationData = _.pick(data, ['name', 'password', 'email'])
-    const { registration } = this.props
+    const { registration, loading, loaded } = this.props
     try {
       loading()
       await registration(registrationData)
       this.props.history.push(`/complete-registration`)
     } catch (err) {
       switch (err.status) {
-        case 409:
+        case 403:
           this.setState({backendErrors: ['Такой пользователь уже существует']}
           )
           break

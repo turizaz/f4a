@@ -15,10 +15,12 @@ import CompleteRegistration from './components/auth/complete-registration'
 import Account from "./components/account";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {authGuard} from './HOCs'
-
+import {checkIfLogged} from "./ac/auth";
+import './i18n';
 interface Props {
   location: any,
-  loader: any
+  loader: any,
+  checkIfLogged: any
 }
 
 /**
@@ -28,6 +30,8 @@ class App extends Component<Props> {
   render() {
     const {location, loader} = this.props
     const {loading} = loader
+    const {checkIfLogged} = this.props
+    checkIfLogged().then(console.log)
     return (
         <div className={location.id && 'city-picked'}>
           <Header/>
@@ -52,7 +56,7 @@ class App extends Component<Props> {
 export default withRouter(connect((state: { location: any; loader: any }) => {
   return {
     location: state.location,
-    loader: state.loader
+    loader: state.loader,
   }
-}, null)(App));
+}, {checkIfLogged})(App));
 

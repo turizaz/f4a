@@ -4,6 +4,8 @@ export const FAIL = '_FAIL'
 
 export const SET_CURRENT_USER = 'SET_CURRENT_USER'
 export const SET_CITY = 'SET_CITY'
+export const NOTIFY_CUSTOMER='NOTIFY_CUSTOMER'
+export const WARN_USER='WARN_USER'
 
 export const LOAD_GAMES = 'LOAD_GAMES'
 export const LOAD_GAME = 'LOAD_GAME'

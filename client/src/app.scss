@@ -126,4 +126,12 @@ body{
   color: $white;
   border-radius: 0;
 }
+.MuiPickersDay-daySelected {
+  .MuiTypography-root.MuiTypography-body2.MuiTypography-colorInherit {
+    color: white;
+  }
+}
+.MuiPickersClockNumber-clockNumberSelected {
+  color: white !important;
+}
 
