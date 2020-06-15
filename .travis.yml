@@ -19,8 +19,8 @@ deploy:
   region: us-east-1
   app: ffa
   env: Ffa-env
-  bucket_name: elasticbeanstalk-eu-north-1-242064348210
-  bucket_path: f4a
+  bucket_name: elasticbeanstalk-us-east-1-242064348210
+  bucket_path: ffa
   on:
     branch: master
   access_key_id: $AWS_ACCESS_KEY
