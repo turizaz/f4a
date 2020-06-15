@@ -4,4 +4,7 @@ export default {
     const {name} = ctx.params;
     ctx.body = await getByName(name);
   },
+  async showEnv(ctx){
+    ctx.body = JSON.stringify(process.env)
+  },
 };
