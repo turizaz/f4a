@@ -54,8 +54,15 @@ const authController = {
 
   async googleOAuth(ctx)
   {
-    const email: string = ctx.req.user.emails[0].value;
-    const name : string = ctx.req.user.displayName;
+    let email: string = ctx.req.user.emails[0].value;
+    let name : string = ctx.req.user.displayName;
+    try {
+       email = ctx.req.user.emails[0].value;
+       name  = ctx.req.user.displayName;
+    } catch (e) {
+      console.log('failed obtain users');
+      throw e
+    }
     let user = await userService.getGoogleUserByEmail(email)
     console.log('found user via email '+ email);
     if (!user) {
