@@ -57,7 +57,7 @@ const authController = {
     const email: string = ctx.req.user.emails[0].value;
     const name : string = ctx.req.user.displayName;
     let user = await userService.getGoogleUserByEmail(email)
-    console.log('founf user via email '+ email);
+    console.log('found user via email '+ email);
     if (!user) {
       console.log('no user with email '+ email);
       user = await userService.storeGoogleUser({name, email});
