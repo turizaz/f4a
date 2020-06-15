@@ -31,15 +31,16 @@ function storeGoogleUser(user: IGoogleUser) {
     return knex('users')
         .insert({
             type: 'google',
-            verified: true,
+            // verified: true,
             google:
                 {
                     email: user.email,
                     name: user.name,
+                    verified: true
                 },
         })
         .returning(['id', 'google', 'type'])
-        .then((res)=> res[0]);
+        .then((res)=> res[0]).catch(console.error);
 }
 function getSingleUserByEmail(email: string): IUser {
   return knex('users')

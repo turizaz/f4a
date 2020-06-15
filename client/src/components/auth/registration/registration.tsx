@@ -7,12 +7,14 @@ import _ from 'lodash'
 import {registration} from '../../../ac/auth'
 import {connect} from 'react-redux'
 import {loaded, loading} from "../../../ac/loader";
+import {withNamespaces} from "react-i18next";
 
 interface Props {
   registration: any,
   history: any,
   loading:any,
-  loaded: any
+  loaded: any,
+  t: any
 }
 
 /**
@@ -48,23 +50,25 @@ class Registration extends Component<Props> {
    * @return {object}
    */
   validate = (data: any) => {
+    const {t} = this.props
     const errors : {
       password: string | null,
       email: string | null,
       name: string | null,
       repeatPassword: string | null
     } = {password: null, email: null, name: null, repeatPassword: null}
-    if (!data.password) errors.password = `Не может быть пустым`
-    if (!data.email) errors.email = `Не может быть пустым`
-    if (!data.name) errors.name = `Не может быть пустым`
+    if (!data.password) errors.password = t(`Не может быть пустым`)
+    if (!data.email) errors.email = t(`Не может быть пустым`)
+    if (!data.name) errors.name = t(`Не может быть пустым`)
     if (!data.password !== !data.repeatPassword) {
-      errors.repeatPassword = `Пароли не совпадают`
+      errors.repeatPassword = t(`Пароли не совпадают`)
     }
-    if (!Validator.isEmail(data.email)) errors.email = `Не валидный емейл`
+    if (!Validator.isEmail(data.email)) errors.email = t(`Не валидный емейл`)
     return errors
   };
 
   onSubmit = async (e: any) => {
+    const {t} = this.props
     const {data} = this.state
     e.preventDefault()
     const errors: any = this.validate(data)
@@ -83,7 +87,7 @@ class Registration extends Component<Props> {
     } catch (err) {
       switch (err.status) {
         case 403:
-          this.setState({backendErrors: ['Такой пользователь уже существует']}
+          this.setState({backendErrors: [t('Такой пользователь уже существует')]}
           )
           break
         default:
@@ -95,6 +99,7 @@ class Registration extends Component<Props> {
   };
 
   render() {
+    const {t} = this.props
     const {data} = this.state;
     return (
       <form className="
@@ -115,7 +120,7 @@ class Registration extends Component<Props> {
             id="name"
             name="name"
             value={data.name}
-            placeholder="Будет отображатся в интерфейсе"
+            placeholder={t('Будет отображатся в интерфейсе')}
             onChange={this.onChange}
             className="form-control"
           />
@@ -124,7 +129,7 @@ class Registration extends Component<Props> {
           )}
         </div>
         <div className="form-group">
-          <label htmlFor="exampleInputEmail1">E-mail адрес</label>
+          <label htmlFor="exampleInputEmail1">E-mail {t('адрес')}</label>
           <input
             type="email"
             id="email"
@@ -162,7 +167,7 @@ class Registration extends Component<Props> {
             value={data.repeatPassword}
             onChange={this.onChange}
             className="form-control"
-            placeholder="Повторите пароль"
+            placeholder={t("Повторите пароль")}
           />
           {this.state.errors.repeatPassword && (
             <ErrorMessage message={this.state.errors.repeatPassword} />
@@ -170,7 +175,7 @@ class Registration extends Component<Props> {
         </div>
         <div className="form-group">
           <button type="submit" className="btn submit-btn mb-2">
-            Зарегистрировтся
+            {t('Зарегистрировтся')}
           </button>
         </div>
       </form>
@@ -178,4 +183,5 @@ class Registration extends Component<Props> {
   }
 }
 
-export default connect(null, {registration, loading, loaded})(Registration)
+// @ts-ignore
+export default connect(null, {registration, loading, loaded})(withNamespaces()(Registration))

@@ -7,7 +7,8 @@ import {login} from '../../../ac/auth'
 import {Link} from 'react-router-dom'
 import {loaded, loading} from "../../../ac/loader";
 import SingInGoogle from './oauth/google'
-interface Props {history: any, login: any, loading: any, loaded: any}
+import {withNamespaces} from "react-i18next";
+interface Props {history: any, login: any, loading: any, loaded: any, t: any}
 
 class Login extends React.Component<Props> {
 
@@ -71,6 +72,7 @@ class Login extends React.Component<Props> {
   }
 
   render() {
+    const {t} = this.props
     const {data} = this.state;
     return (
       <div>
@@ -79,7 +81,7 @@ class Login extends React.Component<Props> {
             this.state.backendErrors.map((it) =>
               <ErrorMessage key={it} message={it}/>)}
           <div className="form-group">
-            <label>E-mail адрес</label>
+            <label>E-mail {t('адрес')}</label>
             <input
               type="email"
               id="email"
@@ -110,11 +112,11 @@ class Login extends React.Component<Props> {
           </div>
           <div className="form-group">
             <div className='forgot-password'>
-              <Link to="/forgot-password">Забыли пароль ?</Link>
+              <Link to="/forgot-password">{t('Забыли')} пароль ?</Link>
             </div>
-            <button type="submit" className="btn submit-btn mb-2">Войти</button>
+            <button type="submit" className="btn submit-btn mb-2">{t('Войти')}</button>
             &nbsp;
-            <button onClick={this.goToRegister} className="btn submit-btn mb-2">Зарегистрировтся</button>
+            <button onClick={this.goToRegister} className="btn submit-btn mb-2">{t('Зарегистрировтся')}</button>
             <br/>
             <SingInGoogle/>
           </div>
@@ -124,8 +126,10 @@ class Login extends React.Component<Props> {
   }
 }
 
+
 export default connect(
     (state: {auth: any}) => ({
       auth: state.auth,
     }), {login, loading, loaded}
-)(Login)
+    // @ts-ignore
+)(withNamespaces()(Login))
