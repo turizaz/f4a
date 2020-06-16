@@ -22,7 +22,7 @@
     "eslint-config-google": "^0.13.0",
     "js-yaml": "^3.13.1",
     "jwt-decode": "^2.2.0",
-    "knex": "^0.19.5",
+    "knex": "^0.21.0",
     "koa": "^2.6.2",
     "koa-bodyparser": "^4.2.1",
     "koa-cookie": "^1.0.0",
