@@ -24,7 +24,7 @@ class Header extends React.Component<Props> {
               <Link to="/">{t('Главная')}</Link>
             </li>
             <li className={
-              window.location.pathname === '/about' ? 'active' : ''}>
+              window.location.pathname === '/about' ? 'active for-desktop-only' : 'for-desktop-only'}>
               <Link to="/about">{t('О сервисе')}</Link>
             </li>
           </ul>
