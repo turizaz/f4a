@@ -16,10 +16,10 @@ after_success:
 
 deploy:
   provider: elasticbeanstalk
-  region: us-east-1
+  region: eu-north-1
   app: ffa
   env: Ffa-env
-  bucket_name: elasticbeanstalk-us-east-1-242064348210
+  bucket_name: elasticbeanstalk-eu-north-1-242064348210
   bucket_path: ffa
   on:
     branch: master
