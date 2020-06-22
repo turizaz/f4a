@@ -3,40 +3,55 @@ import './login-widget.scss'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {logout} from '../../../ac/auth'
-import Locales from "../../locales";
+import Locales from "../../locales"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faUser, faSignInAlt} from "@fortawesome/free-solid-svg-icons";
 interface Props {
     auth: any,
     logout: any
 }
-/**
- * Login widget for header
- */
+
 class LoginWidget extends React.Component<Props> {
 
-  /**
-   * Login widget for header with markup
-   * @return {string} - html login widget for header
-   */
   render() {
     const {auth, logout} = this.props
-    return auth.isAuthenticated ? (
+
+    return (
       <div className="absolute-login-widget">
-          <Locales/>
-              {auth.user.name}
-              <i className="fas fa-user"/>
-          <i onClick={logout} className="fas fa-sign-out-alt"/>
+          <div>
+              {auth.isAuthenticated ? auth.user.name: ''}
+              {/*<FontAwesomeIcon icon={faUser} className='user-icon'/>*/}
+              { auth.isAuthenticated ? <a onClick={logout} href='#' className='sign-out'>
+                  <FontAwesomeIcon icon={faSignInAlt}/>
+              </a> :
+              <Link to="/login" className='sign-out'>
+                  Авторизация <FontAwesomeIcon icon={faSignInAlt}/>
+              </Link>}
+          </div>
       </div>
-    ) : (
-      <div className="absolute-login-widget">
-          <Locales/>
-        <div>
-            <Link to="/login">
-              <i className="fas fa-user"/>
-              <i className="fas fa-sign-in-alt"/>
-            </Link>
-        </div>
-      </div>
-    )
+    );
+
+    // return auth.isAuthenticated ? (
+    //   <div className="absolute-login-widget">
+    //       <div>
+    //           {auth.user.name}
+    //       </div>
+    //       <FontAwesomeIcon icon={faUser}/>
+    //       <Link to="/logout">
+    //           <FontAwesomeIcon icon={faSignInAlt}/>
+    //       </Link>
+    //       <i onClick={logout} className="fas fa-sign-out-alt"/>
+    //   </div>
+    // ) : (
+    //   <div className="absolute-login-widget">
+    //     <div>
+    //         <FontAwesomeIcon icon={faUser}/>
+    //         <Link to="/login">
+    //             <FontAwesomeIcon icon={faSignInAlt}/>
+    //         </Link>
+    //     </div>
+    //   </div>
+    // )
   }
 }
 

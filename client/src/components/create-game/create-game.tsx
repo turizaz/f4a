@@ -4,7 +4,7 @@ import CityPicker from '../../components/common/city-picker'
 import ErrorMessage from '../../components/common/messages/error-message'
 import _ from 'lodash'
 import {withGameService} from '../../HOCs'
-import GamesList from './games-list'
+import GamesList from '../games-list'
 import {connect} from 'react-redux'
 import DateTimeComponent from '../../components/common/date-time'
 import SetCityWidget from '../../components/common/set-city-widget'
@@ -14,6 +14,7 @@ import moment from 'moment'
 import {loading, loaded} from "../../ac/loader";
 import {JSX} from "@babel/types";
 import {withNamespaces} from "react-i18next";
+import { Redirect } from 'react-router-dom'
 
 moment.locale('ru')
 
@@ -37,6 +38,9 @@ interface Props {
   setCity: any,
   setUser: any,
   match: any,
+  history: any,
+  loading:any,
+  loaded: any,
   t: any
 }
 
@@ -120,12 +124,14 @@ class CreateGame extends React.Component<Props> {
       errors,
     });
     if (_.isEmpty(errors)) {
-      const {gameService} = this.props;
+      const {gameService, loading, loaded} = this.props;
       try {
         loading()
         const res = await gameService.add(data)
         if (res.status === 201) {
           this.setState(initialState)
+          console.log('red')
+          this.props.history.push(`/`)
         }
       } finally {
         loaded()
@@ -139,7 +145,7 @@ class CreateGame extends React.Component<Props> {
     const {t} = this.props
     return (
       <div className="row main-content">
-        <div className="left-col">
+        <div className="left-col create-game-left-col">
           <form className={'game-form' } onSubmit={this.onSubmit}>
             <fieldset>
               <legend>{t('Создать игру')}</legend>
@@ -217,12 +223,6 @@ class CreateGame extends React.Component<Props> {
               </button>
             </div>
           </form>
-        </div>
-        <div className="right-col">
-          <div className="width-100">
-            <SetCityWidget/>
-            <GamesList />
-          </div>
         </div>
       </div>
     )

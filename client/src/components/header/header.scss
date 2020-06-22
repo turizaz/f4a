@@ -13,20 +13,31 @@
     padding: 0;
     margin: 0;
     li {
+      padding: 0 20px;
       &.active {
-        background-color: #fe5e4d;
+        //background-color: #fe5e4d;
+        a {
+          color: #FFA500;
+        }
       }
       @include transition(background-color, 0.5s);
       a {
+        @include transition(color, 0.2s);
         text-decoration: none;
         color: $white;
         display: flex;
         height: 100%;
         align-items: center;
-        padding: 0 50px;
+        font-style: italic;
+        font-weight: bold;
+        font-size: 20px;
+        //padding: 0 50px;
+        &:hover{
+          color: #FFA500;
+        }
       }
       &:hover {
-        background-color: #fe5e4d;
+        //background-color: #fe5e4d;
         background-image: none;
       }
       cursor: pointer;
@@ -41,16 +52,43 @@
 }
 
 @media only screen and (max-width: $max-with) {
-  .for-desktop-only {
+  .absolute-login-widget {right: 5px !important;}
+  li { a {padding: 0 20px !important;} }
+}
+@media only screen and (max-width: $min-with) {
+  .desktop-only {
     display: none !important;
   }
-  .absolute-login-widget {
-    right: 15px !important;
-  }
-  li {
-    a {
-      padding: 0 20px !important;
-    }
+}
+@media only screen and (min-width: $max-with) {
+  .mobile-only {
+    display: none !important;
   }
 }
 
+.mobile-menu {
+  color: white;
+  svg {
+    cursor: pointer;
+  }
+  ul {
+    display: block;
+    position: relative;
+    z-index: 100000;
+    top:65px;
+    left: -40px;
+    li {
+      &:hover {
+        color: #FFA500;
+      }
+      border-bottom: dotted 1px black;
+      display: flex;
+      font-style: italic;
+      font-weight: bold;
+      font-size: 20px;
+    }
+  }
+  display: flex;
+  align-items: center;
+  justify-content: left;
+}
