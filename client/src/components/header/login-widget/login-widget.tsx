@@ -6,15 +6,17 @@ import {logout} from '../../../ac/auth'
 import Locales from "../../locales"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faUser, faSignInAlt} from "@fortawesome/free-solid-svg-icons";
+import {withNamespaces} from "react-i18next";
 interface Props {
     auth: any,
-    logout: any
+    logout: any,
+    t: any
 }
 
 class LoginWidget extends React.Component<Props> {
 
   render() {
-    const {auth, logout} = this.props
+    const {auth, logout, t} = this.props
 
     return (
       <div className="absolute-login-widget">
@@ -25,7 +27,7 @@ class LoginWidget extends React.Component<Props> {
                   <FontAwesomeIcon icon={faSignInAlt}/>
               </a> :
               <Link to="/login" className='sign-out'>
-                  Авторизация <FontAwesomeIcon icon={faSignInAlt}/>
+                  {t('Авторизация')} <FontAwesomeIcon icon={faSignInAlt}/>
               </Link>}
           </div>
       </div>
@@ -55,8 +57,10 @@ class LoginWidget extends React.Component<Props> {
   }
 }
 
+
 export default connect((state: any) => {
   return {
     auth: state.auth,
   };
-}, {logout})(LoginWidget)
+    // @ts-ignore
+}, {logout})(withNamespaces()(LoginWidget))

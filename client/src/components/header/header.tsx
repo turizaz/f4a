@@ -32,11 +32,11 @@ class Header extends React.Component<Props> {
                {this.state.mobileMenuShowed && <div className='mobile-menu-items'>
                 <ul className='shadow-2'>
                   <li onClick={this.hideMenu.bind(this)}><Link to="/"
-                  >Главная</Link></li>
+                  >{t('Главная')}</Link></li>
                   <li onClick={this.hideMenu.bind(this)}><Link to="/about"
-                  >О сервисе</Link></li>
+                  >{t('О сервисе')}</Link></li>
                   <li onClick={this.hideMenu.bind(this)}><Link to="/create-game"
-                  >Создать игру</Link></li>
+                  >{t('Создать игру')}</Link></li>
                 </ul>
               </div>}
             </div>
@@ -49,10 +49,10 @@ class Header extends React.Component<Props> {
             </li>
             <li onClick={this.hideMenu.bind(this)} className={window.location.pathname === '/about' ? 'active' : ''}>
               <Link to="/about"
-            >О сервисе</Link></li>
+            >{t('О сервисе')}</Link></li>
             <li className={window.location.pathname === '/create-game' ? 'active' : ''}>
               <Link to="/create-game"
-                    >Создать игру</Link></li>
+                    >{t('Создать игру')}</Link></li>
           </ul>
           <LoginWidget/>
         </div>
