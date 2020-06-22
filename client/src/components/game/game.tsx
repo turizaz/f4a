@@ -2,15 +2,15 @@ import React, {Component} from 'react'
 import {withGameService} from '../../HOCs'
 import {loadGame} from '../../ac/games'
 import {connect} from 'react-redux'
-import {library} from '@fortawesome/fontawesome-svg-core'
-import {faFutbol} from '@fortawesome/free-solid-svg-icons'
+// import {library} from '@fortawesome/fontawesome-svg-core'
+// import {faFutbol} from '@fortawesome/free-solid-svg-icons'
 import GameInfo from './game-info'
 import TeemsVsFlags from './teems-vs-flags'
 import Chat from './chat'
 import './game.scss'
 import FootballField from './football-field';
 import { withNamespaces } from 'react-i18next';
-library.add(faFutbol)
+// library.add(faFutbol)
 
 interface Props {
   match: any,

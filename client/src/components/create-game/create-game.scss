@@ -1,6 +1,8 @@
 @import "~app.scss";
 
-.left-col {
+.create-game-left-col {
+  margin: 0 auto;
+  flex: 0.5 !important;
   padding-top: 10px;
   .game-form {
     &.passive {
@@ -18,9 +20,6 @@
     .date {
       label {
         width: 100%;
-      }
-       input {
-         width: 120px;
       }
     }
     .success-panel {

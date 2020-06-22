@@ -1,15 +1,17 @@
 import React from 'react';
 import i18n from "../../i18n";
-
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faGlobe} from "@fortawesome/free-solid-svg-icons";
+import './locales.scss'
 export default class Locales extends React.Component {
     async setLocale(locale: string) {
-        console.log(locale)
         await i18n.changeLanguage(locale)
         return null
     }
     render(): React.ReactNode {
         return (
-            <div>
+            <div className='locales'>
+                {/*<FontAwesomeIcon icon={faGlobe} size='2x'/>*/}
                 <a href="#" data-loc="ua" onClick={this.setLocale.bind(null, 'ua')}>
                     <img src='/locales/ua-32.png'/>
                 </a>

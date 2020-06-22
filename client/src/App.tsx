@@ -15,7 +15,9 @@ import CompleteRegistration from './components/auth/complete-registration'
 import Account from "./components/account";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {authGuard} from './HOCs'
+import GamesList from './components/games-list'
 import {checkIfLogged} from "./ac/auth";
+import Locales from './components/locales'
 import './i18n';
 interface Props {
   location: any,
@@ -31,10 +33,12 @@ class App extends Component<Props> {
     const {location, loader} = this.props
     const {loading} = loader
     const {checkIfLogged} = this.props
+    console.log('loading', loading)
     checkIfLogged().then(console.log)
     return (
         <div className={location.id && 'city-picked'}>
           <Header/>
+          <Locales/>
           {loading && <CircularProgress className={'loader-spinner'} color='primary' size={400} thickness={0.3}/>}
           <div className="container main-content">
             <Route path="/about" exact component={About}/>
@@ -43,9 +47,10 @@ class App extends Component<Props> {
             <Route path="/game/:id" exact component={Game}/>
             <Route path="/forgot-password" exact component={ForgotPassword}/>
             <Route path="/registration" exact component={Registration}/>
+            <Route path="/create-game" exact component={CreateGame}/>
             <Route path="/complete-registration" exact
                    component={CompleteRegistration}/>
-            <Route path="/" exact component={CreateGame}/>
+            <Route path="/" exact component={GamesList}/>
           </div>
         </div>
     )

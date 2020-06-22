@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {withGameService} from '../../../HOCs';
+import {withGameService} from '../../HOCs';
 import GameItem from './game-item';
 import './games-list.scss';
-import InputBarrette from '../../../components/common/input-barrette'
+import InputBarrette from '../../components/common/input-barrette'
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -12,6 +12,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TableContainer from '@material-ui/core/TableContainer';
 import Paper from '@material-ui/core/Paper'
 import {withNamespaces} from "react-i18next";
+import SetCityWidget from "../common/set-city-widget";
 
 interface Props {
   games: any,
@@ -33,11 +34,12 @@ class GamesList extends Component<Props> {
   render() {
     const {games, t} = this.props;
     if (!games.entities.valueSeq().size) {
-      return null;
+      return <SetCityWidget/>;
     }
 
     return (
         <div className='game-sessions-greed'>
+          <SetCityWidget/>
           <div className="head-game-list">
             <div className={'district'}>
               <InputBarrette onChange={this.filterDistrict}/>

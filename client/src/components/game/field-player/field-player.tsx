@@ -4,24 +4,28 @@ import React, {Component} from 'react'
 import './field-player.scss'
 import {withGameService} from '../../../HOCs'
 import {connect} from 'react-redux'
+import {loaded, loading} from "../../../ac/loader";
 interface Props {
   gameService: any,
   game: any,
   index: any,
   gameRedux: any,
-  teem: any
+  teem: any,
+  loading: any,
+  loaded: any
 }
 /**
  * Player ui on football field
  */
 class FieldPlayer extends Component<Props> {
   applyGame = () => {
-    const {gameService, game, index} = this.props
+    const {gameService, game, index, loading, loaded} = this.props
+    loading()
     gameService.joinGame(game.id, index).catch((e: any) => {
       if (e.response.status > 400 && e.response.status < 500) {
         alert('Залогинтесь сначала')
       }
-    })
+    }).finally(loaded)
   };
   /**
    * @return {JSX} html
@@ -51,5 +55,5 @@ export default (withGameService)(
       return {
         gameRedux: state.game,
       };
-    }, null)(FieldPlayer)
+    }, {loading, loaded})(FieldPlayer)
 );
