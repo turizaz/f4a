@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import {CityServiceConsumer} from '../context/city-service-context'
 
 const withCityService = (WrappedComponent: any) => {

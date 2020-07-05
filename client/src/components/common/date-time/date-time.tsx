@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import 'date-fns';
 
 import Grid from '@material-ui/core/Grid';
@@ -13,9 +13,11 @@ import "moment/locale/ru"
 import './date-time.scss'
 import green from '@material-ui/core/colors/green'
 import {MuiThemeProvider, createMuiTheme} from '@material-ui/core'
+import {withNamespaces} from "react-i18next";
 interface Props {
   onChange: any,
-  value: any
+  value: any,
+  t: any
 }
 const materialTheme = createMuiTheme({
     palette: {
@@ -25,11 +27,12 @@ const materialTheme = createMuiTheme({
 
 class DateTimeComponent extends React.Component<Props> {
   handleDateChange = (e: any) => {
-    const {onChange} = this.props
+    const {onChange}: any = this.props
     onChange(e)
   }
 
   render() {
+    const {t} = this.props
     return (
         <div className="date">
             <MuiThemeProvider theme={materialTheme}>
@@ -41,7 +44,7 @@ class DateTimeComponent extends React.Component<Props> {
                             variant="inline"
                             margin="normal"
                             id="date-picker-inline"
-                            label="Дата"
+                            label={t('Дата')}
                             value={this.props.value}
                             onChange={this.handleDateChange}
                             KeyboardButtonProps={{
@@ -54,7 +57,7 @@ class DateTimeComponent extends React.Component<Props> {
                             disableToolbar
                             margin="normal"
                             id="time-picker"
-                            label="Время"
+                            label={t('Время')}
                             ampm={false}
                             cancelLabel="Отмена"
                             okLabel="Подтвердить"
@@ -72,4 +75,7 @@ class DateTimeComponent extends React.Component<Props> {
     )
   }
 }
-export default DateTimeComponent
+
+
+// @ts-ignore
+export default withNamespaces()(DateTimeComponent)

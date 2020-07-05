@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import './forgot-password.scss'
 import {connect} from 'react-redux'
 import {forgotPassword} from '../../../ac/auth'

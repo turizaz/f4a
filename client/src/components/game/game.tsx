@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import * as React from 'react'
 import {withGameService} from '../../HOCs'
 import {loadGame} from '../../ac/games'
 import {connect} from 'react-redux'
@@ -20,7 +20,7 @@ interface Props {
   t: any
 }
 
-class Game extends Component<Props> {
+class Game extends React.Component<Props> {
   state = {
     gameOrder: [],
     players: 0,
@@ -48,6 +48,7 @@ class Game extends Component<Props> {
             </div>
             <div className="football-field-wrapper shadow-1">
               <div>
+                // @ts-ignore
                 <FootballField game={game}/>
               </div>
             </div>

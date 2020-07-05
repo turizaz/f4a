@@ -28,6 +28,13 @@ services:
     volumes:
       - /app/node_modules
       - ./client:/app
+  ssr:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ssr
+    volumes:
+      - /app/node_modules
+      - ./ssr:/app
   nginx:
     restart: always
     build:

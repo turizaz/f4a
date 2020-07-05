@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import * as React from 'react'
 import './football-field.scss'
 import FieldPlayer from '../field-player'
 import Teems from '../../../services/teems'
@@ -9,7 +9,7 @@ interface Props {
   game: any
 }
 
-class FootballField extends Component<Props> {
+class FootballField extends React.Component<Props> {
   state = {
     gameOrder: [],
     players: 0,

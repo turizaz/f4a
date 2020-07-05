@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import './error-message.scss'
 
 function ErrorMessage(props: any) {

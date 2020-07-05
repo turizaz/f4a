@@ -1,4 +1,4 @@
-import React, {Component} from "react"
+import * as React from "react"
 import {connect} from 'react-redux'
 import './account.scss'
 import ErrorMessage from '../../components/common/messages/error-message'
@@ -12,7 +12,7 @@ interface Props {
     loading: any,
     changePassword: any
 }
-class Account extends Component<Props> {
+class Account extends React.Component<Props> {
     state = {
         data: {
             password: '',

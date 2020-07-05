@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import * as React from 'react';
 import {connect} from 'react-redux';
 import {withGameService} from '../../HOCs';
 import GameItem from './game-item';
@@ -20,7 +20,7 @@ interface Props {
 }
 
 
-class GamesList extends Component<Props> {
+class GamesList extends React.Component<Props> {
   state = {
     district: null,
   };

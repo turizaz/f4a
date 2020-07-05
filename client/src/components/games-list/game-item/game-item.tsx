@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import * as React from 'react'
 import './game-item.scss'
 import {withRouter} from 'react-router-dom'
 import {RouteComponentProps} from 'react-router-dom'
@@ -9,7 +9,7 @@ interface Props extends RouteComponentProps<any> {
   item: any
 }
 
-class GameItem extends Component<Props> {
+class GameItem extends React.Component<Props> {
   click = () => {
     this.props.history.push(`/game/${this.props.item.id}`)
   }

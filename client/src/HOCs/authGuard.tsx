@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 interface Props {
   isAuthenticated: any,
   history: any,
 }
 export default (OriginalComponent:any) => {
-  class MixedComponent extends Component<Props> {
+  class MixedComponent extends React.Component<Props> {
 
     checkAuth() {
       if (!this.props.isAuthenticated) {

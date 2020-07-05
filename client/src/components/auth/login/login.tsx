@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import './login.scss'
 import Validator from 'validator'
 import ErrorMessage from '../../../components/common/messages/error-message'

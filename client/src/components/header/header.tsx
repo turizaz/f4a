@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import LoginWidget from './login-widget';
 import {Link} from 'react-router-dom';
 import './header.scss';

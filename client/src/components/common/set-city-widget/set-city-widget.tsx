@@ -1,5 +1,5 @@
 /* eslint-disable no-invalid-this */
-import React from 'react'
+import * as React from 'react'
 import './set-city-widget.scss'
 import CityPicker from '../../../components/common/city-picker'
 import {connect} from 'react-redux'
@@ -24,6 +24,7 @@ class SetCityWidget extends React.Component<Props> {
       // @ts-ignore
       setCity(JSON.parse(localStorage.getItem('location')));
     } catch (e) {
+      console.error(e)
     }
   }
   resetCity = () => {

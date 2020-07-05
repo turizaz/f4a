@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import * as React from 'react';
 import './about.scss';
 import {withNamespaces} from "react-i18next";
 interface Props {
@@ -7,7 +7,7 @@ interface Props {
 /**
  * About page
  */
-class About extends Component<Props> {
+class About extends React.Component<Props> {
 
   componentDidMount() {
     About.setMeta();

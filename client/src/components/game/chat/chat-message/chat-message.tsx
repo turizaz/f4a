@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import * as React from 'react';
 import './chat-message.scss';
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
 /**
  * One chat message
  */
-class ChatMessage extends Component<Props> {
+class ChatMessage extends React.Component<Props> {
   /**
    * @return {JSX}
    */

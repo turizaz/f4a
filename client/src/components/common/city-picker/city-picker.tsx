@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import SetCityItem from './set-city-item'
 import './city-picker.scss'
 import {withCityService} from '../../../HOCs'
@@ -25,6 +25,7 @@ class CityPicker extends React.Component<Props> {
     if (city.length > 2) {
       this.setState({loading: true});
       const cities = await cityService.getCities(city);
+      console.log(cities)
       this.setState({loading: false});
       this.setState({cities});
     }

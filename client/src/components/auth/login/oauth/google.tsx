@@ -1,5 +1,5 @@
 import './style.scss';
-import React from 'react';
+import * as React from 'react';
 import {withNamespaces} from "react-i18next";
 const link = `/api/auth/google`;
 

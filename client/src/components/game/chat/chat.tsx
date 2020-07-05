@@ -1,5 +1,5 @@
 /* eslint-disable no-invalid-this */
-import React, {Component} from 'react';
+import * as React from 'react';
 import './chat.scss';
 import ChatMessage from './chat-message';
 import {connect} from 'react-redux';
@@ -20,7 +20,7 @@ interface Props {
 /**
  * Game chat
  */
-class Chat extends Component<Props> {
+class Chat extends React.Component<Props> {
   /**
    * Init, handle socket messages
    */

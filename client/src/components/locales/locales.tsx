@@ -1,10 +1,11 @@
-import React from 'react';
-import i18n from "../../i18n";
+import * as React from 'react';
+import * as i18n from "../../i18n";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faGlobe} from "@fortawesome/free-solid-svg-icons";
 import './locales.scss'
 export default class Locales extends React.Component {
     async setLocale(locale: string) {
+        // @ts-ignore
         await i18n.changeLanguage(locale)
         return null
     }

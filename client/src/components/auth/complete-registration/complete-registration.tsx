@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import * as React from 'react';
 
-export default class CompleteRegistration extends Component {
+export default class CompleteRegistration extends React.Component {
   render() {
     return (
       <div>

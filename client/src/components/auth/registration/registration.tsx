@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import * as React from 'react'
 import './registration.scss'
 import ErrorMessage from '../../../components/common/messages/error-message'
 import Validator from 'validator'
@@ -20,7 +20,7 @@ interface Props {
 /**
  * Registration page
  */
-class Registration extends Component<Props> {
+class Registration extends React.Component<Props> {
 
   state = {
     data: {

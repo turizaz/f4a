@@ -1,5 +1,5 @@
 /* eslint-disable no-invalid-this */
-import React, {Component} from 'react'
+import * as React from 'react'
 
 import './field-player.scss'
 import {withGameService} from '../../../HOCs'
@@ -17,7 +17,7 @@ interface Props {
 /**
  * Player ui on football field
  */
-class FieldPlayer extends Component<Props> {
+class FieldPlayer extends React.Component<Props> {
   applyGame = () => {
     const {gameService, game, index, loading, loaded} = this.props
     loading()
