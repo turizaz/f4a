@@ -1,0 +1,139 @@
+$mobile-limit: 500;
+$ipad-limit: 768;
+$max-with-ipad: ($ipad-limit + 1) + 'px';
+$min-with-ipad: $ipad-limit + 'px';
+$max-with: ($mobile-limit + 1) + 'px';
+$min-with: $mobile-limit + 'px';
+$black: #0d0d0d;
+$light-black: lighten(#1c1c1c,3);
+$yellow: #fed136;
+$error: #ff9494;
+$white: #f9f9f9;
+
+
+$grey: darken(#eee, 2);
+$green: #38ae62;
+
+
+$primary: #38ae62;
+
+/*----FONTS----*/
+html, body, input, textarea, select, button {
+  font-family: 'PT Mono', monospace;
+}
+@font-face {
+  font-family: "Font Awesome 5 Free";
+  font-display: swap;
+}
+body{
+  background-color: lighten(#eee, 3);
+}
+
+.flex {
+  display: flex;
+}
+.relative {
+  position: relative;
+}
+@mixin shadow-0 {
+  box-shadow: 0 2px 4px -1px rgba(0,0,0,0.1), 0px 4px 5px 0px rgba(0,0,0,0.07), 0px 1px 10px 0px rgba(0,0,0,0.06);
+}
+@mixin shadow-1 {
+  box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
+}
+// functions
+@mixin transition($prop, $time) {
+  -webkit-transition: $prop ease-out $time;
+  -moz-transition: $prop ease-out $time;
+  -o-transition: $prop ease-out $time;
+  transition: $prop ease-out $time;
+}
+@mixin rotate($degree) {
+  -webkit-transform: rotate($degree);
+  transform: rotate($degree);
+}
+@mixin mirror() {
+  -moz-transform:    scaleX(-1); /* Gecko */
+  -o-transform:      scaleX(-1); /* Opera */
+  -webkit-transform: scaleX(-1); /* Webkit */
+  transform:         scaleX(-1); /* Standard */
+}
+@mixin mirrorY() {
+  -moz-transform:    scaleY(-1); /* Gecko */
+  -o-transform:      scaleY(-1); /* Opera */
+  -webkit-transform: scaleY(-1); /* Webkit */
+  transform:         scaleY(-1); /* Standard */
+}
+// styles itself
+.main-content {
+  padding-top: 30px;
+  @include transition(padding-top, .3s);
+}
+
+.shadow-1 {
+  @include shadow-1();
+}
+
+.shadow-0 {
+  @include shadow-0();
+}
+
+.city-picked {
+  .main-content {
+    .right-col {
+      .width-100 {
+        margin-top: -35px;
+      }
+    }
+  }
+}
+.width-100 {
+  transition: 0.5s;
+}
+.right-col, .left-col {
+  border: solid 2px #eee;
+  background-color: white;
+}
+
+.left-col {
+  border-right: none;
+  flex: 1;
+  padding: 10px;
+}
+.right-col{
+  flex: 4;
+  padding: 10px;
+  border-left: solid 1px #eee;
+}
+
+.loader-spinner {
+  position: absolute;
+  left: 50%;
+  margin-left: -200px;
+  top: 50%;
+  margin-top: -200px;
+  z-index: 1000;
+  .MuiCircularProgress-svg {
+    color: $primary;
+  }
+}
+.submit-btn {
+  &:hover {
+    color: $white;
+    background-color: darken($green, 4);
+  }
+  background-color: $green;
+  color: $white;
+  border-radius: 0;
+}
+.MuiPickersDay-daySelected {
+  .MuiTypography-root.MuiTypography-body2.MuiTypography-colorInherit {
+    color: white;
+  }
+}
+.MuiPickersClockNumber-clockNumberSelected {
+  color: white !important;
+}
+.loader-spinner .MuiCircularProgress-svg {
+  color: #FFA500 !important;
+}
