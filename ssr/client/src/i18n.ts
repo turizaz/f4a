@@ -1,4 +1,4 @@
-import * as i18n from "i18next";
+import i18n from "i18next";
 import { reactI18nextModule } from "react-i18next";
 
 import translationUA from './locales/ua/translation.json';
@@ -9,7 +9,6 @@ const resources = {
         translation: translationUA
     }
 };
-
 // @ts-ignore
 i18n.use(reactI18nextModule) // passes i18n down to react-i18next
     .init({

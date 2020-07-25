@@ -9,7 +9,7 @@ import * as fs from "fs"
 import * as path from "path"
 import * as React from 'react'
 import * as ReactDOMServer from 'react-dom/server'
-
+//const mount = require("koa-mount");
 
 
 // const testFolder = '/app/client/node_modules';
@@ -29,7 +29,7 @@ import * as ReactDOMServer from 'react-dom/server'
 
 import App from "./client/src/App";
 app.use(router.routes());
-app.use(serve('./build'));
+app.use(serve('./client/build'));
 
 router.get('/', async (ctx, next) => {
     const res = await rfs();
