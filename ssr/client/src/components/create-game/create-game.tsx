@@ -25,7 +25,7 @@ const initialState = {
     address: '',
     additional: '',
     players: 6,
-    date: moment(new Date().setHours(new Date().getHours() + 4)),
+    date: moment.now(), // (new Date().setHours(new Date().getHours() + 4)),
     district: '',
   },
   errors: {},

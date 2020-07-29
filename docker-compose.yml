@@ -35,6 +35,8 @@ services:
     volumes:
       - /app/node_modules
       - ./ssr:/app
+    ports:
+      - '4001:4001'
   nginx:
     restart: always
     build:

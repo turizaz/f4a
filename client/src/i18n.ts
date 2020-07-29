@@ -11,7 +11,7 @@ const resources = {
 };
 
 // @ts-ignore
-i18n.use(reactI18nextModule) // passes i18n down to react-i18next
+i18n.default.use(reactI18nextModule) // passes i18n down to react-i18next
     .init({
         resources,
         lng: "ru",
@@ -23,4 +23,4 @@ i18n.use(reactI18nextModule) // passes i18n down to react-i18next
         }
     });
 
-export default i18n;
+export default i18n.default;
