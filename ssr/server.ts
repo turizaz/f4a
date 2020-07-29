@@ -36,6 +36,24 @@ router.get('/', async (ctx, next) => {
     console.log(res)
     ctx.body = res
 });
+router.get('/:any', async (ctx, next) => {
+    const res = await rfs();
+    console.log(res)
+    ctx.body = res
+});
+// router.get('/:any/:param', async (ctx, next) => {
+//     const res = await rfs();
+//     console.log(res)
+//     ctx.body = res
+// });
+
+// router.get('/*', async (ctx, next) => {
+//     const res = await rfs();
+//     console.log(res)
+//     ctx.body = res
+// });
+
+
 
 app.listen(4001);
 

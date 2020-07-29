@@ -2,7 +2,7 @@ import * as React from 'react'
 import './login-widget.scss'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {logout} from '../../../ac/auth'
+import {logout, setCurUsr} from '../../../ac/auth'
 import Locales from "../../locales"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faUser, faSignInAlt} from "@fortawesome/free-solid-svg-icons";
@@ -10,12 +10,33 @@ import {withNamespaces} from "react-i18next";
 interface Props {
     auth: any,
     logout: any,
-    t: any
+    t: any,
+    setCurUsr: any
 }
 
 class LoginWidget extends React.Component<Props> {
 
-  render() {
+    componentDidMount(): void {
+        console.log('componentDidMount LOGIN WIDGET')
+        let user;
+        if (window && window.location.hash) {
+            user = JSON.parse(Base64.decode(window.location.hash))
+            localStorage.setItem('user', JSON.stringify(user))
+            return user
+        } else {
+            try {
+                user = JSON.parse(localStorage.user)
+            } catch (e) {
+                user = null
+            }
+        }
+        const {setCurUsr} = this.props;
+        console.log(user)
+        setCurUsr(user);
+        return;
+    }
+
+    render() {
     const {auth, logout, t} = this.props
 
     return (
@@ -63,4 +84,4 @@ export default connect((state: any) => {
     auth: state.auth,
   };
     // @ts-ignore
-}, {logout})(withNamespaces()(LoginWidget))
+}, {logout, setCurUsr})(withNamespaces()(LoginWidget))

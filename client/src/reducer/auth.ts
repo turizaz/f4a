@@ -14,6 +14,7 @@ export default (state = initialState, action: any) => {
   console.log('initial state, auth', action)
   switch (action.type) {
     case SET_CURRENT_USER:
+      console.log('SET CURR USER CALLED');
       const {user} = action
       localStorage.setItem('user', JSON.stringify(user))
       return {
@@ -29,18 +30,17 @@ function pickUser(user: any) {
 }
 
 function assignUser(): {name: string} | null {
-  return null
-  // let user;
-  // if (window.location.hash) {
-  //   user = JSON.parse(Base64.decode(window.location.hash))
-  //   localStorage.setItem('user', JSON.stringify(user))
-  //   return user
-  // } else {
-  //   try {
-  //     user = JSON.parse(localStorage.user)
-  //   } catch (e) {
-  //     user = null
-  //   }
-  // }
-  // return user
+  let user;
+  if (window && window.location.hash) {
+    user = JSON.parse(Base64.decode(window.location.hash))
+    localStorage.setItem('user', JSON.stringify(user))
+    return user
+  } else {
+    try {
+      user = JSON.parse(localStorage.user)
+    } catch (e) {
+      user = null
+    }
+  }
+  return user
 }

@@ -21,6 +21,12 @@ export function checkIfLogged() {
     return response
   }
 }
+export function setCurUsr(usr:any) {
+  return (dispatch: any) => {
+    console.log('usr', usr)
+    dispatch(setCurrentUser(usr))
+  }
+}
 export function login(credentials: any): any {
   return async (dispatch: any) => {
     try {

@@ -29,9 +29,9 @@ function pickUser(user: any) {
 }
 
 function assignUser(): {name: string} | null {
-  return null
+  return null;
   // let user;
-  // if (window.location.hash) {
+  // if (window && window.location.hash) {
   //   user = JSON.parse(Base64.decode(window.location.hash))
   //   localStorage.setItem('user', JSON.stringify(user))
   //   return user
