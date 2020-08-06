@@ -65,4 +65,3 @@ export default withRouter(connect((state: { location: any; loader: any }) => {
     loader: state.loader,
   }
 }, {checkIfLogged})(App));
-
