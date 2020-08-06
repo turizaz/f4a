@@ -9,7 +9,7 @@
       "memory": 128
     },
     {
-      "name": "client",
+      "name": "ssr",
       "image": "graphit/f4e-ssr",
       "hostname": "ssr",
       "essential": false,
