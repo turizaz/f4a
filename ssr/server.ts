@@ -9,23 +9,7 @@ import * as fs from "fs"
 import * as path from "path"
 import * as React from 'react'
 import * as ReactDOMServer from 'react-dom/server'
-//const mount = require("koa-mount");
 
-
-// const testFolder = '/app/client/node_modules';
-//
-// fs.readdir(testFolder, (err, files) => {
-//     files.forEach(file => {
-//         console.log('f1 - ', file);
-//     });
-// });
-// const testFolder2 = '/app/client';
-//
-// fs.readdir(testFolder2, (err, files) => {
-//     files.forEach(file => {
-//         console.log('f2 - ', file);
-//     });
-// });
 
 import App from "./client/src/App";
 app.use(router.routes());
@@ -36,23 +20,6 @@ router.get('/', async (ctx, next) => {
     console.log(res)
     ctx.body = res
 });
-router.get('/:any', async (ctx, next) => {
-    const res = await rfs();
-    console.log(res)
-    ctx.body = res
-});
-// router.get('/:any/:param', async (ctx, next) => {
-//     const res = await rfs();
-//     console.log(res)
-//     ctx.body = res
-// });
-
-// router.get('/*', async (ctx, next) => {
-//     const res = await rfs();
-//     console.log(res)
-//     ctx.body = res
-// });
-
 
 
 app.listen(4001);
