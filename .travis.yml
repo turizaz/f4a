@@ -16,6 +16,7 @@ after_success:
   - docker push graphit/f4e-nginx
   - docker push graphit/f4e-ssr
 
+
 deploy:
   provider: elasticbeanstalk
   region: us-east-1
