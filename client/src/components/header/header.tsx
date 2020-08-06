@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import LoginWidget from './login-widget';
 import {Link} from 'react-router-dom';
 import './header.scss';
@@ -10,6 +10,10 @@ interface Props {
   t:any
 }
 class Header extends React.Component<Props> {
+  componentDidMount(): void {
+    console.log('HEADER MOUNT');
+  }
+
   state = {mobileMenuShowed: false}
   toggleMenu() {
     this.setState({mobileMenuShowed: !this.state.mobileMenuShowed})

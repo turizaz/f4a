@@ -3,6 +3,8 @@
 # dependencies
 /app/node_modules
 /api/node_modules
+/ssr/node_modules
+/ssr/client/node_modules
 /app/migrations
 /client/node_modules
 /api/dist

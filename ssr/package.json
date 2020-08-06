@@ -1,0 +1,34 @@
+{
+  "name": "ssr",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "@babel/core": "^7.10.4",
+    "@babel/preset-env": "^7.10.4",
+    "@babel/preset-react": "^7.10.4",
+    "@babel/register": "^7.10.4",
+    "ignore-styles": "^5.0.1",
+    "koa": "^2.13.0",
+    "koa-mount": "^4.0.0",
+    "koa-router": "^9.1.0",
+    "koa-static": "^5.0.0",
+    "lodash": "^4.17.15",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-router-dom": "^4.3.1",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.6"
+  },
+  "devDependencies": {
+    "@types/node": "^14.0.14",
+    "isomorphic-style-loader": "^5.1.0"
+  },
+  "scripts": {
+    "install:ssr": "cp ./client/src/i18n_problem/build_i18n.ts ./client/src/i18n.ts && cd client && npm i && npm rebuild node-sass && npm run build",
+    "ssr": "cp ./client/src/i18n_problem/run_i18n.ts ./client/src/i18n.ts && ts-node --skip-ignore index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

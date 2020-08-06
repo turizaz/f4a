@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "strict": false,
+    "checkJs": false,
+    "jsx": "react",
+    "lib": [ "es6", "dom" ],
+    "outDir": "dist",
+    "types" : ["node", "jest", "mocha"]
+  },
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+  ]
+}

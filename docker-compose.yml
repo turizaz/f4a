@@ -28,6 +28,17 @@ services:
     volumes:
       - /app/node_modules
       - ./client:/app
+    ports:
+      - '3001:3000'
+  ssr:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ssr
+    volumes:
+      - /app/node_modules
+      - ./ssr:/app
+    ports:
+      - '4001:4001'
   nginx:
     restart: always
     build:

@@ -1,0 +1,7 @@
+div.city-item{
+  padding: 2px 5px;
+  &:hover {
+    background-color: lighten(#cccccc,15);
+    cursor: pointer;
+  }
+}
