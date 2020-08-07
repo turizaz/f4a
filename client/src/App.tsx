@@ -1,11 +1,11 @@
-import React, {Component} from 'react'
+import * as React from 'react'
 import Header from './components/header'
 import CreateGame from './components/create-game'
 import ForgotPassword from './components/auth/forgot-password'
 import Login from './components/auth/login'
 import './bootstrap.css'
 import {Route} from 'react-router-dom'
-import 'app.scss'
+import './app.scss'
 import Game from './components/game'
 import About from './components/about'
 import Registration from './components/auth/registration'
@@ -28,7 +28,7 @@ interface Props {
 /**
  * Root of application
  */
-class App extends Component<Props> {
+class App extends React.Component<Props> {
   render() {
     const {location, loader} = this.props
     const {loading} = loader
@@ -49,6 +49,7 @@ class App extends Component<Props> {
             <Route path="/registration" exact component={Registration}/>
             <Route path="/create-game" exact component={CreateGame}/>
             <Route path="/complete-registration" exact
+                   // @ts-ignore
                    component={CompleteRegistration}/>
             <Route path="/" exact component={GamesList}/>
           </div>

@@ -1,5 +1,5 @@
 import {SET_CURRENT_USER} from '../constants'
-import _ from 'lodash'
+import * as _ from 'lodash'
 import { Base64 } from 'js-base64'
 let user: {name: string, type?: string} | null
 
@@ -14,6 +14,7 @@ export default (state = initialState, action: any) => {
   console.log('initial state, auth', action)
   switch (action.type) {
     case SET_CURRENT_USER:
+      console.log('SET CURR USER CALLED');
       const {user} = action
       localStorage.setItem('user', JSON.stringify(user))
       return {
@@ -30,7 +31,7 @@ function pickUser(user: any) {
 
 function assignUser(): {name: string} | null {
   let user;
-  if (window.location.hash) {
+  if (window && window.location.hash) {
     user = JSON.parse(Base64.decode(window.location.hash))
     localStorage.setItem('user', JSON.stringify(user))
     return user

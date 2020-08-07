@@ -1,0 +1,19 @@
+@import "../../../app.scss";
+
+.login-form {
+  border: solid 1px $grey;
+  input, select, textarea {
+    -webkit-appearance: none;
+    border-radius: 0;
+    border: solid 1px $grey;
+  }
+  legend {
+    font-size: 16px;
+  }
+  label {
+    font-size: 12px;
+  }
+  small {
+    font-size: 10px;
+  }
+}

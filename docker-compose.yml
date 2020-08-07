@@ -13,7 +13,7 @@ services:
     command: ["postgres", "-c", "log_statement=all"]
   api:
     build:
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
       context: ./api
     volumes:
       - /app/node_modules
@@ -23,20 +23,27 @@ services:
       - '9230:9230'
   client:
     build:
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
       context: ./client
     volumes:
       - /app/node_modules
       - ./client:/app
+    ports:
+      - '3001:3000'
+  ssr:
+    build:
+      dockerfile: Dockerfile
+      context: ssr
+    ports:
+      - '4001:4001'
   nginx:
     restart: always
     build:
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
       context: ./nginx
     ports:
       - '3050:80'
       - '3053:443'
-
 
 #prod
 #version: '3'

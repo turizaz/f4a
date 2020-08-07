@@ -9,6 +9,13 @@
       "memory": 128
     },
     {
+      "name": "ssr",
+      "image": "graphit/f4e-ssr",
+      "hostname": "ssr",
+      "essential": false,
+      "memory": 128
+    },
+    {
       "name": "api",
       "image": "graphit/f4e-api",
       "hostname": "api",
@@ -29,7 +36,7 @@
           "containerPort": 443
         }
       ],
-      "links": ["client", "api"],
+      "links": ["client", "api", "ssr"],
       "memory": 128
     }
   ]

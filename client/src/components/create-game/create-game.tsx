@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import './create-game.scss'
 import CityPicker from '../../components/common/city-picker'
 import ErrorMessage from '../../components/common/messages/error-message'
@@ -10,7 +10,7 @@ import DateTimeComponent from '../../components/common/date-time'
 import SetCityWidget from '../../components/common/set-city-widget'
 import {setCity} from '../../ac/location'
 import {setUser} from '../../ac/auth'
-import moment from 'moment'
+import * as moment from 'moment'
 import {loading, loaded} from "../../ac/loader";
 import {JSX} from "@babel/types";
 import {withNamespaces} from "react-i18next";
@@ -25,7 +25,7 @@ const initialState = {
     address: '',
     additional: '',
     players: 6,
-    date: moment(new Date().setHours(new Date().getHours() + 4)),
+    date: moment.default(new Date().setHours(new Date().getHours() + 4)),
     district: '',
   },
   errors: {},
@@ -66,7 +66,7 @@ class CreateGame extends React.Component<Props> {
     this.setState({data: {...this.state.data, city: ''}})
   }
 
-  onChange = (e: any) => {
+  onChange = (e: any):any => {
     this.setState({
       data: {...this.state.data, [e.target.name]: e.target.value},
     });
@@ -188,6 +188,7 @@ class CreateGame extends React.Component<Props> {
               </div>
               <div className="form-group date">
                 <DateTimeComponent
+                  // @ts-ignore
                   onChange={this.changeDate}
                   value={data.date}/>
                 {errors.date && <ErrorMessage message={errors.date} />}

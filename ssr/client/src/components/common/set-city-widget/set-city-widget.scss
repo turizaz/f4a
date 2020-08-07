@@ -1,0 +1,43 @@
+@import "../../../app.scss";
+.city-name {
+  background-color: $primary;
+  padding: 10px 30px !important;
+  width: 162px;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.table-city-picker {
+  background-color: $primary;
+  padding: 10px 10px;
+  position: relative;
+  input {
+    border-radius: 0;
+  }
+}
+.city-name, .city-name a {
+  text-decoration: none;
+  color: $white;
+  font-weight: 400;
+  padding: .75em 0;
+  letter-spacing: 1px;
+  font-size: 18px;
+}
+.city-widget {
+  position: relative;
+  width: 162px;
+  margin-bottom: 20px;
+  &:before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    right: 72px;
+    bottom: -18px;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 20px solid $primary;
+  }
+}

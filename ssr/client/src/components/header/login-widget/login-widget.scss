@@ -1,0 +1,35 @@
+@import "../../../app.scss";
+
+.absolute-login-widget {
+
+  .sign-out {
+    padding-left: 10px;
+  }
+  &:hover {
+    cursor: default;
+    background-color: transparent !important;
+  }
+  position: absolute;
+  z-index: 1000000000;
+  right: 50px;
+  top:25px;
+  display: flex;
+  > div {
+    padding: 0 20px;
+  }
+  &, > div {
+    a {
+      color: $white;
+      &:hover, &:visited {
+        color: $white;
+      }
+    }
+    height: auto;
+    color: $white;
+    i {
+      margin-top: 3px;
+      cursor: pointer;
+      padding-left: 10px;
+    }
+  }
+}
