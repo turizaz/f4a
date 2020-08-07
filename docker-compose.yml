@@ -32,7 +32,7 @@ services:
       - '3001:3000'
   ssr:
     build:
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
       context: ssr
     ports:
       - '4001:4001'
