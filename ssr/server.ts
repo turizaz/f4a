@@ -11,6 +11,10 @@ import * as React from 'react'
 import * as ReactDOMServer from 'react-dom/server'
 
 
+// setInterval(()=> {
+//     console.log(1)
+// },1000)
+
 import App from "./client/src/App";
 app.use(router.routes());
 app.use(serve('./client/build'));
