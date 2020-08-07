@@ -5,7 +5,6 @@ if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
 export default {
   env: process.env.NODE_ENV || 'development',
   root: process.cwd(),
-
   POSTGRES_HOST: process.env.POSTGRES_HOST || 'postgres',
   POSTGRES_USER: process.env.POSTGRES_USER || 'postgres',
   POSTGRES_DB: process.env.POSTGRES_DB || 'postgres',
