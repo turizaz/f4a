@@ -2,6 +2,7 @@ import * as dotEnv from 'dotenv'
 if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
   dotEnv.config()
 }
+
 export default {
   env: process.env.NODE_ENV || 'development',
   root: process.cwd(),
