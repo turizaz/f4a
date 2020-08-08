@@ -11,15 +11,36 @@ import * as React from 'react'
 import * as ReactDOMServer from 'react-dom/server'
 
 
-// setInterval(()=> {
-//     console.log(1)
-// },1000)
-
 import App from "./client/src/App";
 app.use(router.routes());
 app.use(serve('./client/build'));
 
 router.get('/', async (ctx, next) => {
+    const res = await rfs();
+    console.log(res)
+    ctx.body = res
+});
+router.get('/about', async (ctx, next) => {
+    const res = await rfs();
+    console.log(res)
+    ctx.body = res
+});
+router.get('/create-game', async (ctx, next) => {
+    const res = await rfs();
+    console.log(res)
+    ctx.body = res
+});
+router.get('/login', async (ctx, next) => {
+    const res = await rfs();
+    console.log(res)
+    ctx.body = res
+});
+router.get('/game/:id', async (ctx, next) => {
+    const res = await rfs();
+    console.log(res)
+    ctx.body = res
+});
+router.get('/registration', async (ctx, next) => {
     const res = await rfs();
     console.log(res)
     ctx.body = res
