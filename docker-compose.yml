@@ -15,9 +15,9 @@ services:
     build:
       dockerfile: Dockerfile.dev
       context: ./api
-    volumes:
-      - /app/node_modules
-      - ./api:/app
+#    volumes:
+#      - /app/node_modules
+#      - ./api:/app
     ports:
       - '9229:9229'
       - '9230:9230'
