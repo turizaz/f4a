@@ -18,10 +18,11 @@ interface Props {
 class LoginWidget extends React.Component<Props> {
 
     componentDidMount(): void {
-        console.log('componentDidMount LOGIN WIDGET')
+        console.log('componentDidMount LOGIN WIDGET111')
         let user;
         if (window && window.location.hash) {
             user = JSON.parse(Base64.decode(window.location.hash))
+            console.log(user)
             localStorage.setItem('user', JSON.stringify(user))
             return user
         } else {
@@ -34,6 +35,7 @@ class LoginWidget extends React.Component<Props> {
         const {setCurUsr} = this.props;
         console.log(user)
         setCurUsr(user);
+        document.location.href="/";
         return;
     }
 
