@@ -24,6 +24,7 @@ class LoginWidget extends React.Component<Props> {
             user = JSON.parse(Base64.decode(window.location.hash))
             console.log(user)
             localStorage.setItem('user', JSON.stringify(user))
+            document.location.href="/";
             return user
         } else {
             try {
@@ -35,7 +36,6 @@ class LoginWidget extends React.Component<Props> {
         const {setCurUsr} = this.props;
         console.log(user)
         setCurUsr(user);
-        document.location.href="/";
         return;
     }
 
