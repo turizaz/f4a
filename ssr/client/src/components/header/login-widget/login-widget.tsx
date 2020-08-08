@@ -7,6 +7,7 @@ import Locales from "../../locales"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faUser, faSignInAlt} from "@fortawesome/free-solid-svg-icons";
 import {withNamespaces} from "react-i18next";
+import { Base64 } from 'js-base64'
 interface Props {
     auth: any,
     logout: any,
