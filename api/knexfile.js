@@ -25,6 +25,7 @@ module.exports = {
       directory: '/app/app/db/migrations',
     },
     seeds: {
+      extension: 'ts',
       directory: '/app/app/db/seed',
     },
   },

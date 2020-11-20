@@ -3,6 +3,9 @@ exports.init = (app) =>
         try {
             await next();
         } catch (e) {
+            console.error(`ERROR MESSAGE`);
+            console.error(e.message);
+            console.error(`END ERROR MESSAGE`);
             if(!e.httpStatus) {
                 return ctx.status = 500
             }

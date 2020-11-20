@@ -15,5 +15,6 @@ authRoutes
     .get('/google', googleScope)
     .get('/ping', passportMiddleware, authController.ping)
     .get('/google/oauth/callback', googleScope, authController.googleOAuth)
+    .get('/gmail/oauth/callback', googleScope, authController.gmailOAuthCallback)
 
 module.exports = authRoutes;
