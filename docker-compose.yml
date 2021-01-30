@@ -13,7 +13,6 @@ services:
       POSTGRES_HOST: postgres
       POSTGRES_DB: postgres
       POSTGRES_PORT: 5432
-      PORT: 5000
     command: ["postgres", "-c", "log_statement=all"]
   api:
     build:
