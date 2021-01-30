@@ -48,7 +48,6 @@ class Game extends React.Component<Props> {
             </div>
             <div className="football-field-wrapper shadow-1">
               <div>
-                // @ts-ignore
                 <FootballField game={game}/>
               </div>
             </div>

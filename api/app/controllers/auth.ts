@@ -51,7 +51,11 @@ const authController = {
     await authService.authenticateUser(user, ctx);
     return ctx.redirect(`/#${base64data}`)
   },
-
+  async gmailOAuthCallback(ctx)
+  {
+    console.log(ctx);
+    return ctx.status = 200;
+  },
   async googleOAuth(ctx)
   {
     let email: string = ctx.req.user.emails[0].value;

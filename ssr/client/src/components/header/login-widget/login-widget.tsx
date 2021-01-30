@@ -7,6 +7,7 @@ import Locales from "../../locales"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faUser, faSignInAlt} from "@fortawesome/free-solid-svg-icons";
 import {withNamespaces} from "react-i18next";
+import { Base64 } from 'js-base64'
 interface Props {
     auth: any,
     logout: any,
@@ -17,11 +18,13 @@ interface Props {
 class LoginWidget extends React.Component<Props> {
 
     componentDidMount(): void {
-        console.log('componentDidMount LOGIN WIDGET')
+        console.log('componentDidMount LOGIN WIDGET111')
         let user;
         if (window && window.location.hash) {
             user = JSON.parse(Base64.decode(window.location.hash))
+            console.log(user)
             localStorage.setItem('user', JSON.stringify(user))
+            document.location.href="/";
             return user
         } else {
             try {

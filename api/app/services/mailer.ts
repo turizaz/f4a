@@ -3,14 +3,23 @@ import template from '../templates/emails';
 import {encrypt} from './crypto';
 
 export default {
-    sendConfirmationEmail: (email): Promise<IMailerResponse> => {
+    sendConfirmationEmail: async (email: string): Promise<IMailerResponse> => {
+        const encryptedEmail = encrypt(email);
+
+        console.log('Encrypted email');
+        console.log(encryptedEmail);
         const res =  mailer.sendMail({
             ...formAddress(email),
             subject: 'Confirm email account ✔',
             text: 'Confirm your email account?',
             html: template.confirmEmail(encrypt(email)),
         })
-        res.then(console.log)
+
+        res.then(console.log).catch(err => {
+            console.log('-----------');
+            console.log(err);
+            console.log('-----------');
+        })
         return res
     },
     sendNewPassword: (email: string, password: string): Promise<IMailerResponse> => {

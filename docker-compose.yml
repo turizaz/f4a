@@ -10,10 +10,13 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
+      POSTGRES_HOST: postgres
+      POSTGRES_DB: postgres
+      POSTGRES_PORT: 5432
     command: ["postgres", "-c", "log_statement=all"]
   api:
     build:
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
       context: ./api
     volumes:
       - /app/node_modules
@@ -22,24 +25,26 @@ services:
       - '9229:9229'
       - '9230:9230'
   client:
+    stdin_open: true
+    tty: true
     build:
-      dockerfile: Dockerfile
-      context: ./client
+      dockerfile: Dockerfile.dev
+      context: ./ssr/client
     volumes:
       - /app/node_modules
-      - ./client:/app
+      - ./ssr/client:/app
     ports:
-      - '3001:3000'
-  ssr:
-    build:
-      dockerfile: Dockerfile
-      context: ssr
-    ports:
-      - '4001:4001'
+      - '4001:3000'
+#  ssr:
+#    build:
+#      dockerfile: Dockerfile.dev
+#      context: ssr
+#    ports:
+#      - '4001:4001'
   nginx:
     restart: always
     build:
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
       context: ./nginx
     ports:
       - '3050:80'
