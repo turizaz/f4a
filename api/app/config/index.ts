@@ -1,5 +1,5 @@
 import * as dotEnv from 'dotenv'
-if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
+if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test' || 1) {
   dotEnv.config()
 }
 
@@ -19,6 +19,7 @@ export default {
   GOOGLE_REDIRECT_URI: process.env.GOOGLE_REDIRECT_URI,
 
   GMAIL_REFRESH_TOKEN: process.env.GMAIL_REFRESH_TOKEN,
+  GMAIL_ACCESS_TOKEN: process.env.GMAIL_ACCESS_TOKEN,
   GMAIL_CLIENT_ID: process.env.GMAIL_CLIENT_ID,
   GMAIL_CLIENT_SECRET: process.env.GMAIL_CLIENT_SECRET,
 

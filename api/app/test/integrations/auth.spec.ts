@@ -9,6 +9,7 @@ const chaiHttp = require('chai-http')
 import {encrypt} from '../../services/crypto'
 import * as auth from '../../../app/services/auth'
 import userService from '../../services/users'
+import mailer from '../../services/mailer';
 export const filterAuthToken = (arr) => arr.filter(it => it.includes('token=Bearer'))[0]
 export const filterRefreshToken = (arr) => arr.filter(it => it.includes('refresh'))[0]
 
@@ -85,6 +86,11 @@ describe('routes : auth', () => {
           .set('content-type', 'application/json')
 
       assert.strictEqual(secondRes.statusCode, 200)
+  })
+
+  it.only('should send emails', async () => {
+      const res = await mailer.sendConfirmationEmail('yaroslavudodov@gmail.com');
+      console.log(res);
   })
 
   it('should change password', async () => {

@@ -33,7 +33,7 @@ class App extends React.Component<Props> {
     const {location, loader} = this.props
     const {loading} = loader
     const {checkIfLogged} = this.props
-    console.log('loading', loading)
+    console.log('loading1', loading)
     checkIfLogged().then(console.log)
     return (
         <div className={location.id && 'city-picked'}>
