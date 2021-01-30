@@ -49,7 +49,7 @@ class Header extends React.Component<Props> {
             <li className={
               window.location.pathname === '/' ? 'active' : ''
             }>
-              <Link to="/">{t('Главная')}</Link>
+              <Link to="/">{t('Главная')} !</Link>
             </li>
             <li onClick={this.hideMenu.bind(this)} className={window.location.pathname === '/about' ? 'active' : ''}>
               <Link to="/about"
