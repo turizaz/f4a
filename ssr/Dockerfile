@@ -3,8 +3,5 @@ WORKDIR /app
 COPY package.json .
 COPY . .
 RUN npm i -g typescript ts-node
-COPY ./client /app/client
-RUN npm i && cp ./client/src/i18n_problem/build_i18n.ts ./client/src/i18n.ts
-RUN cd client && npm i
-RUN cd client && npm rebuild node-sass && npm run build
+RUN npm i
 CMD ["npm", "run", "ssr"]
