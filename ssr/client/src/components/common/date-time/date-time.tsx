@@ -13,7 +13,7 @@ import "moment/locale/ru"
 import './date-time.scss'
 import green from '@material-ui/core/colors/green'
 import {MuiThemeProvider, createMuiTheme} from '@material-ui/core'
-import {withNamespaces} from "react-i18next";
+import * as tr from "react-i18next";
 interface Props {
   onChange: any,
   value: any,
@@ -78,4 +78,4 @@ class DateTimeComponent extends React.Component<Props> {
 
 
 // @ts-ignore
-export default withNamespaces()(DateTimeComponent)
+export default tr.withNamespaces()(DateTimeComponent)

@@ -11,7 +11,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableContainer from '@material-ui/core/TableContainer';
 import Paper from '@material-ui/core/Paper'
-import {withNamespaces} from "react-i18next";
+import * as tr from "react-i18next";
 import SetCityWidget from "../common/set-city-widget";
 
 interface Props {
@@ -79,4 +79,4 @@ export default connect(
     null
 )(withGameService(
     // @ts-ignore
-    withNamespaces()(GamesList)));
+    tr.withNamespaces()(GamesList)));

@@ -7,7 +7,7 @@ import {login} from '../../../ac/auth'
 import {Link} from 'react-router-dom'
 import {loaded, loading} from "../../../ac/loader";
 import SingInGoogle from './oauth/google'
-import {withNamespaces} from "react-i18next";
+import * as translator from "react-i18next";
 interface Props {history: any, login: any, loading: any, loaded: any, t: any}
 
 class Login extends React.Component<Props> {
@@ -132,4 +132,4 @@ export default connect(
       auth: state.auth,
     }), {login, loading, loaded}
     // @ts-ignore
-)(withNamespaces()(Login))
+)(translator.withNamespaces()(Login))

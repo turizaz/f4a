@@ -1,6 +1,6 @@
 import * as React from 'react';
 import './about.scss';
-import {withNamespaces} from "react-i18next";
+import * as translator from "react-i18next";
 interface Props {
     t: any
 }
@@ -35,4 +35,4 @@ class About extends React.Component<Props> {
 }
 
 // @ts-ignore
-export default withNamespaces()(About);
+export default translator.withNamespaces()(About);

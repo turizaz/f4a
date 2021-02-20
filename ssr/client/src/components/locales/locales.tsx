@@ -5,6 +5,8 @@ import {faGlobe} from "@fortawesome/free-solid-svg-icons";
 import './locales.scss'
 export default class Locales extends React.Component {
     async setLocale(locale: string) {
+
+        // @ts-ignore
         await i18n.default.changeLanguage(locale)
         return null
     }
