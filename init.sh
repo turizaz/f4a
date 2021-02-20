@@ -1,0 +1,1 @@
+docker-compose exec api npm run migrate && docker-compose exec api npm run seed
