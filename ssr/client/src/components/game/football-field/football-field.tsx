@@ -66,7 +66,6 @@ class FootballField extends React.Component<Props> {
           total--
         }
         teemsOnField[index].push(
-            // @ts-ignore
             <div key={rowNum++} className={'tactic-line '}>{row}</div>
         )
       })
