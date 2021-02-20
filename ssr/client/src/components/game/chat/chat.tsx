@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 import {addChatMessage, loadChatHistory} from '../../../ac/games';
 import _ from 'lodash';
 import {withGameService} from '../../../HOCs';
-import {withNamespaces} from "react-i18next";
+import * as tr from "react-i18next";
 
 interface Props {
   gameId: any,
@@ -147,4 +147,4 @@ export default connect((state: any) => {
     gameChat: state.gameChat,
   };
   // @ts-ignore
-}, {addChatMessage, loadChatHistory})(withGameService(withNamespaces()(Chat)));
+}, {addChatMessage, loadChatHistory})(withGameService(tr.withNamespaces()(Chat)));

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import './game-info.scss'
-import {withNamespaces} from "react-i18next";
+import * as translator from "react-i18next";
 
 function GameInfo(props: any) {
     const {game, t} = props
@@ -31,4 +31,4 @@ function GameInfo(props: any) {
             </div>)
 }
 
-export default withNamespaces()(GameInfo)
+export default translator.withNamespaces()(GameInfo)

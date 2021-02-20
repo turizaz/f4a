@@ -7,7 +7,7 @@ import _ from 'lodash'
 import {registration} from '../../../ac/auth'
 import {connect} from 'react-redux'
 import {loaded, loading} from "../../../ac/loader";
-import {withNamespaces} from "react-i18next";
+import * as tr from "react-i18next";
 
 interface Props {
   registration: any,
@@ -184,4 +184,4 @@ class Registration extends React.Component<Props> {
 }
 
 // @ts-ignore
-export default connect(null, {registration, loading, loaded})(withNamespaces()(Registration))
+export default connect(null, {registration, loading, loaded})(tr.withNamespaces()(Registration))

@@ -1,6 +1,6 @@
 import './style.scss';
 import * as React from 'react';
-import {withNamespaces} from "react-i18next";
+import * as translator from "react-i18next";
 const link = `/api/auth/google`;
 
 function SingInGoogle({t}:any) {
@@ -13,4 +13,4 @@ function SingInGoogle({t}:any) {
 }
 
 // @ts-ignore
-export default withNamespaces()(SingInGoogle);
+export default translator.withNamespaces()(SingInGoogle);

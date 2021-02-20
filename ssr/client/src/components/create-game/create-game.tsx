@@ -13,7 +13,7 @@ import {setUser} from '../../ac/auth'
 import * as moment from 'moment'
 import {loading, loaded} from "../../ac/loader";
 import {JSX} from "@babel/types";
-import {withNamespaces} from "react-i18next";
+import * as tr from "react-i18next";
 import { Redirect } from 'react-router-dom'
 
 moment.locale('ru')
@@ -241,4 +241,4 @@ export default connect(
     },
     {setCity, setUser, loading, loaded}
     // @ts-ignore
-)(withGameService(withNamespaces()(CreateGame)))
+)(withGameService(tr.withNamespaces()(CreateGame)))

@@ -2,7 +2,7 @@ import * as React from 'react';
 import LoginWidget from './login-widget';
 import {Link} from 'react-router-dom';
 import './header.scss';
-import {withNamespaces} from "react-i18next";
+import * as translate from "react-i18next";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { faGlobe } from '@fortawesome/free-solid-svg-icons'
@@ -66,4 +66,4 @@ class Header extends React.Component<Props> {
 }
 
 // @ts-ignore
-export default withNamespaces()(Header);
+export default translate.withNamespaces()(Header);
