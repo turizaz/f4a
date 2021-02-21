@@ -1,4 +1,4 @@
-import * as i18n from "i18next";
+import i18n from "i18next";
 import { reactI18nextModule } from "react-i18next";
 // @ts-ignore
 import translationUA from './locales/ua/translation.json';
