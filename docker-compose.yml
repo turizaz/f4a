@@ -28,8 +28,8 @@ services:
     stdin_open: true
     tty: true
     build:
-      dockerfile: Dockerfile.dev
       context: ./ssr/client
+      dockerfile: Dockerfile.d
     volumes:
       - /app/node_modules
       - ./ssr/client:/app
