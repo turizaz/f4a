@@ -29,18 +29,21 @@ services:
     tty: true
     build:
       context: ./ssr/client
-      dockerfile: Dockerfile.d
+      dockerfile: Dockerfile.dev
     volumes:
       - /app/node_modules
-      - ./ssr/client:/app
+      - ./ssr/client/src/components:/app/src/components
+      - ./ssr/client/src/context:/app/src/context
+      - ./ssr/client/src/reducer:/app/src/reducer
+      - ./ssr/client/src/services:/app/src/services
     ports:
       - '4001:3000'
-#  ssr:
-#    build:
-#      dockerfile: Dockerfile.dev
-#      context: ssr
-#    ports:
-#      - '4001:4001'
+  ssr:
+    build:
+      dockerfile: Dockerfile
+      context: ssr
+    ports:
+      - '4002:4001'
   nginx:
     restart: always
     build:
