@@ -19,6 +19,7 @@ class LoginWidget extends React.Component<Props> {
 
     componentDidMount(): void {
         console.log('componentDidMount LOGIN WIDGET111')
+        console.log(Base64)
         let user;
         if (window && window.location.hash) {
             user = JSON.parse(Base64.decode(window.location.hash))
