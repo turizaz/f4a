@@ -35,7 +35,7 @@
     "koa-static": "^5.0.0",
     "koa2-cors": "^2.0.6",
     "googleapis": "^61.0.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "mocha": "^6.0.2",
     "mongoose": "^5.7.5",
     "nodemailer": "^6.3.0",
