@@ -75,7 +75,8 @@
     "migrate": "knex migrate:latest",
     "seed": "ts-node ./node_modules/.bin/knex seed:run",
     "build": "tsc",
-    "test": "POSTGRES_HOST=postgres POSTGRES_DB=test NODE_ENV=test nyc mocha -t 20000 -r ts-node/register app/test/**/*.ts --inspect-brk=0.0.0.0:9229 --exit",
+    "test": "POSTGRES_HOST=postgres POSTGRES_DB=test NODE_ENV=test nyc mocha -t 20000 -r ts-node/register app/test/**/*.ts --exit",
+    "test-debug": "POSTGRES_HOST=postgres POSTGRES_DB=test NODE_ENV=test nyc mocha -t 20000 -r ts-node/register app/test/**/*.ts --inspect-brk=0.0.0.0:9229 --exit",
     "start": "node --max-old-space-size=1024 dist/index.js"
   },
   "author": "Yaroslav Udodov"
