@@ -63,7 +63,8 @@ async function addLocalUser(user: {name: string, email: string, password: string
                   email: user.email,
                   name: user.name,
                   password: hash,
-                  verified: user.verified || null
+                  verified: true
+                  //verified: user.verified || null
               },
       })
       .returning(['id', 'local'])

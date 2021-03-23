@@ -88,10 +88,10 @@ describe('routes : auth', () => {
       assert.strictEqual(secondRes.statusCode, 200)
   })
 
-  it.only('should send emails', async () => {
-      const res = await mailer.sendConfirmationEmail('yaroslavudodov@gmail.com');
-      console.log(res);
-  })
+  // it.only('should send emails', async () => {
+  //     const res = await mailer.sendConfirmationEmail('yaroslavudodov@gmail.com');
+  //     console.log(res);
+  // })
 
   it('should change password', async () => {
       sinon.stub(userService, 'sendNewPassword').callsFake(function fakeFn() {return true})

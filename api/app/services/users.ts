@@ -35,9 +35,9 @@ async function sendNewPassword(email: string) {
 async function createLocalUser(user: {name: string, email: string, password: string}): Promise<IUser> {
     console.log('before created')
     const u: IUser = await userModel.addLocalUser(user)
-    console.log('user created')
-    await authService.sendConfirmationEmail(user.email)
-    console.log('email sent')
+    // console.log('user created')
+    // await authService.sendConfirmationEmail(user.email)
+    // console.log('email sent')
     return u
 }
 
