@@ -29,16 +29,23 @@ class FootballField extends React.Component<Props> {
     fieldClass += auth.isAuthenticated ? `active` : `regular`;
     return (
         <div>
-          <div className="north-socket" />
+          <div className="north-socket">
+            <div className="cage"/>
+          </div>
           <div className={fieldClass}>
             <div className='football-field-center'/>
             <div className="left-top-corner"/>
             <div className="right-top-corner"/>
+            <div className="center">
+              <div className="point"/>
+            </div>
             <div className="left-bottom-corner"/>
             <div className="right-bottom-corner"/>
             {this.state.gameOrder.length > 0 && this.generateLines()}
           </div>
-          <div className="south-socket" />
+          <div className="south-socket">
+            <div className="cage"/>
+          </div>
         </div>
     );
   }
@@ -73,10 +80,18 @@ class FootballField extends React.Component<Props> {
     lines.push(<div
       key={'north-side'}
       className={`half-field north-side lines-${teemsOnField[0].length}`}>
+        <div className="penalty-cage"/>
+        <div className="penalty-cage-1"/>
+        <div className="half-circle-wrapper">
+          <div className="half-circle"/>
+        </div>
       {teemsOnField[0]}</div>);
     lines.push(<div
       key={'south-side'}
       className={`half-field south-side lines-${teemsOnField[1].length}`}>
+      <div className="penalty-cage"/>
+      <div className="penalty-cage-1"/>
+      <div className="half-circle"/>
       {teemsOnField[1]}</div>);
     return lines
   }

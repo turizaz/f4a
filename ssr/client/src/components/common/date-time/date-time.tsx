@@ -6,6 +6,8 @@ import './customDatePickerWidth.scss'
 import {
   MuiPickersUtilsProvider,
   KeyboardTimePicker,
+  DatePicker,
+  TimePicker,
   KeyboardDatePicker,
 } from '@material-ui/pickers'
 import MomentUtils from "@date-io/moment";
@@ -39,22 +41,24 @@ class DateTimeComponent extends React.Component<Props> {
                 <MuiPickersUtilsProvider locale="ru" utils={MomentUtils}>
                     <Grid container justify="space-around">
                         <div className={'customDatePickerWidth'}>
-                        <KeyboardDatePicker
-                            disableToolbar
-                            variant="inline"
+                        <DatePicker
+
+                            // variant="inline"
                             margin="normal"
                             id="date-picker-inline"
                             label={t('Дата')}
+                            cancelLabel="Отмена"
+                            okLabel="Подтвердить"
                             value={this.props.value}
                             onChange={this.handleDateChange}
-                            KeyboardButtonProps={{
-                                'aria-label': 'change date',
-                            }}
+                            // KeyboardButtonProps={{
+                            //     'aria-label': 'change date',
+                            // }}
                         />
                         </div>
                         <div className={'customDatePickerWidth'}>
-                        <KeyboardTimePicker
-                            disableToolbar
+                        <TimePicker
+                         //   disableToolbar
                             margin="normal"
                             id="time-picker"
                             label={t('Время')}
@@ -63,9 +67,9 @@ class DateTimeComponent extends React.Component<Props> {
                             okLabel="Подтвердить"
                             value={this.props.value}
                             onChange={this.handleDateChange}
-                            KeyboardButtonProps={{
-                                'aria-label': 'change time',
-                            }}
+                            // KeyboardButtonProps={{
+                            //     'aria-label': 'change time',
+                            // }}
                         />
                         </div>
                     </Grid>
