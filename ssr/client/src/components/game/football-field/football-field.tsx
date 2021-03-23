@@ -91,7 +91,9 @@ class FootballField extends React.Component<Props> {
       className={`half-field south-side lines-${teemsOnField[1].length}`}>
       <div className="penalty-cage"/>
       <div className="penalty-cage-1"/>
-      <div className="half-circle"/>
+      <div className="half-circle-wrapper">
+        <div className="half-circle"/>
+      </div>
       {teemsOnField[1]}</div>);
     return lines
   }
