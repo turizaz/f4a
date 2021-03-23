@@ -1,6 +1,7 @@
 import * as React from 'react';
 import './about.scss';
 import * as translator from "react-i18next";
+import Quotes from "../quotes";
 interface Props {
     t: any
 }
@@ -19,13 +20,18 @@ class About extends React.Component<Props> {
   render() {
     const {t} = this.props
     return (
-      <h3>
-        <article>
-            <i>
-            {t('Если ты не знаешь, где найти людей для игры в футбол - это сайт как раз для тебя! Тут ты можешь собрать команду для игры в футбол. Тут ты можешь создать игру либо присоединится к уже существующей.')}
-            </i>
+        <div>
+            <h3>
+                <article>
+                    <i>
+                        {t('Если ты не знаешь, где найти людей для игры в футбол - это сайт как раз для тебя! Тут ты можешь собрать команду для игры в футбол. Тут ты можешь создать игру либо присоединится к уже существующей.')}
+                    </i>
+                </article>
+            </h3>
+            <article>
+                <Quotes/>
             </article>
-      </h3>
+        </div>
     );
   }
 
