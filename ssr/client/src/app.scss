@@ -6,10 +6,11 @@ $max-with: ($mobile-limit + 1) + 'px';
 $min-with: $mobile-limit + 'px';
 $black: #0d0d0d;
 $light-black: lighten(#1c1c1c,3);
-$yellow: #fed136;
+$yellow: red;
 $error: #ff9494;
 $white: #f9f9f9;
 
+$links: #ccc;
 
 $grey: darken(#eee, 2);
 $green: #38ae62;
@@ -17,7 +18,7 @@ $green: #38ae62;
 
 $primary: #38ae62;
 
-/*----FONTS----*/
+  /*----FONTS----*/
 html, body, input, textarea, select, button {
   font-family: 'PT Mono', monospace;
 }

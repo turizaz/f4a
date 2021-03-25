@@ -8,7 +8,7 @@ const authController = {
   async forgotPassword(ctx)
   {
     const {email} = ctx.request.body;
-    await userService.sendNewPassword(email);
+    // await userService.sendNewPassword(email);
     ctx.status = 200
   },
 
