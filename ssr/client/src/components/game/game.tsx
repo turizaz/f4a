@@ -37,6 +37,7 @@ class Game extends React.Component<Props> {
     const {game, auth, t} = this.props;
     const {match: {params}} = this.props;
     const {id} = params;
+    console.log(this.props.game.players)
     return (
       <div>
         <div className="row game">

@@ -1,6 +1,4 @@
-import * as nodemailer from 'nodemailer'
-import config from '../../config'
-import * as fs from 'fs';
+
 // import {google} from 'googleapis';
 // const file = JSON.parse(fs.readFileSync(__dirname+'/test-265610-d2589ad59376.json').toString());
 

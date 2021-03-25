@@ -40,7 +40,10 @@ class Header extends React.Component<Props> {
                   <li onClick={this.hideMenu.bind(this)}><Link to="/about"
                   >{t('О сервисе')}</Link></li>
                   <li onClick={this.hideMenu.bind(this)}><Link to="/create-game"
-                  >{t('Создать игру')}</Link></li>
+                  >{t('Назначить игру')}</Link></li>
+                  <li onClick={this.hideMenu.bind(this)}>
+                    <Link to="/rules-mini-football">{t('Мини-футбол')}</Link>
+                  </li>
                 </ul>
               </div>}
             </div>
@@ -52,11 +55,13 @@ class Header extends React.Component<Props> {
               <Link to="/">{t('Главная')}</Link>
             </li>
             <li onClick={this.hideMenu.bind(this)} className={window.location.pathname === '/about' ? 'active' : ''}>
-              <Link to="/about"
-            >{t('О сервисе')}</Link></li>
+              <Link to="/about">{t('О сервисе')}</Link></li>
             <li className={window.location.pathname === '/create-game' ? 'active' : ''}>
-              <Link to="/create-game"
-                    >{t('Создать игру')}</Link></li>
+              <Link to="/create-game">{t('Назначить игру')}</Link>
+            </li>
+            <li className={window.location.pathname === '/rules-mini-football' ? 'active' : ''}>
+              <Link to="/rules-mini-football">{t('Мини-футбол')}</Link>
+            </li>
           </ul>
           <LoginWidget/>
         </div>

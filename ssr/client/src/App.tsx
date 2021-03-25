@@ -19,6 +19,7 @@ import GamesList from './components/games-list'
 import {checkIfLogged} from "./ac/auth";
 import Locales from './components/locales'
 import './i18n';
+import RulesMiniFootball from "./components/rules-mini-football";
 interface Props {
   location: any,
   loader: any,
@@ -48,6 +49,7 @@ class App extends React.Component<Props> {
             <Route path="/forgot-password" exact component={ForgotPassword}/>
             <Route path="/registration" exact component={Registration}/>
             <Route path="/create-game" exact component={CreateGame}/>
+            <Route path="/rules-mini-football" exact component={RulesMiniFootball}/>
             <Route path="/complete-registration" exact
                    // @ts-ignore
                    component={CompleteRegistration}/>

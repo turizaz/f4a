@@ -4,6 +4,12 @@
     @include rotate(180deg);
   }
 }
+.tactic-line .number.teem-red {
+  color: white !important;
+}
+.tactic-line .number.teem-white {
+  color: #00BFFF !important;
+}
 .tactic-line {
   .shirt {
     width: 38px;

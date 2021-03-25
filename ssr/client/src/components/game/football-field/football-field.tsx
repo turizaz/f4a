@@ -27,6 +27,11 @@ class FootballField extends React.Component<Props> {
     const {auth} = this.props;
     let fieldClass = ` football-field `;
     fieldClass += auth.isAuthenticated ? `active` : `regular`;
+    const {game} = this.props;
+    let total = game.players;
+    if (total < 15) {
+      fieldClass += ` mini-field`
+    }
     return (
         <div>
           <div className="north-socket">
@@ -65,7 +70,7 @@ class FootballField extends React.Component<Props> {
         for (let i = 1; i <= it && total > 0; i++) {
           row.push(
               <FieldPlayer
-                teem={index === 0 ? 'orange' : 'white'}
+                teem={index === 0 ? 'red' : 'white'}
                 key={i}
                 game={game}
                 index={total}

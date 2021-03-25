@@ -10,7 +10,7 @@ class TeemsVsFlags extends React.Component {
       <div className="teems-vs-flags">
         <div className="first-teem">
           <div>
-            <img alt='football-teem-first' src='/img/orange-shirt.svg'/>
+            <img alt='football-teem-first' src='/img/red-shirt.svg'/>
           </div>
         </div>
         <div className="vs">—</div>

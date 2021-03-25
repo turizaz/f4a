@@ -1,4 +1,4 @@
-/* eslint-disable no-invalid-this */
+  /* eslint-disable no-invalid-this */
 import * as React from 'react'
 
 import './field-player.scss'
@@ -38,12 +38,12 @@ class FieldPlayer extends React.Component<Props> {
     const activeShirt = '/img/'+teem+'-shirt.svg';
     return (
       <div className={'relative player'} onClick={this.applyGame}>
-        <div className={'number'}>{index}</div>
+        <div className={'number teem-' + (isActive ? teem: 'grey')}>{index}</div>
         {isActive ?
           <img className='shirt' alt={'active-shirt'} src={activeShirt}/>
           : <img
             alt={'grey-shirt'}
-            className={'t-shirt-grey shirt'}
+            className={'t-shirt-grey shirt' + ' ' + teem}
             src='/img/gray-shirt.svg' />}
       </div>
     );

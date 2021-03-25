@@ -33,6 +33,9 @@ services:
     volumes:
       - /app/node_modules
       - ./ssr/client/src/components:/app/src/components
+      - ./ssr/client/src/App.tsx:/app/src/App.tsx
+      - ./ssr/client/public:/app/public
+      - ./ssr/client/src/app.scss:/app/src/app.scss
       - ./ssr/client/src/context:/app/src/context
       - ./ssr/client/src/reducer:/app/src/reducer
       - ./ssr/client/src/services:/app/src/services

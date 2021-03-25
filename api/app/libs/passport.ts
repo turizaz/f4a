@@ -1,12 +1,8 @@
-import * as Jwt from 'passport-jwt'
 import * as passport from 'koa-passport'
-import {_} from 'lodash'
-import  * as userModel from '../db/queries/users'
 import config from '../config'
 import * as passportCustom from 'passport-custom';
 import {IUser} from '../db/queries/interfaces/Iusers';
 import * as authService from '../services/auth';
-import authModel from '../db/queries/auth';
 import * as GoogleStrategy from 'passport-google-oauth20'
 const CustomStrategy = passportCustom.Strategy;
 passport.use('google', new GoogleStrategy.Strategy({

@@ -1,0 +1,28 @@
+@import "../../app.scss";
+.rule {
+  font-size: 18px;
+  font-weight: bold;
+  justify-content: left;
+}
+.label {
+  font-size: 20px;
+  padding-top: 10px;
+}
+.mini-football {
+  .img-wrapper {
+    text-align: center;
+    img {
+      width: 75%;
+    }
+  }
+}
+
+@media only screen and (max-width: $min-with) {
+  .mini-football {
+    .img-wrapper {
+      img {
+        width: 100% !important;
+      }
+    }
+  }
+}
