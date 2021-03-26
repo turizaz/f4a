@@ -1,7 +1,9 @@
 @import "../../../app.scss";
 $colorOfMark: rgba(255, 255, 255, .5);
 .football-field-wrapper {
-
+  &.football-field-wrapper-mini {
+    background: #0781c4 !important;
+  }
   .football-field.mini-field {
     .half-circle-wrapper, .penalty-cage {
       display: none;

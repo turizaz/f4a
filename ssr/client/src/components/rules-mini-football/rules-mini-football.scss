@@ -9,6 +9,13 @@
   padding-top: 10px;
 }
 .mini-football {
+  article {
+    h2 {
+      &::first-letter {
+        color: red;
+      }
+    }
+  }
   .img-wrapper {
     text-align: center;
     img {
@@ -25,4 +32,7 @@
       }
     }
   }
+}
+q {
+  font-style: italic;
 }
