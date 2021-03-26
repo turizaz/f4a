@@ -37,7 +37,6 @@ class Game extends React.Component<Props> {
     const {game, auth, t} = this.props;
     const {match: {params}} = this.props;
     const {id} = params;
-    console.log(this.props.game.players)
     return (
       <div>
         <div className="row game">
@@ -47,7 +46,7 @@ class Game extends React.Component<Props> {
                 {auth.isAuthenticated ? t('Чтобы присоединится нажмите на футболку') : t('Чтобы присоединится, залогинтесь и нажмите на футболку')}
               </p>
             </div>
-            <div className="football-field-wrapper shadow-1">
+            <div className={"football-field-wrapper shadow-1" + (game.players < 15 ? " football-field-wrapper-mini": "")}>
               <div>
                 <FootballField game={game}/>
               </div>
