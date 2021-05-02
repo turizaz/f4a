@@ -15,38 +15,53 @@ import App from "./client/src/App";
 app.use(router.routes());
 app.use(serve('./client/build'));
 
-router.get('/', async (ctx, next) => {
-    const res = await rfs();
-    console.log(res)
-    ctx.body = res
-});
-router.get('/about', async (ctx, next) => {
-    const res = await rfs();
-    console.log(res)
-    ctx.body = res
-});
-router.get('/create-game', async (ctx, next) => {
-    const res = await rfs();
-    console.log(res)
-    ctx.body = res
-});
-router.get('/login', async (ctx, next) => {
-    const res = await rfs();
-    console.log(res)
-    ctx.body = res
-});
-router.get('/game/:id', async (ctx, next) => {
-    const res = await rfs();
-    console.log(res)
-    ctx.body = res
-});
-router.get('/registration', async (ctx, next) => {
-    const res = await rfs();
-    console.log(res)
-    ctx.body = res
-});
 
+const arrayOfRoutes = ['/', '/about', '/create-game', '/login', '/game/:id', '/registration', '/rules-mini-football']
 
+arrayOfRoutes.forEach(it=> {
+    router.get(it, async (ctx, next) => {
+        const res = await rfs();
+        console.log(res)
+        ctx.body = res
+    });
+})
+
+// router.get('/', async (ctx, next) => {
+//     const res = await rfs();
+//     console.log(res)
+//     ctx.body = res
+// });
+// router.get('/about', async (ctx, next) => {
+//     const res = await rfs();
+//     console.log(res)
+//     ctx.body = res
+// });
+// router.get('/create-game', async (ctx, next) => {
+//     const res = await rfs();
+//     console.log(res)
+//     ctx.body = res
+// });
+// router.get('/login', async (ctx, next) => {
+//     const res = await rfs();
+//     console.log(res)
+//     ctx.body = res
+// });
+// router.get('/game/:id', async (ctx, next) => {
+//     const res = await rfs();
+//     console.log(res)
+//     ctx.body = res
+// });
+// router.get('/registration', async (ctx, next) => {
+//     const res = await rfs();
+//     console.log(res)
+//     ctx.body = res
+// });
+//
+// router.get('/rules-mini-football', async (ctx, next) => {
+//     const res = await rfs();
+//     console.log(res)
+//     ctx.body = res
+// });
 
 app.listen(4001);
 
