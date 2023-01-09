@@ -42,7 +42,7 @@
     "passport-custom": "^1.1.1",
     "passport-google-oauth20": "^2.0.0",
     "passport-google-plus-token": "^2.1.0",
-    "passport-jwt": "^4.0.0",
+    "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
     "pg": "^8.0.3",
     "pick": "0.0.1",
